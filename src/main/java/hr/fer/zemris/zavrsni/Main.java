@@ -1,10 +1,9 @@
 package hr.fer.zemris.zavrsni;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.text.PDFTextStripper;
+import hr.fer.zemris.zavrsni.reader.DocumentReader;
+import hr.fer.zemris.zavrsni.reader.TextReader;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -12,7 +11,6 @@ import java.nio.file.Paths;
 import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -37,7 +35,7 @@ public class Main {
 	/**
 	 * The path to the collection of documents.
 	 */
-	private static final String DATASET_PATH = "src/main/resources/dataset_simple";
+	private static final String DATASET_PATH = "src/main/resources/dataset_txt";
 
 	/**
 	 * The path to the file containing the stop words.
@@ -77,6 +75,8 @@ public class Main {
 	 * Holds a list of results which were created by the last "query" command.
 	 */
 	private static List<Result> results;
+
+	private static final DocumentReader reader = new TextReader();
 
 	/**
 	 * The main method.
@@ -122,7 +122,6 @@ public class Main {
 	private static void parseInput(String input) {
 		if (input.equals("exit") || input.equals("quit")) {
 			System.exit(0);
-
 		} else {
 			processQuery(input);
 		}
@@ -155,7 +154,7 @@ public class Main {
 	 * Creates the vocabulary by recursively reading all documents at the
 	 * given path. Words specified in the set {@code {@link #stopWords}} are
 	 * ignored, as they are not important for the further steps in the algorithm.
-	 * All character that are not words will simply be ignored. So for example, a
+	 * All character that are not letters will simply be ignored. So for example, a
 	 * part of the document "hitch42iker" shall be interpreted as "hitch iker".
 	 *
 	 * @param path the path to the folder containing the documents
@@ -165,12 +164,7 @@ public class Main {
 		Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
 			@Override
 			public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-				if (!path.toString().endsWith(".pdf") && !path.toString().endsWith(".PDF")) {
-					System.out.println("File format not recognized. Skipping file " + path);
-					return FileVisitResult.CONTINUE;
-				}
-
-				for (String word : readPDFDocument(path)) {
+				for (String word : reader.readDocument(path)) {
 					if (word.isEmpty() || vocabulary.containsKey(word) || stopWords.contains(word)) continue;
 					vocabulary.put(word, -1);
 				}
@@ -179,59 +173,9 @@ public class Main {
 		});
 
 		// Iterate the vocabulary and store the index of each word
-		// as the word's value in the 'Vocabulary' map
+		// as the word's value in the Vocabulary map
 		List<String> words = new ArrayList<>(vocabulary.keySet());
 		vocabulary.forEach((key, value) -> vocabulary.put(key, words.indexOf(key)));
-	}
-
-	/**
-	 * Reads the document specified by the given path and returns a list of words contained
-	 * in the document. All non-letter characters will be ignored in the end result. For
-	 * example, a part of the document "hitch42iker" shall be interpreted as "hitch iker".
-	 *
-	 * @param path the path to the document
-	 * @return a list of words representing the contents of the document
-	 * @throws IOException if an error occurs while reading the document
-	 */
-	private static List<String> readDocument(Path path) throws IOException {
-		return getWordsFromText(new String(Files.readAllBytes(path), StandardCharsets.UTF_8));
-	}
-
-	/**
-	 * Reads the PDF document specified by the given path and returns a list of words extracted
-	 * from  the document. All non-letter characters will be ignored in the end result. For
-	 * example, a part of the document "hitch42iker" will be interpreted as "hitch iker".
-	 *
-	 * @param path the path to the document
-	 * @return a list of words representing the contents of the document
-	 * @throws IOException if an error occurs while reading the document
-	 */
-	private static List<String> readPDFDocument(Path path) throws IOException {
-		try (PDDocument doc = PDDocument.load(path.toFile())) {
-			String text = new PDFTextStripper().getText(doc);
-			return getWordsFromText(text);
-		}
-
-//		AutoDetectParser parser = new AutoDetectParser();
-//		BodyContentHandler handler = new BodyContentHandler();
-//		Metadata metadata = new Metadata();
-//		try {
-//			parser.parse(Files.newInputStream(path), handler, metadata);
-//		} catch (SAXException | TikaException e) {
-//			e.printStackTrace();
-//		}
-//		return getWordsFromText(handler.toString());
-	}
-
-	/**
-	 * Extracts the words from the given string and returns them as a list.
-	 *
-	 * @param text the text to extract the words from
-	 * @return an {@link ArrayList} collection of extracted  words
-	 */
-	private static List<String> getWordsFromText(String text) {
-		text = text.replaceAll("[^A-Za-z[\t][\n][\r]]+", " ").trim().toLowerCase();
-		return new ArrayList<>(Arrays.asList(text.split(" ")));
 	}
 
 	/**
@@ -246,12 +190,7 @@ public class Main {
 		Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
 			@Override
 			public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-				if (!path.toString().endsWith(".pdf") && !path.toString().endsWith(".PDF")) {
-					System.out.println("File format not recognized. Skipping file " + path);
-					return FileVisitResult.CONTINUE;
-				}
-
-				List<String> words = readPDFDocument(path);
+				List<String> words = reader.readDocument(path);
 
 				// create the TF vector component
 				double[] values = new double[vocabulary.size()];
@@ -262,7 +201,7 @@ public class Main {
 					values[wordIndex]++;
 				}
 
-				// update the map, mapping each word to the number of documents containing it
+				// map each word to the number of documents containing the word
 				for (String word : words) {
 					wordFrequency.put(word, wordFrequency.containsKey(word) ? wordFrequency.get(word) + 1 : 1);
 				}
@@ -299,7 +238,7 @@ public class Main {
 	 * displays the results (onto the standard output).
 	 */
 	private static void processQuery(String input) {
-		List<String> words = getWordsFromText(input);
+		List<String> words = TextUtil.getWordsFromText(input);
 		words.retainAll(vocabulary.keySet());
 
 		double[] values = new double[vocabulary.size()];
