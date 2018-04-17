@@ -1,6 +1,6 @@
 package hr.fer.zemris.zavrsni.reader;
 
-import hr.fer.zemris.zavrsni.TextUtil;
+import hr.fer.zemris.zavrsni.util.TextUtil;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 

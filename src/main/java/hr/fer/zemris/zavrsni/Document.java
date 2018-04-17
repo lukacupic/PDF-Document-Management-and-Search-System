@@ -57,9 +57,7 @@ public class Document {
 	 * @return the similarity between this and the provided document
 	 */
 	public double similarTo(Document other) {
-		double sim = this.getVector().cos(other.getVector());
-		DecimalFormat f = new DecimalFormat("#0.0000");
-		return Double.parseDouble(f.format(sim).replace(",", "."));
+		return this.getVector().cos(other.getVector());
 	}
 
 	/**

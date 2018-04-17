@@ -1,4 +1,4 @@
-package hr.fer.zemris.zavrsni;
+package hr.fer.zemris.zavrsni.util;
 
 import java.nio.file.Path;
 import java.util.ArrayList;

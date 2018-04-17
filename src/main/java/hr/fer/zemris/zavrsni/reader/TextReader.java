@@ -1,6 +1,6 @@
 package hr.fer.zemris.zavrsni.reader;
 
-import hr.fer.zemris.zavrsni.TextUtil;
+import hr.fer.zemris.zavrsni.util.TextUtil;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;

@@ -2,6 +2,7 @@ package hr.fer.zemris.zavrsni;
 
 import hr.fer.zemris.zavrsni.reader.DocumentReader;
 import hr.fer.zemris.zavrsni.reader.TextReader;
+import hr.fer.zemris.zavrsni.util.TextUtil;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -33,25 +34,20 @@ import java.util.Set;
 public class Main {
 
 	/**
-	 * The path to the collection of documents.
-	 */
-	private static final String DATASET_PATH = "src/main/resources/dataset_txt";
-
-	/**
 	 * The path to the file containing the stop words.
 	 */
 	private static final String STOP_WORDS_PATH = "src/main/resources/stop_words.txt";
-
-	/**
-	 * The collection of all words from all the documents (aka. dataset).
-	 */
-	private static Map<String, Integer> vocabulary = new HashMap<>();
 
 	/**
 	 * A set of stop words. A "stop word" is defined as a word irrelevant to
 	 * the searching algorithm.
 	 */
 	private static Set<String> stopWords = new HashSet<>();
+
+	/**
+	 * The collection of all words from all the documents (aka. dataset).
+	 */
+	private static Map<String, Integer> vocabulary = new HashMap<>();
 
 	/**
 	 * Holds the number of occurrences in the documents for each word from
@@ -85,7 +81,7 @@ public class Main {
 	 *             with documents
 	 */
 	public static void main(String[] args) {
-		Path path = Paths.get(DATASET_PATH);
+		Path path = Paths.get(args[0]);
 
 		try {
 			System.out.println("Initializing, please wait...");
@@ -172,8 +168,8 @@ public class Main {
 			}
 		});
 
-		// Iterate the vocabulary and store the index of each word
-		// as the word's value in the Vocabulary map
+		// After the vocabulary has been created, iterate it and store
+		// the index of each word as the word's value in the vocabulary map
 		List<String> words = new ArrayList<>(vocabulary.keySet());
 		vocabulary.forEach((key, value) -> vocabulary.put(key, words.indexOf(key)));
 	}
@@ -248,7 +244,6 @@ public class Main {
 		}
 
 		Document inputDoc = new Document(null, null, Vector.multiply(new Vector(values), idf));
-
 		results = getResults(inputDoc);
 
 		System.out.println("Here are the search results:");
