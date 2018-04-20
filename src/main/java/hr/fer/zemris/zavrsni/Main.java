@@ -128,7 +128,7 @@ public class Main {
 	private static void init(Path path) throws IOException {
 		// initialize document reading mechanism
 		DocumentStemmer stemmer = new DocumentStemmer(new TextReader());
-		StopFilter reader = new StopFilter(stemmer, STOP_WORDS_PATH);
+		reader = new StopFilter(stemmer, STOP_WORDS_PATH);
 
 		// initialize the dataset
 		createVocabulary(path);
