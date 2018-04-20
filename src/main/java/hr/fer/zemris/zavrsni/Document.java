@@ -1,22 +1,19 @@
 package hr.fer.zemris.zavrsni;
 
 import java.nio.file.Path;
-import java.text.DecimalFormat;
 
 /**
- * This class represents a document which contains words from
- * the main vocabulary. All characters that are not lowercase
- * or uppercase UTF-8 letters are ignored, as they are irrelevant
- * to the searching algorithm. The exact document's contents are
- * not stored in the memory, as they are represented by the TF-IDF
- * vector ({@see https://en.wikipedia.org/wiki/Tf%E2%80%93idf}).
+ * This class represents a single document from the collection.
+ * The exact contents of the document are not stored in memory,
+ * as they are represented by the TF-IDF vector. Each document
+ * is represented by it's absolute file system path.
  *
  * @author Luka Čupić
  */
 public class Document {
 
 	/**
-	 * Represents the path to the document.
+	 * Represents the file system path to the document.
 	 */
 	private Path path;
 
@@ -56,7 +53,7 @@ public class Document {
 	 * @param other the document to compare to
 	 * @return the similarity between this and the provided document
 	 */
-	public double similarTo(Document other) {
+	public double sim(Document other) {
 		return this.getVector().cos(other.getVector());
 	}
 

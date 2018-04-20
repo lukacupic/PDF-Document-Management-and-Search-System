@@ -22,7 +22,7 @@ import java.util.Scanner;
 import java.util.Set;
 
 /**
- * This class represent a CMD document search engine. It uses
+ * This class represent a CLI document search engine. It uses
  * the TF-IDF vector representation of documents, which are then
  * used for matching the user's input and finding the best results.
  * The program expects a single argument: the path to the folder
@@ -39,7 +39,7 @@ public class Main {
 	private static final String STOP_WORDS_PATH = "src/main/resources/stop_words.txt";
 
 	/**
-	 * A set of stop words. A "stop word" is defined as a word irrelevant to
+	 * The set of stop words. A "stop word" is defined as a word irrelevant to
 	 * the searching algorithm.
 	 */
 	private static Set<String> stopWords = new HashSet<>();
@@ -103,7 +103,7 @@ public class Main {
 			try {
 				parseInput(line);
 			} catch (Exception ex) {
-				System.out.println("Sorry, but nothing was found!");
+				System.out.println("Sorry, but nothing was found...");
 			}
 			System.out.printf("%nQuery: ");
 		}
@@ -161,7 +161,7 @@ public class Main {
 			@Override
 			public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
 				for (String word : reader.readDocument(path)) {
-					if (word.isEmpty() || vocabulary.containsKey(word) || stopWords.contains(word)) continue;
+					if (vocabulary.containsKey(word) || stopWords.contains(word)) continue;
 					vocabulary.put(word, -1);
 				}
 				return FileVisitResult.CONTINUE;
@@ -171,7 +171,7 @@ public class Main {
 		// After the vocabulary has been created, iterate it and store
 		// the index of each word as the word's value in the vocabulary map
 		List<String> words = new ArrayList<>(vocabulary.keySet());
-		vocabulary.forEach((key, value) -> vocabulary.put(key, words.indexOf(key)));
+		vocabulary.keySet().forEach(key -> vocabulary.put(key, words.indexOf(key)));
 	}
 
 	/**
@@ -198,9 +198,9 @@ public class Main {
 				}
 
 				// map each word to the number of documents containing the word
-				for (String word : words) {
-					wordFrequency.put(word, wordFrequency.containsKey(word) ? wordFrequency.get(word) + 1 : 1);
-				}
+				words.stream().distinct().forEach(word ->
+						wordFrequency.merge(word, 1, (a, b) -> a + b)
+				);
 
 				Document doc = new Document(path, new Vector(values), null);
 				documents.put(path, doc);
@@ -212,15 +212,15 @@ public class Main {
 	}
 
 	/**
-	 * Creates the "main" IDF vector which represents the number of occurrences in
-	 * the documents for each of the words from the vocabulary.
+	 * Creates the "main" IDF vector which represents the words'
+	 * frequencies in all of the documents.
 	 */
 	private static void createIDFVector() {
 		double[] values = new double[vocabulary.size()];
 
 		for (String word : vocabulary.keySet()) {
-			int wordCount = wordFrequency.get(word);
-			values[vocabulary.get(word)] = (double) vocabulary.size() / wordCount;
+			int freq = wordFrequency.get(word);
+			values[vocabulary.get(word)] = Math.log(vocabulary.size() / (double) freq);
 		}
 		idf = new Vector(values);
 
@@ -263,7 +263,7 @@ public class Main {
 	private static List<Result> getResults(Document doc) {
 		List<Result> results = new ArrayList<>();
 		for (Document d : documents.values()) {
-			results.add(new Result(doc.similarTo(d), d));
+			results.add(new Result(doc.sim(d), d));
 		}
 		results.sort(Comparator.reverseOrder());
 		return results.subList(0, Math.min(9, results.size()));

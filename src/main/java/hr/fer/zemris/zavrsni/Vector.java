@@ -56,16 +56,7 @@ public class Vector {
 	 * @param other the vector
 	 */
 	public double cos(Vector other) {
-		return Math.cos(angle(other));
-	}
-
-	/**
-	 * Returns the angle between this vector and the specified vector.
-	 *
-	 * @return the angle between this vector and the specified vector
-	 */
-	public double angle(Vector other) {
-		return Math.acos(this.dot(other) / (this.norm() * other.norm()));
+		return this.dot(other) / (this.norm() * other.norm());
 	}
 
 	/**
@@ -81,12 +72,8 @@ public class Vector {
 	 * of the corresponding elements from the given vectors
 	 */
 	public static Vector multiply(Vector v1, Vector v2) {
-		if (v1.getValues().length != v2.getValues().length) {
-			throw new IllegalArgumentException("Vectors must have the same " +
-					"number of elements!");
-		}
-
 		double[] values = new double[v1.getValues().length];
+
 		for (int i = 0; i < v1.getValues().length; i++) {
 			values[i] = v1.getValues()[i] * v2.getValues()[i];
 		}
