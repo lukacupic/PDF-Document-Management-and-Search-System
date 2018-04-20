@@ -4,9 +4,9 @@ import hr.fer.zemris.zavrsni.model.Document;
 import hr.fer.zemris.zavrsni.model.Result;
 import hr.fer.zemris.zavrsni.model.Vector;
 import hr.fer.zemris.zavrsni.readers.DocumentReader;
+import hr.fer.zemris.zavrsni.readers.TextReader;
 import hr.fer.zemris.zavrsni.readers.decorators.DocumentStemmer;
 import hr.fer.zemris.zavrsni.readers.decorators.StopFilter;
-import hr.fer.zemris.zavrsni.readers.TextReader;
 import hr.fer.zemris.zavrsni.util.TextUtil;
 
 import java.io.IOException;
@@ -70,8 +70,6 @@ public class Main {
 	private static List<Result> results;
 
 	private static DocumentReader reader;
-	private static DocumentStemmer stemmer;
-	private static StopFilter stopFilter;
 
 	/**
 	 * The main method.
@@ -129,10 +127,8 @@ public class Main {
 	 */
 	private static void init(Path path) throws IOException {
 		// initialize document reading mechanism
-		reader = new TextReader();
-		stemmer = new DocumentStemmer(reader);
-		stopFilter = new StopFilter(stemmer, STOP_WORDS_PATH);
-		reader = stopFilter;
+		DocumentStemmer stemmer = new DocumentStemmer(new TextReader());
+		StopFilter reader = new StopFilter(stemmer, STOP_WORDS_PATH);
 
 		// initialize the dataset
 		createVocabulary(path);
