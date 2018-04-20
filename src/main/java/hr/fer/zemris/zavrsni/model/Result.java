@@ -1,4 +1,4 @@
-package hr.fer.zemris.zavrsni;
+package hr.fer.zemris.zavrsni.model;
 
 /**
  * This class represents a result of the searching algorithm. It encapsulates

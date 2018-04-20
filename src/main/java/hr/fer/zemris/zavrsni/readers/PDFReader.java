@@ -1,4 +1,4 @@
-package hr.fer.zemris.zavrsni.reader;
+package hr.fer.zemris.zavrsni.readers;
 
 import hr.fer.zemris.zavrsni.util.TextUtil;
 import org.apache.pdfbox.pdmodel.PDDocument;

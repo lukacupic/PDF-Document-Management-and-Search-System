@@ -1,4 +1,4 @@
-package hr.fer.zemris.zavrsni.reader;
+package hr.fer.zemris.zavrsni.readers;
 
 import java.io.IOException;
 import java.nio.file.Path;

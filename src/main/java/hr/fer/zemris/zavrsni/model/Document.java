@@ -1,4 +1,4 @@
-package hr.fer.zemris.zavrsni;
+package hr.fer.zemris.zavrsni.model;
 
 import java.nio.file.Path;
 

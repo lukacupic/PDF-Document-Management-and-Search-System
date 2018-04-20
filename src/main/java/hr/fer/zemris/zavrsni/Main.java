@@ -1,7 +1,12 @@
 package hr.fer.zemris.zavrsni;
 
-import hr.fer.zemris.zavrsni.reader.DocumentReader;
-import hr.fer.zemris.zavrsni.reader.TextReader;
+import hr.fer.zemris.zavrsni.model.Document;
+import hr.fer.zemris.zavrsni.model.Result;
+import hr.fer.zemris.zavrsni.model.Vector;
+import hr.fer.zemris.zavrsni.readers.DocumentReader;
+import hr.fer.zemris.zavrsni.readers.decorators.DocumentStemmer;
+import hr.fer.zemris.zavrsni.readers.decorators.StopFilter;
+import hr.fer.zemris.zavrsni.readers.TextReader;
 import hr.fer.zemris.zavrsni.util.TextUtil;
 
 import java.io.IOException;
@@ -14,12 +19,10 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
-import java.util.Set;
 
 /**
  * This class represent a CLI document search engine. It uses
@@ -37,12 +40,6 @@ public class Main {
 	 * The path to the file containing the stop words.
 	 */
 	private static final String STOP_WORDS_PATH = "src/main/resources/stop_words.txt";
-
-	/**
-	 * The set of stop words. A "stop word" is defined as a word irrelevant to
-	 * the searching algorithm.
-	 */
-	private static Set<String> stopWords = new HashSet<>();
 
 	/**
 	 * The collection of all words from all the documents (aka. dataset).
@@ -72,7 +69,9 @@ public class Main {
 	 */
 	private static List<Result> results;
 
-	private static final DocumentReader reader = new TextReader();
+	private static DocumentReader reader;
+	private static DocumentStemmer stemmer;
+	private static StopFilter stopFilter;
 
 	/**
 	 * The main method.
@@ -81,16 +80,16 @@ public class Main {
 	 *             with documents
 	 */
 	public static void main(String[] args) {
-		Path path = Paths.get(args[0]);
+		Path dataset = Paths.get(args[0]);
 
 		try {
 			System.out.println("Initializing, please wait...");
 			long t1 = System.currentTimeMillis();
-			init(path);
+			init(dataset);
 			long t2 = System.currentTimeMillis();
 			System.out.printf("Dataset loaded in %d seconds.\n\n", (t2 - t1) / 1000);
 		} catch (IOException e) {
-			System.out.println("Initialization error!");
+			System.out.println("Initialization error! " + e);
 			System.exit(0);
 		}
 
@@ -99,13 +98,12 @@ public class Main {
 		System.out.print("Query: ");
 		while (sc.hasNextLine()) {
 			String line = sc.nextLine();
-
 			try {
 				parseInput(line);
 			} catch (Exception ex) {
 				System.out.println("Sorry, but nothing was found...");
 			}
-			System.out.printf("%nQuery: ");
+			System.out.print("\nQuery: ");
 		}
 	}
 
@@ -130,28 +128,22 @@ public class Main {
 	 * @throws IOException if an error occurs while initialization
 	 */
 	private static void init(Path path) throws IOException {
-		readStopWords();
+		// initialize document reading mechanism
+		reader = new TextReader();
+		stemmer = new DocumentStemmer(reader);
+		stopFilter = new StopFilter(stemmer, STOP_WORDS_PATH);
+		reader = stopFilter;
+
+		// initialize the dataset
 		createVocabulary(path);
 		initDocuments(path);
 	}
 
 	/**
-	 * Reads the file containing the stop words and creates a set
-	 * holding them.
-	 *
-	 * @throws IOException if an I/O error occurs
-	 */
-	private static void readStopWords() throws IOException {
-		Path path = Paths.get(STOP_WORDS_PATH);
-		stopWords.addAll(Files.readAllLines(path));
-	}
-
-	/**
 	 * Creates the vocabulary by recursively reading all documents at the
-	 * given path. Words specified in the set {@code {@link #stopWords}} are
-	 * ignored, as they are not important for the further steps in the algorithm.
-	 * All character that are not letters will simply be ignored. So for example, a
-	 * part of the document "hitch42iker" shall be interpreted as "hitch iker".
+	 * given path. All character that are not letters will simply be ignored.
+	 * So for example, a part of the document "hitch42iker" shall be interpreted
+	 * as "hitch iker".
 	 *
 	 * @param path the path to the folder containing the documents
 	 * @throws IOException if an error occurs while creating the vocabulary
@@ -161,7 +153,7 @@ public class Main {
 			@Override
 			public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
 				for (String word : reader.readDocument(path)) {
-					if (vocabulary.containsKey(word) || stopWords.contains(word)) continue;
+					if (vocabulary.containsKey(word)) continue;
 					vocabulary.put(word, -1);
 				}
 				return FileVisitResult.CONTINUE;
@@ -191,8 +183,6 @@ public class Main {
 				// create the TF vector component
 				double[] values = new double[vocabulary.size()];
 				for (String word : words) {
-					if (stopWords.contains(word)) continue;
-
 					int wordIndex = vocabulary.get(word);
 					values[wordIndex]++;
 				}
