@@ -30,16 +30,23 @@ public class Document {
 	private Vector tfVector;
 
 	/**
+	 * The length of the document (in words).
+	 */
+	private long length;
+
+	/**
 	 * Creates a new document object.
 	 *
-	 * @param path  the path to the represented document
-	 * @param tf    the TF vector component
-	 * @param tfidf the full TF-IDF vector representing the document
+	 * @param path   the path to the represented document
+	 * @param tf     the TF vector component
+	 * @param tfidf  the full TF-IDF vector representing the document
+	 * @param length the length of the document (in words)
 	 */
-	public Document(Path path, Vector tf, Vector tfidf) {
+	public Document(Path path, Vector tf, Vector tfidf, long length) {
 		this.path = path != null ? path.toAbsolutePath() : null;
 		this.tfVector = tf;
 		this.vector = tfidf;
+		this.length = length;
 	}
 
 	/**

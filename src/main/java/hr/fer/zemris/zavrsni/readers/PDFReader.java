@@ -22,7 +22,8 @@ public class PDFReader implements DocumentReader {
 			throw new IOException("Unreadable extension!");
 		}
 		try (PDDocument doc = PDDocument.load(path.toFile())) {
-			return TextUtil.getWordsFromText(new PDFTextStripper().getText(doc));
+			String text = new PDFTextStripper().getText(doc);
+			return TextUtil.getWordsFromText(text);
 		}
 	}
 }

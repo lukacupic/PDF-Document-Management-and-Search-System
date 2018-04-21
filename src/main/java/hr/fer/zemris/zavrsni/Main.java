@@ -32,7 +32,7 @@ import java.util.Scanner;
  * containing the documents which will be searched (and by which the
  * vocabulary will be created).
  *
- * @author Luka Čupić
+ * @author Luka Cupic
  */
 public class Main {
 
@@ -171,7 +171,7 @@ public class Main {
 			public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
 				List<String> words = reader.readDocument(path);
 
-				Document doc = new Document(path, createTFVector(words), null);
+				Document doc = new Document(path, createTFVector(words), null, words.size());
 				documents.put(path, doc);
 
 				// Update wordFrequency for each word
@@ -210,7 +210,7 @@ public class Main {
 
 		for (String word : vocabulary.keySet()) {
 			int freq = wordFrequency.get(word);
-			values[vocabulary.get(word)] = Math.log(vocabulary.size() / (double) freq);
+			values[vocabulary.get(word)] = Math.log(documents.size() / (double) freq);
 		}
 		idf = new Vector(values);
 
@@ -228,7 +228,7 @@ public class Main {
 		words.retainAll(vocabulary.keySet());
 
 		Vector tf = createTFVector(words);
-		Document inputDoc = new Document(null, null, Vector.multiply(tf, idf));
+		Document inputDoc = new Document(null, null, Vector.multiply(tf, idf), 0);
 
 		System.out.println("Here are the search results:");
 		printResults(getResults(inputDoc));
