@@ -1,0 +1,71 @@
+\documentclass[times, utf8, zavrsni]{fer}
+\usepackage{booktabs}
+
+\begin{document}
+
+% TODO: Navedite broj rada.
+\thesisnumber{5672}
+
+% TODO: Navedite naslov rada.
+\title{Sustav za upravljanje i pretraživanje baze PDF dokumenata}
+
+% TODO: Navedite vaše ime i prezime.
+\author{Luka Čupić}
+
+\maketitle
+
+% Ispis stranice s napomenom o umetanju izvornika rada. Uklonite naredbu \izvornik ako želite izbaciti tu stranicu.
+\izvornik
+
+% Dodavanje zahvale ili prazne stranice. Ako ne želite dodati zahvalu, naredbu ostavite radi prazne stranice.
+\zahvala{}
+
+\tableofcontents
+
+\chapter{Uvod}
+Područje analize i pretraživanja teksta neizbježno je u današnjem svijetu tehnologije. Od internetskih tražilica koje pretražuju enormne količine podataka baziranih na zadanom upitu, osobnih pomoćnika na pametnim mobitelima koji procesiraju izgovorene riječi pa sve do analize i prepoznavanja \textit{spam} elektroničkih poruka.
+Kratki osvrt na ove te mnoge druge primjene ukazuju na nepobitnu činjenicu da je pretraživanje teksta...
+
+\chapter{Pregled područja}
+Ovaj rad baziran je na proučavanju postojećih metoda analize i pretraživanja teksta. U sklopu ovog rada, biti će proučeno nekoliko metoda za analizu, pretraživanje i usporedbu tekstualnih dokumenata.
+
+\chapter{Let's dive right into it...}
+Prije \textit{poniranja u dubine}, objasnimo prvo što u kontekstu analize i pretraživanja predstavlja dokument. Neformalno dokument možemo definirati kao kolekciju riječi. Ovakva kolekcija riječi ne mora nužno biti skup, pošto dokument može imati više ponavljanja istih riječi, što će doći do izražaja u \textbf{poglavlju X}. Umjesto toga, pretpostavljamo da se dokument sastoji od  tzv. \textit{vreće riječi} (engl. \textit{bag of words}) kod koje nam nije bitna semantika samog dokumenta, pa čak niti poredak riječi, već je bitna samo činjenica da se riječi pojavljuju u dokumentu te učestalost njihovog pojavljivanja.
+Ovakav model često je korišten u području procesiranja prirodnog jezika te povrata informacija kako iz dokumenata tako iz drugih izvora tekstualnih informacija.
+
+Da bi se dokumenti mogli predstaviti u obliku vreća riječi, potrebno je odrediti vokabular—skup svih riječi koje se nalaze u svim dokumentima promatranog skupa dokumenata (u daljnjem tekstu: zbirka). Iz ovako zadanog vokabulara ćemo, međutim, ukloniti sve zaustavne riječi (engl. \textit{stop words})—riječi koje su učestale u nekom jeziku te su stoga nebitne za sam postupak analize teksta. Primjeri zaustavnih riječi u hrvatskom jeziku su: \textit{aha}, \textit{nešto}, \textit{okolo}, \textit{zaboga}.
+Nakon stvaranja vokabulara te izbacivanja zaustavnih riječi, možemo krenuti s predstavljanjem dokumenata. Radi praktičnosti, najčešća metoda predstavljanja dokumenata jest vektorska reprezentacija dokumenata.
+Najjednostavnija metoda vektorskog predstavljanja dokumenata jest binarna: za svaku riječ iz vokabulara naprosto provjerimo nalazi li se u danom dokumentu te ukoliko se nalazi, odgovarajuća komponenta vektora biti će 1, a u suprotnom 0. Nadograđujući se na metodu prethodnu postoji i frekvencijski prikaz vektora. Umjesto obične binarne reprezentacije u kojoj jedinica znači da se riječ nalazi u dokumentu, u frekvencijskom prikazu su komponente vektora zapravo frekvencija (tj. broj) pojavljivanja određene riječi u dokumentu. Naposlijetku dolazimo i do najčešće metode vektorskog prikaza dokumenata—TF-IDF (engl. \textit{term frequency–inverse document frequency}). Ova metoda zasniva se na dvije intuitivne pretpostavke:
+\begin{itemize}
+\item Riječ je važnija za semantiku dokumenta što se češće u njemu pojavljuje (TF komponenta)
+\item Riječ je manje važna za semantiku dokumenta što se češće pojavljuje po drugim dokumentima (IDF komponenta)
+\end{itemize}
+TF i IDF dakle predstavljaju dvije komponente vektora kojima ćemo predstavljati dokumente. Prva komponenta je već spomenuta, frekvencija pojavljivanja riječi \textit{w} u dokumentu \textit{d}—$f_\textit{t,d}$ dok je druga komponenta obrnuta frekvencija pojavljivanja riječi u cijeloj zbirci.
+Za riječ \textit{w} i dokument \textit{d}, TF komponenta računa se prema sljedećoj formuli:
+IDF komponenta računa se na sljedeći način:
+\[ idf(w, D) = log\frac{N}{|\{d \in D:t \in d\}|} \]
+
+\chapter{Programsko rješenje}
+Cilj ovog rada jest istražiti već ranije spomenute metode analize i pretraživanja teksta.	Kako je implementacija programskog rješenja specifična za dokumente tipa PDF, takve dokumente prvo treba preprocesirati kako bi bili spremni za obradu. U svrhu preprocesiranja PDF dokumenata, koristi se Apache PDFBox...
+
+\chapter{Zaključak}
+Zaključak.
+
+\bibliography{literatura}
+\bibliographystyle{fer}
+
+\begin{sazetak}
+Sažetak na hrvatskom jeziku.
+
+\kljucnerijeci{Ključne riječi, odvojene zarezima.}
+\end{sazetak}
+
+% TODO: Navedite naslov na engleskom jeziku.
+\engtitle{Title}
+\begin{abstract}
+Abstract.
+
+\keywords{Keywords.}
+\end{abstract}
+
+\end{document}

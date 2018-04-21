@@ -1,0 +1,6 @@
+\select@language {croatian}
+\contentsline {chapter}{\numberline {1}Uvod}{1}
+\contentsline {chapter}{\numberline {2}Pregled podru\IeC {\v c}ja}{2}
+\contentsline {chapter}{\numberline {3}Let's dive right into it...}{3}
+\contentsline {chapter}{\numberline {4}Programsko rje\IeC {\v s}enje}{5}
+\contentsline {chapter}{\numberline {5}Zaklju\IeC {\v c}ak}{6}
