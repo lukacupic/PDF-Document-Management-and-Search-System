@@ -64,11 +64,6 @@ public class Main {
 	 */
 	private static Vector idf;
 
-	/**
-	 * Holds a list of results which were created by the last "query" command.
-	 */
-	private static List<Result> results;
-
 	private static DocumentReader reader;
 
 	/**
@@ -126,11 +121,11 @@ public class Main {
 	 * @throws IOException if an error occurs while initialization
 	 */
 	private static void init(Path path) throws IOException {
-		// initialize document reading mechanism
+		// Initialize document reading mechanism
 		DocumentStemmer stemmer = new DocumentStemmer(new TextReader());
 		reader = new StopFilter(stemmer, STOP_WORDS_PATH);
 
-		// initialize the dataset
+		// Initialize the dataset
 		createVocabulary(path);
 		initDocuments(path);
 	}
@@ -176,25 +171,34 @@ public class Main {
 			public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
 				List<String> words = reader.readDocument(path);
 
-				// create the TF vector component
-				double[] values = new double[vocabulary.size()];
-				for (String word : words) {
-					int wordIndex = vocabulary.get(word);
-					values[wordIndex]++;
-				}
+				Document doc = new Document(path, createTFVector(words), null);
+				documents.put(path, doc);
 
-				// map each word to the number of documents containing the word
+				// Update wordFrequency for each word
 				words.stream().distinct().forEach(word ->
 						wordFrequency.merge(word, 1, (a, b) -> a + b)
 				);
-
-				Document doc = new Document(path, new Vector(values), null);
-				documents.put(path, doc);
 
 				return FileVisitResult.CONTINUE;
 			}
 		});
 		createIDFVector();
+	}
+
+	/**
+	 * Creates the TF vector component for the given words.
+	 *
+	 * @param words the words of the document to build the TF
+	 *              vector from
+	 * @return the TF vector representation of the given document
+	 */
+	private static Vector createTFVector(List<String> words) {
+		double[] values = new double[vocabulary.size()];
+		for (String word : words) {
+			int wordIndex = vocabulary.get(word);
+			values[wordIndex]++;
+		}
+		return new Vector(values);
 	}
 
 	/**
@@ -223,17 +227,11 @@ public class Main {
 		List<String> words = TextUtil.getWordsFromText(input);
 		words.retainAll(vocabulary.keySet());
 
-		double[] values = new double[vocabulary.size()];
-		for (String word : words) {
-			int wordIndex = vocabulary.get(word);
-			values[wordIndex]++;
-		}
-
-		Document inputDoc = new Document(null, null, Vector.multiply(new Vector(values), idf));
-		results = getResults(inputDoc);
+		Vector tf = createTFVector(words);
+		Document inputDoc = new Document(null, null, Vector.multiply(tf, idf));
 
 		System.out.println("Here are the search results:");
-		printResults();
+		printResults(getResults(inputDoc));
 	}
 
 	/**
@@ -256,9 +254,9 @@ public class Main {
 	}
 
 	/**
-	 * Prints the currently stored results onto the standard output.
+	 * Prints the given results onto the standard output.
 	 */
-	private static void printResults() {
+	private static void printResults(List<Result> results) {
 		for (int i = 0; i < results.size(); i++) {
 			Result r = results.get(i);
 			System.out.printf("[%d] (%f) %s\n", i, r.getSim(), r.getDocument().getPath());
