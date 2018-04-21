@@ -5,7 +5,6 @@ import hr.fer.zemris.zavrsni.model.Document;
 import hr.fer.zemris.zavrsni.model.Result;
 import hr.fer.zemris.zavrsni.model.Vector;
 import hr.fer.zemris.zavrsni.readers.DocumentReader;
-import hr.fer.zemris.zavrsni.readers.TextReader;
 import hr.fer.zemris.zavrsni.readers.decorators.DocumentStemmer;
 import hr.fer.zemris.zavrsni.readers.decorators.StopFilter;
 import hr.fer.zemris.zavrsni.util.TextUtil;
@@ -48,9 +47,20 @@ public class CosineSimilarity implements RankingFunction {
 	 */
 	private Vector idf;
 
+	/**
+	 * The reader for reading the Corpus' documents.
+	 */
 	private DocumentReader reader;
 
-	public CosineSimilarity(Path dataset) throws IOException {
+	/**
+	 * Creates a new {@link CosineSimilarity} function.
+	 *
+	 * @param dataset the path to the dataset
+	 * @param reader  the reader to use for reading the documents
+	 * @throws IOException if an I/O error occurs
+	 */
+	public CosineSimilarity(Path dataset, DocumentReader reader) throws IOException {
+		this.reader = reader;
 		init(dataset);
 	}
 
@@ -62,7 +72,7 @@ public class CosineSimilarity implements RankingFunction {
 	 */
 	private void init(Path path) throws IOException {
 		// Initialize document reading mechanism
-		DocumentStemmer stemmer = new DocumentStemmer(new TextReader());
+		DocumentStemmer stemmer = new DocumentStemmer(reader);
 		reader = new StopFilter(stemmer, Main.STOP_WORDS_PATH);
 
 		// Initialize the dataset

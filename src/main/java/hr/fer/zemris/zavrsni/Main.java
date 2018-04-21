@@ -2,6 +2,7 @@ package hr.fer.zemris.zavrsni;
 
 import hr.fer.zemris.zavrsni.functions.CosineSimilarity;
 import hr.fer.zemris.zavrsni.model.Result;
+import hr.fer.zemris.zavrsni.readers.TextReader;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -37,7 +38,7 @@ public class Main {
 		try {
 			System.out.println("Initializing, please wait...");
 			long t1 = System.currentTimeMillis();
-			function = new CosineSimilarity(Paths.get(args[0]));
+			function = new CosineSimilarity(Paths.get(args[0]), new TextReader());
 			long t2 = System.currentTimeMillis();
 			System.out.printf("Dataset loaded in %d seconds.\n\n", (t2 - t1) / 1000);
 		} catch (IOException e) {
