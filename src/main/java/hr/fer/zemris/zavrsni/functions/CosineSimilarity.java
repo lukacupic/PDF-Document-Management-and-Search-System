@@ -7,6 +7,7 @@ import hr.fer.zemris.zavrsni.model.Vector;
 import hr.fer.zemris.zavrsni.readers.DocumentReader;
 import hr.fer.zemris.zavrsni.readers.decorators.DocumentStemmer;
 import hr.fer.zemris.zavrsni.readers.decorators.StopFilter;
+import hr.fer.zemris.zavrsni.util.Stemmer2;
 import hr.fer.zemris.zavrsni.util.TextUtil;
 
 import java.io.IOException;
@@ -21,6 +22,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class CosineSimilarity implements RankingFunction {
 
@@ -190,7 +192,10 @@ public class CosineSimilarity implements RankingFunction {
 
 	public List<Result> process(String query) {
 		List<String> words = TextUtil.getWordsFromText(query);
+		Stemmer2 stemmer = new Stemmer2();
+		words = words.stream().map(stemmer::stripAffixes).collect(Collectors.toList());
 		words.retainAll(vocabulary.keySet());
+
 
 		Vector tf = createTFVector(words);
 		Document inputDoc = new Document(null, null, Vector.multiply(tf, idf), 0);

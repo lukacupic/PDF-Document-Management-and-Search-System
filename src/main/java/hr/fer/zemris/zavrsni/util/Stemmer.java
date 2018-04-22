@@ -1,37 +1,7 @@
 package hr.fer.zemris.zavrsni.util;
-/*
 
-   Porter stemmer in Java. The original paper is in
-
-       Porter, 1980, An algorithm for suffix stripping, Program, Vol. 14,
-       no. 3, pp 130-137,
-
-   See also http://www.tartarus.org/~martin/PorterStemmer
-
-   History:
-
-   Release 1
-
-   Bug 1 (reported by Gonzalo Parra 16/10/99) fixed as marked below.
-   The words 'aed', 'eed', 'oed' leave k at 'a' for step 3, and b[k-1]
-   is then out outside the bounds of b.
-
-   Release 2
-
-   Similarly,
-
-   Bug 2 (reported by Steve Dyrdahl 22/2/00) fixed as marked below.
-   'ion' by itself leaves j = -1 in the test for 'ion' in step 5, and
-   b[j] is then outside the bounds of b.
-
-   Release 3
-
-   Considerably revised 4/9/00 in the light of many helpful suggestions
-   from Brian Goetz of Quiotix Corporation (brian@quiotix.com).
-
-   Release 4
-
-*/
+import java.io.FileInputStream;
+import java.io.IOException;
 
 /**
  * Stemmer, implementing the Porter Stemming Algorithm
@@ -43,9 +13,9 @@ package hr.fer.zemris.zavrsni.util;
 
 public class Stemmer {
 	private char[] b;
-	private int i,     /* offset into b */
-			i_end, /* offset to end of stemmed word */
-			j, k;
+	private int i;      /* offset into b */
+	private int i_end;  /* offset to end of stemmed word */
+	private int j, k;
 	private static final int INC = 50;
 
 	/* unit of size whereby b is increased */
@@ -471,9 +441,58 @@ public class Stemmer {
 	 * @return the stemmed word
 	 * @implNote added by Luka
 	 */
-	public String stem(String word) {
+	public String stripAffixes(String word) {
 		b = word.toCharArray();
 		stem();
 		return String.valueOf(getResultBuffer());
+	}
+
+	/**
+	 * Test program for demonstrating the Stemmer.  It reads text from a
+	 * a list of files, stems each word, and writes the result to standard
+	 * output. Note that the word stemmed is expected to be in lower case:
+	 * forcing lower case must be done outside the Stemmer class.
+	 * Usage: Stemmer file-name file-name ...
+	 */
+	public static void main(String[] args) throws IOException {
+		char[] w = new char[501];
+		Stemmer s = new Stemmer();
+		FileInputStream in = new FileInputStream("src/main/resources/stop_words.txt");
+
+		while (true) {
+			int ch = in.read();
+			if (Character.isLetter((char) ch)) {
+				int j = 0;
+				while (true) {
+					ch = Character.toLowerCase((char) ch);
+					w[j] = (char) ch;
+					if (j < 500) j++;
+					ch = in.read();
+					if (!Character.isLetter((char) ch)) {
+						/* to test add(char ch) */
+						for (int c = 0; c < j; c++) s.add(w[c]);
+
+						/* or, to test add(char[] w, int j) */
+						/* s.add(w, j); */
+
+						s.stem();
+						{
+							String u;
+
+							/* and now, to test toString() : */
+							u = s.toString();
+
+							/* to test getResultBuffer(), getResultLength() : */
+							/* u = new String(s.getResultBuffer(), 0, s.getResultLength()); */
+
+							System.out.print(u);
+						}
+						break;
+					}
+				}
+			}
+			if (ch < 0) break;
+			System.out.print((char) ch);
+		}
 	}
 }
