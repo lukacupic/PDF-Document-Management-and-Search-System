@@ -190,12 +190,12 @@ public class CosineSimilarity implements RankingFunction {
 		return results.subList(0, Math.min(9, results.size()));
 	}
 
+	@Override
 	public List<Result> process(String query) {
 		List<String> words = TextUtil.getWordsFromText(query);
 		Stemmer2 stemmer = new Stemmer2();
 		words = words.stream().map(stemmer::stripAffixes).collect(Collectors.toList());
 		words.retainAll(vocabulary.keySet());
-
 
 		Vector tf = createTFVector(words);
 		Document inputDoc = new Document(null, null, Vector.multiply(tf, idf), 0);

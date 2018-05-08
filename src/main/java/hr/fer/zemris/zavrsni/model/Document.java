@@ -74,15 +74,6 @@ public class Document {
 	}
 
 	/**
-	 * Sets the path for this document.
-	 *
-	 * @param path the path to the document
-	 */
-	public void setPath(Path path) {
-		this.path = path.toAbsolutePath();
-	}
-
-	/**
 	 * Gets the TF-IDF vector representing this document.
 	 *
 	 * @return the TF-IDF vector
@@ -109,12 +100,7 @@ public class Document {
 		return tfVector;
 	}
 
-	/**
-	 * Sets the TF vector component of this document.
-	 *
-	 * @param tfVector the TF vector component
-	 */
-	public void setTFVector(Vector tfVector) {
-		this.tfVector = tfVector;
+	public long getLength() {
+		return length;
 	}
 }

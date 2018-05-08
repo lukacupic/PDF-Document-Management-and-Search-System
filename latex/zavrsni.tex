@@ -27,34 +27,45 @@ Područje analize i pretraživanja teksta neizbježno je u današnjem svijetu te
 Kratki osvrt na ove te mnoge druge primjene ukazuju na nepobitnu činjenicu da je pretraživanje teksta...
 
 \chapter{Pregled područja}
-Ovaj rad baziran je na proučavanju postojećih metoda analize i pretraživanja teksta. U sklopu ovog rada, biti će proučeno nekoliko metoda za analizu, pretraživanje i usporedbu tekstualnih dokumenata.
+Korištenje računala za povrat informacija (engl. \textit{information retrieval}) datira čak do 1940-ih godina, daleko prije komercijalizacije računala. Očito je da je to problem...
+
 
 \chapter{Let's dive right into it...}
 
 \section{Prikaz dokumenata}
 Prije \textit{poniranja u dubine}, objasnimo prvo što u kontekstu analize i pretraživanja predstavlja dokument. Neformalno dokument možemo definirati kao kolekciju riječi. Ovakva kolekcija riječi ne mora nužno biti skup, pošto dokument može imati više ponavljanja istih riječi; ova će činjenica doći do izražaja u \textbf{poglavlju X}. Umjesto toga, pretpostavljamo da se dokument sastoji od  tzv. \textit{vreće riječi} (engl. \textit{bag of words}) kod koje nam nije bitna semantika samog dokumenta, pa čak niti poredak riječi, već je bitna samo činjenica da se riječi pojavljuju u dokumentu, odnosno učestalost njihovog pojavljivanja.
-Ovakav model često je korišten u području procesiranja prirodnog jezika te povrata informacija (engl. \textit{information retrieval}) kako iz dokumenata tako iz drugih izvora tekstualnih informacija.
+Ovakav model često je korišten u području procesiranja prirodnog jezika te povrata informacija kako iz dokumenata tako iz drugih izvora tekstualnih informacija.
 
-Da bi se dokumenti mogli predstaviti u obliku vreća riječi, potrebno je odrediti vokabular—skup svih riječi koje se nalaze u svim dokumentima promatrane kolekcije dokumenata (u daljnjem tekstu: zbirka). Iz ovako zadanog vokabulara ćemo ponajprije, ukloniti sve zaustavne riječi (engl. \textit{stop words})—riječi koje su učestale u nekom jeziku te su stoga nebitne za sam postupak analize teksta. Primjeri nekih zaustavnih riječi u hrvatskom jeziku su: \textit{aha}, \textit{nešto}, \textit{okolo}, \textit{zaboga}. Osim zaustavnih riječi, dodatna obrada teksta može se obaviti \textit{stemanjem} (engl. \textit{stemming}). Ova metoda ima zadaću svesti riječi na kanonski oblik; drugim riječima, nebitno je je li riječ napisana u jednini ili množini ili pak u kojem je padežu; bitan je samo kanonski oblik riječi.
-Nakon stvaranja vokabulara te predobrade dokumenata (izbacivanja zaustavnih riječi, stemanje) možemo krenuti s predstavljanjem dokumenata. Radi praktičnosti, najčešća metoda predstavljanja dokumenata jest uz pomoć vektora.
-Najjednostavnija metoda vektorskog predstavljanja dokumenata jest binarna: za svaku riječ iz vokabulara naprosto provjerimo nalazi li se u danom dokumentu te ukoliko se nalazi, odgovarajuća komponenta vektora (indeks riječi u vokabularu) biti će 1, a u suprotnom 0. Nadograđujući se na prethodnu metodu, postoji i frekvencijski prikaz vektora. Umjesto obične binarne reprezentacije u kojoj jedinica (odnosno nula) označava nalazi li se riječ u dokumentu, u frekvencijskom prikazu su komponente vektora zapravo frekvencija (tj. broj) pojavljivanja određene riječi u dokumentu. Tako bi umjesto jedinice u binarnom zapisu, komponenta vektora iznostila broj pojavljanja dotične riječi u dokumentu. Naposlijetku dolazimo i do najčešće metode vektorskog prikaza dokumenata—TF-IDF (engl. \textit{term frequency–inverse document frequency}). Ova metoda zasniva se na dvije intuitivne pretpostavke:
+Da bi se dokumenti mogli predstaviti u obliku vreća riječi, potrebno je odrediti vokabular—skup svih riječi koje se nalaze u svim dokumentima promatrane kolekcije dokumenata (u daljnjem tekstu: zbirka). Iz ovako zadanog vokabulara ćemo ponajprije, ukloniti sve zaustavne riječi (engl. \textit{stop words})—riječi koje su učestale u nekom jeziku te su stoga nebitne za sam postupak analize teksta. Primjeri nekih zaustavnih riječi u hrvatskom jeziku su: \textit{aha}, \textit{nešto}, \textit{okolo}, \textit{zaboga}. Osim zaustavnih riječi, dodatna obrada teksta može se obaviti tzv. \textit{stemanjem} (engl. \textit{stemming}). Ova metoda ima zadaću svesti riječi na njihov kanonski oblik. Drugim riječima, nebitno je je li riječ napisana u jednini ili množini ili pak u kojem je padežu; bitan je samo kanonski oblik riječi. Na primjer, riječi poput \textit{spavao} i \textit{spavati} svesti će na \textit{spavanje}.
+Nakon stvaranja vokabulara te predobrade dokumenata (izbacivanje zaustavnih riječi, stemanje) možemo krenuti s predstavljanjem dokumenata. Radi praktičnosti, najčešća metoda predstavljanja dokumenata jest uz pomoć vektora.
+Najjednostavnija metoda vektorskog predstavljanja dokumenata jest binarna: za svaku riječ iz vokabulara naprosto provjerimo nalazi li se u danom dokumentu te ukoliko se nalazi, odgovarajuća komponenta vektora (indeks riječi u vokabularu) biti će 1, a u suprotnom 0. Nadograđujući se na prethodnu metodu, dolazimo do frekvencijskog prikaza vektora. Umjesto obične binarne reprezentacije u kojoj pamtimo samo nalazi li se riječ u dokumentu ili ne, u frekvencijskom prikazu pamtimo i koliko se puta dotična riječ pojavljuje u dokumentu (komponente vektora zapravo su frekvencija (tj. broj) pojavljivanja određene riječi u dokumentu). Naposlijetku dolazimo i do najčešće metode vektorskog prikaza dokumenata—TF-IDF (engl. \textit{term frequency–inverse document frequency}). Ova metoda zasniva se na dvije intuitivne pretpostavke:
 \begin{itemize}
 \item Riječ je važnija za semantiku dokumenta što se češće u njemu pojavljuje (TF komponenta)
 \item Riječ je manje važna za semantiku dokumenta što se češće pojavljuje u drugim dokumentima (IDF komponenta)
 \end{itemize}
 TF i IDF dakle predstavljaju dvije komponente vektora kojima ćemo predstavljati dokumente. Prva komponenta je već spomenuta, frekvencija pojavljivanja riječi \textit{w} u dokumentu \textit{d} ($f_\textit{w, d}$) dok je druga komponenta obrnuta frekvencija pojavljivanja riječi u cijeloj zbirci.
 Za riječ \textit{w} i dokument \textit{d}, TF i IDF komponene računaju se na sljedeći način:
-\[ tf(w, d) = f_\textit{w, d} \]
-\[ idf(w, D) = log\frac{N}{|\{d \in D:w \in d\}|} \]
+\begin{equation}
+{\displaystyle \mathrm {tf} (t,d)=f_{t,d}}
+\end{equation}
+\begin{equation}
+{\displaystyle \mathrm {idf} (t,D)=\log {\frac {N}{|\{d\in D:t\in d\}|}}}
+\end{equation}
 Formula za TF komponentu je intuitivna i trivijalna. Formula za IDF komponentu zahtjeva kratki osvrt: riječ će biti bitnija za neki dokument što se rijeđe pojavljuje u drugim dokumentima. Ovo vidimo u formuli kao omjer ukupnog broja dokumenata (veličine zbirke) \textit{N} te broja dokumenata koji sadrže gledanu riječ. Što je riječ više sadržana u ostalim dokumentima, omjer se smanjuje te riječ postaje manje bitna za neki dokument. Naposlijetku, cijeli se omjer logaritamski skalira kako bi se u smanjio utjecaj velikog broja dokumenata i/ili malog broja dokumenata koji sadrže određenu riječ, na vrijednost IDF-a.
 
-\section{Introduction}
+\section{Semantička sličnost dokumenata}
+Nakon izgrađene vektorske reprezentacije dokumenata, sljedeći korak jest samo uspoređivanje dokumenata. Uspoređivanje se može ostvariti na dva različita načina: uspoređivanje korisničkog unosa (engl. \textit{user input}, \textit{query}) sa zbirkom dokumenata ili uspoređivanje dokumenata međusobno.
+
+\subsection{Semantička sličnost dokumenata}
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do 
 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut 
 enim ad minim veniam, quis nostrud exercitation ullamco...
 
 \chapter{Programsko rješenje}
-Cilj ovog rada jest istražiti već ranije spomenute metode analize i pretraživanja teksta.	Kako je implementacija programskog rješenja specifična za dokumente tipa PDF, takve dokumente prvo treba preprocesirati kako bi bili spremni za obradu. U svrhu preprocesiranja PDF dokumenata, koristi se Apache PDFBox...
+Cilj ovog rada jest istražiti već ranije spomenute metode analize i pretraživanja teksta.	Kako je implementacija programskog rješenja specifična za dokumente tipa PDF, takve dokumente prvo treba preprocesirati kako bi bili spremni za obradu.
+Programske potpora kao implementacija problema ovog završnog rada napisana je u programskom jeziku Java. Razlog ovakvog odabira leži u tome što je Java popularan objektno orijentirani jezik po čemu je idealan za rješavanje problema poput DOCUMENT RETREIVAL-a zbog svoje nativne podrške apstraktnih kolekcija podataka, podrške raznih biblioteka i sl.
+U svrhu preprocesiranja PDF dokumenata, koristi se Apache PDFBox koji omogućava brzo i jednostavno izvlačenje teksta iz PDF dokumenata.
+Kao algoritam za stemanje riječi koristi se poznati 'Portland Stemming Algorithm' čije su implementacije javno dostupne u većini popularnijih programskih jezika, pa tako i u Javi.
 
 \chapter{Zaključak}
 Zaključak.

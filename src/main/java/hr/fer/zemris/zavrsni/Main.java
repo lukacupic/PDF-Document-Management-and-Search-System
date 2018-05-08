@@ -1,6 +1,8 @@
 package hr.fer.zemris.zavrsni;
 
 import hr.fer.zemris.zavrsni.functions.CosineSimilarity;
+import hr.fer.zemris.zavrsni.functions.OkapiBM25;
+import hr.fer.zemris.zavrsni.functions.RankingFunction;
 import hr.fer.zemris.zavrsni.model.Result;
 import hr.fer.zemris.zavrsni.readers.TextReader;
 
@@ -26,7 +28,7 @@ public class Main {
 	 */
 	public static final String STOP_WORDS_PATH = "src/main/resources/stop_words.txt";
 
-	private static CosineSimilarity function;
+	private static RankingFunction function;
 
 	/**
 	 * The main method.
