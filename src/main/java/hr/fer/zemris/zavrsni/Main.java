@@ -1,10 +1,8 @@
 package hr.fer.zemris.zavrsni;
 
-import hr.fer.zemris.zavrsni.functions.CosineSimilarity;
-import hr.fer.zemris.zavrsni.functions.OkapiBM25;
-import hr.fer.zemris.zavrsni.functions.RankingFunction;
 import hr.fer.zemris.zavrsni.model.Result;
-import hr.fer.zemris.zavrsni.readers.TextReader;
+import hr.fer.zemris.zavrsni.ranking.CosineSimilarity;
+import hr.fer.zemris.zavrsni.ranking.RankingFunction;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -40,7 +38,7 @@ public class Main {
 		try {
 			System.out.println("Initializing, please wait...");
 			long t1 = System.currentTimeMillis();
-			function = new CosineSimilarity(Paths.get(args[0]), new TextReader());
+			function = new CosineSimilarity(Paths.get(args[0]));
 			long t2 = System.currentTimeMillis();
 			System.out.printf("Dataset loaded in %d seconds.\n\n", (t2 - t1) / 1000);
 		} catch (IOException e) {
@@ -67,7 +65,7 @@ public class Main {
 	 *
 	 * @param input the user's input.
 	 */
-	private static void parseInput(String input) {
+	private static void parseInput(String input) throws IOException {
 		if (input.equals("exit") || input.equals("quit")) {
 			System.exit(0);
 		} else {
@@ -79,7 +77,7 @@ public class Main {
 	 * Processes the user's query input, read from the given scanner object, and
 	 * displays the results (onto the standard output).
 	 */
-	private static void processQuery(String input) {
+	private static void processQuery(String input) throws IOException {
 		System.out.println("Here are the search results:");
 		printResults(function.process(input));
 	}

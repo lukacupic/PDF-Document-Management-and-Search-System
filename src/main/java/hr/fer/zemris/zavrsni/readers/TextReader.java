@@ -10,18 +10,29 @@ import java.util.List;
 
 public class TextReader implements DocumentReader {
 
+	private Path path;
+
 	/**
 	 * Creates a new TextReader.
 	 */
-	public TextReader() {
+	public TextReader(Path path) {
+		this.path = path;
 	}
 
 	@Override
-	public List<String> readDocument(Path path) throws IOException {
+	public List<String> readDocument() throws IOException {
 		if (!TextUtil.getFileExtension(path).equals("txt")) {
 			throw new IOException("Unreadable extension!");
 		}
 		String text = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
 		return TextUtil.getWordsFromText(text);
+	}
+
+	public Path getPath() {
+		return path;
+	}
+
+	public void setPath(Path path) {
+		this.path = path;
 	}
 }

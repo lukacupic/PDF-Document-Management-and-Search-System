@@ -10,14 +10,17 @@ import java.util.List;
 
 public class PDFReader implements DocumentReader {
 
+	private Path path;
+
 	/**
 	 * Creates a new PDFReader.
 	 */
-	public PDFReader() {
+	public PDFReader(Path path) {
+		this.path = path;
 	}
 
 	@Override
-	public List<String> readDocument(Path path) throws IOException {
+	public List<String> readDocument() throws IOException {
 		if (!TextUtil.getFileExtension(path).equals("pdf")) {
 			throw new IOException("Unreadable extension!");
 		}
@@ -25,5 +28,13 @@ public class PDFReader implements DocumentReader {
 			String text = new PDFTextStripper().getText(doc);
 			return TextUtil.getWordsFromText(text);
 		}
+	}
+
+	public Path getPath() {
+		return path;
+	}
+
+	public void setPath(Path path) {
+		this.path = path;
 	}
 }

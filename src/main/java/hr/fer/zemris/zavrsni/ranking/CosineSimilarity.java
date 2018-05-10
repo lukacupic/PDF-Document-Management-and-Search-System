@@ -1,14 +1,12 @@
-package hr.fer.zemris.zavrsni.functions;
+package hr.fer.zemris.zavrsni.ranking;
 
+import hr.fer.zemris.zavrsni.InputProcessor;
 import hr.fer.zemris.zavrsni.Main;
 import hr.fer.zemris.zavrsni.model.Document;
 import hr.fer.zemris.zavrsni.model.Result;
 import hr.fer.zemris.zavrsni.model.Vector;
-import hr.fer.zemris.zavrsni.readers.DocumentReader;
-import hr.fer.zemris.zavrsni.readers.decorators.DocumentStemmer;
-import hr.fer.zemris.zavrsni.readers.decorators.StopFilter;
-import hr.fer.zemris.zavrsni.util.Stemmer2;
-import hr.fer.zemris.zavrsni.util.TextUtil;
+import hr.fer.zemris.zavrsni.readers.ConsoleReader;
+import hr.fer.zemris.zavrsni.readers.TextReader;
 
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -22,12 +20,8 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
-public class OkapiBM25 implements RankingFunction {
-
-	private static final double k1 = 1.6;
-	private static final double b = 0.75;
+public class CosineSimilarity implements RankingFunction {
 
 	/**
 	 * The collection of all words from all the documents (aka. dataset).
@@ -47,19 +41,23 @@ public class OkapiBM25 implements RankingFunction {
 	private Map<Path, Document> documents = new LinkedHashMap<>();
 
 	/**
-	 * The reader for reading the Corpus' documents.
+	 * A helper IDF vector which holds the IDF components for each of the
+	 * words from the vocabulary.
 	 */
-	private DocumentReader reader;
+	private Vector idf;
+
+	/**
+	 * The processor for reading the Corpus' documents.
+	 */
+	private InputProcessor processor;
 
 	/**
 	 * Creates a new {@link CosineSimilarity} function.
 	 *
 	 * @param dataset the path to the dataset
-	 * @param reader  the reader to use for reading the documents
 	 * @throws IOException if an I/O error occurs
 	 */
-	public OkapiBM25(Path dataset, DocumentReader reader) throws IOException {
-		this.reader = reader;
+	public CosineSimilarity(Path dataset) throws IOException {
 		init(dataset);
 	}
 
@@ -71,8 +69,7 @@ public class OkapiBM25 implements RankingFunction {
 	 */
 	private void init(Path path) throws IOException {
 		// Initialize document reading mechanism
-		DocumentStemmer stemmer = new DocumentStemmer(reader);
-		reader = new StopFilter(stemmer, Main.STOP_WORDS_PATH);
+		processor = new InputProcessor(Main.STOP_WORDS_PATH);
 
 		// Initialize the dataset
 		createVocabulary(path);
@@ -92,7 +89,8 @@ public class OkapiBM25 implements RankingFunction {
 		Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
 			@Override
 			public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-				for (String word : reader.readDocument(path)) {
+				processor.setReader(new TextReader(path));
+				for (String word : processor.process()) {
 					if (vocabulary.containsKey(word)) continue;
 					vocabulary.put(word, -1);
 				}
@@ -118,7 +116,8 @@ public class OkapiBM25 implements RankingFunction {
 		Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
 			@Override
 			public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-				List<String> words = reader.readDocument(path);
+				processor.setReader(new TextReader(path));
+				List<String> words = processor.process();
 
 				Document doc = new Document(path, createTFVector(words), null, words.size());
 				documents.put(path, doc);
@@ -131,6 +130,7 @@ public class OkapiBM25 implements RankingFunction {
 				return FileVisitResult.CONTINUE;
 			}
 		});
+		createIDFVector();
 	}
 
 	/**
@@ -143,41 +143,70 @@ public class OkapiBM25 implements RankingFunction {
 	private Vector createTFVector(List<String> words) {
 		double[] values = new double[vocabulary.size()];
 		for (String word : words) {
-			int wordIndex = vocabulary.get(word);
+			Integer wordIndex = vocabulary.get(word);
+			if (wordIndex == null) continue;
 			values[wordIndex]++;
 		}
 		return new Vector(values);
 	}
 
-	private double calculateIDF(String word) {
-		int freq = wordFrequency.get(word);
-		//return Math.max(0, Math.log((documents.size() - freq + 0.5) / (freq + 0.5)));
-		return Math.log(documents.size() / (double) freq);
+	/**
+	 * Creates the "main" IDF vector which represents the words'
+	 * frequencies in all of the documents.
+	 */
+	private void createIDFVector() {
+		double[] values = new double[vocabulary.size()];
+
+		for (String word : vocabulary.keySet()) {
+			int freq = wordFrequency.get(word);
+			values[vocabulary.get(word)] = Math.log(documents.size() / (double) freq);
+		}
+		idf = new Vector(values);
+
+		for (Document d : documents.values()) {
+			d.setVector(Vector.multiply(d.getTFVector(), idf));
+		}
+	}
+
+	/**
+	 * Compares the given document object to all other documents in the
+	 * collection, compares them, and returns the list of Result objects,
+	 * encapsulating the similarity coefficients representing the similarity
+	 * in respect to the provided document.
+	 *
+	 * @param doc the document
+	 * @return a list of top 10 search results (the top 10 result with the
+	 * highest similarity coefficients)
+	 */
+	private List<Result> getResults(Document doc) {
+		List<Result> results = new ArrayList<>();
+		for (Document d : documents.values()) {
+			results.add(new Result(doc.sim(d), d));
+		}
+		results.sort(Comparator.reverseOrder());
+		return results.subList(0, Math.min(9, results.size()));
 	}
 
 	@Override
 	public List<Result> process(String query) {
+		/*
 		List<String> words = TextUtil.getWordsFromText(query);
 		Stemmer2 stemmer = new Stemmer2();
 		words = words.stream().map(stemmer::stripAffixes).collect(Collectors.toList());
 		words.retainAll(vocabulary.keySet());
+		*/
 
-		double avgdl = documents.values().stream().mapToLong(Document::getLength).average().getAsDouble();
-
-		List<Result> results = new ArrayList<>();
-
-		for (Document d : documents.values()) {
-			double res = 0;
-			for (String w : words) {
-				double freq = d.getTFVector().get(vocabulary.get(w));
-				double num = freq * (k1 + 1);
-				double den = freq + k1 * (1 - b + b * (d.getLength() / avgdl));
-				res += calculateIDF(w) * num / den;
-			}
-			results.add(new Result(res, d));
+		List<String> words = null;
+		try {
+			processor.setReader(new ConsoleReader(query));
+			words = processor.process();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 
-		results.sort(Comparator.reverseOrder());
-		return results.subList(0, Math.min(9, results.size()));
+		Vector tf = createTFVector(words);
+		Document inputDoc = new Document(null, null, Vector.multiply(tf, idf), 0);
+
+		return getResults(inputDoc);
 	}
 }
