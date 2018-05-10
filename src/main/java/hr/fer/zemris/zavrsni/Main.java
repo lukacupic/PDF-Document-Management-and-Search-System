@@ -2,6 +2,7 @@ package hr.fer.zemris.zavrsni;
 
 import hr.fer.zemris.zavrsni.model.Result;
 import hr.fer.zemris.zavrsni.ranking.CosineSimilarity;
+import hr.fer.zemris.zavrsni.ranking.OkapiBM25;
 import hr.fer.zemris.zavrsni.ranking.RankingFunction;
 
 import java.io.IOException;
