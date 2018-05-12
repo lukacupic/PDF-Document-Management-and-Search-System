@@ -59,19 +59,20 @@ public abstract class RankingFunction {
 		init(dataset);
 	}
 
-	public abstract List<Result> process(String query) throws IOException;
+
+	// abstract methods
 
 	/**
-	 * Compares the given document object to all other documents in the
-	 * collection, compares them, and returns the list of Result objects,
-	 * encapsulating the similarity coefficients representing the similarity
-	 * in respect to the provided document.
+	 * Parses the given query, processes it, and returns a list of results.
 	 *
-	 * @param doc the document
-	 * @return a list of top 10 search results (the top 10 result with the
-	 * highest similarity coefficients)
+	 * @param query the query to process
+	 * @return the list of results
+	 * @throws IOException if an error occurs while processing
 	 */
-	//protected abstract List<Result> getResults(Document doc);
+	public abstract List<Result> process(String query) throws IOException;
+
+
+	// non-abstract methods
 
 	/**
 	 * Initializes the program.
