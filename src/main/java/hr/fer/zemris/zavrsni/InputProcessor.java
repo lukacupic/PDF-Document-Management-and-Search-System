@@ -22,17 +22,17 @@ public class InputProcessor {
 	/**
 	 * A list of stop words.
 	 */
-	private List<String> stopWords = new ArrayList<>();
+	private static List<String> stopWords = new ArrayList<>();
 
 	/**
 	 * The word stemmer.
 	 */
-	private Stemmer2 stemmer = new Stemmer2();
+	private static Stemmer2 stemmer = new Stemmer2();
 
 	/**
 	 * The document reader.
 	 */
-	private DocumentReader reader;
+	private static DocumentReader reader;
 
 	/**
 	 * Creates a new InputProcessor.
@@ -41,7 +41,7 @@ public class InputProcessor {
 	 * @throws IOException if an I/O error occurs while reading the
 	 *                     stop words file
 	 */
-	public InputProcessor(String stopWordsPath) throws IOException {
+	public static void setStopWords(String stopWordsPath) throws IOException {
 		stopWords.addAll(Files.readAllLines(Paths.get(stopWordsPath)));
 	}
 
@@ -53,7 +53,7 @@ public class InputProcessor {
 	 * @return the list of processed words
 	 * @throws IOException if an I/O error occurs
 	 */
-	public List<String> process() throws IOException {
+	public static List<String> process() throws IOException {
 		List<String> words = reader.readDocument();
 		words = words.stream().filter(s -> !stopWords.contains(s)).collect(Collectors.toList());
 		words = words.stream().map(stemmer::stripAffixes).collect(Collectors.toList());
@@ -65,7 +65,7 @@ public class InputProcessor {
 	 *
 	 * @param reader the reader
 	 */
-	public void setReader(DocumentReader reader) {
-		this.reader = reader;
+	public static void setReader(DocumentReader reader) {
+		InputProcessor.reader = reader;
 	}
 }

@@ -3,7 +3,6 @@ package hr.fer.zemris.zavrsni.ranking;
 import hr.fer.zemris.zavrsni.model.Document;
 import hr.fer.zemris.zavrsni.model.Result;
 import hr.fer.zemris.zavrsni.model.Vector;
-import hr.fer.zemris.zavrsni.readers.ConsoleReader;
 
 import java.io.IOException;
 import java.nio.file.Path;
@@ -31,10 +30,7 @@ public class CosineSimilarity extends RankingFunction {
 	}
 
 	@Override
-	public List<Result> process(String query) throws IOException {
-		processor.setReader(new ConsoleReader(query));
-		List<String> words = processor.process();
-
+	public List<Result> process(List<String> words) {
 		// create document from the query
 		Vector tf = createTFVector(words);
 		Document inputDoc = new Document(null, null, Vector.multiply(tf, idf), 0);

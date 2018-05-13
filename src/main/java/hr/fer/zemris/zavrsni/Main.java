@@ -4,7 +4,11 @@ import hr.fer.zemris.zavrsni.model.Result;
 import hr.fer.zemris.zavrsni.ranking.CosineSimilarity;
 import hr.fer.zemris.zavrsni.ranking.OkapiBM25;
 import hr.fer.zemris.zavrsni.ranking.RankingFunction;
+import hr.fer.zemris.zavrsni.readers.ConsoleReader;
+import hr.fer.zemris.zavrsni.readers.DocumentReader;
+import jdk.internal.util.xml.impl.Input;
 
+import javax.annotation.processing.Processor;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
@@ -59,7 +63,7 @@ public class Main {
 			} catch (Exception ex) {
 				System.out.println("Sorry, but nothing was found...");
 			}
-			System.out.print("\nQuery: ")   ;
+			System.out.print("\nQuery: ");
 		}
 	}
 
@@ -83,7 +87,8 @@ public class Main {
 	 */
 	private static void processQuery(String input) throws IOException {
 		System.out.println("Here are the search results:");
-		printResults(function.process(input));
+		InputProcessor.setReader(new ConsoleReader(input));
+		printResults(function.process(InputProcessor.process()));
 	}
 
 	/**

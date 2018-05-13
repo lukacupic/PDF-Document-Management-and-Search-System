@@ -64,11 +64,11 @@ public abstract class RankingFunction {
 	/**
 	 * Parses the given query, processes it, and returns a list of results.
 	 *
-	 * @param query the query to process
+	 * @param words the words from the input source (console, document, ...)
 	 * @return the list of results
 	 * @throws IOException if an error occurs while processing
 	 */
-	public abstract List<Result> process(String query) throws IOException;
+	public abstract List<Result> process(List<String> words) throws IOException;
 
 	// non-abstract methods
 
@@ -80,7 +80,8 @@ public abstract class RankingFunction {
 	 */
 	private void init(Path path) throws IOException {
 		// Initialize document reading mechanism
-		processor = new InputProcessor(Main.STOP_WORDS_PATH);
+		//processor = new InputProcessor(Main.STOP_WORDS_PATH);
+		InputProcessor.setStopWords(Main.STOP_WORDS_PATH);
 
 		// Initialize the dataset
 		createVocabulary(path);
@@ -100,8 +101,8 @@ public abstract class RankingFunction {
 		Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
 			@Override
 			public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-				processor.setReader(new TextReader(path));
-				for (String word : processor.process()) {
+				InputProcessor.setReader(new TextReader(path));
+				for (String word : InputProcessor.process()) {
 					if (vocabulary.containsKey(word)) continue;
 					vocabulary.put(word, -1);
 				}
