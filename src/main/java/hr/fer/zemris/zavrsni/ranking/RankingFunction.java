@@ -36,18 +36,13 @@ public abstract class RankingFunction {
 	 * A map of all the documents, mapped to by their appropriate file system
 	 * paths.
 	 */
-	protected Map<Path, Document> documents = new LinkedHashMap<>();
+	public static Map<Path, Document> documents = new LinkedHashMap<>();
 
 	/**
 	 * A helper IDF vector which holds the IDF components for each of the
 	 * words from the vocabulary.
 	 */
 	protected Vector idf;
-
-	/**
-	 * The processor for reading the Corpus' documents.
-	 */
-	protected InputProcessor processor;
 
 	/**
 	 * Creates a new {@link RankingFunction} function.
@@ -128,8 +123,8 @@ public abstract class RankingFunction {
 		Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
 			@Override
 			public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-				processor.setReader(new TextReader(path));
-				List<String> words = processor.process();
+				InputProcessor.setReader(new TextReader(path));
+				List<String> words = InputProcessor.process();
 
 				Document doc = new Document(path, createTFVector(words), null, words.size());
 				documents.put(path, doc);
