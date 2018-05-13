@@ -10,9 +10,23 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * The implementation of the Okapi BM25 ranking function.
+ *
+ * @author Luka Cupic
+ * @see <a href="https://en.wikipedia.org/wiki/Okapi_BM25">
+ * https://en.wikipedia.org/wiki/Okapi_BM25</a>
+ */
 public class OkapiBM25 extends RankingFunction {
 
+	/**
+	 * The 'k1' constant.
+	 */
 	private static final double k1 = 1.6;
+
+	/**
+	 * The 'b' constant.
+	 */
 	private static final double b = 0.75;
 
 	/**
@@ -25,6 +39,14 @@ public class OkapiBM25 extends RankingFunction {
 		super(dataset);
 	}
 
+	/**
+	 * A helper method for calculating the IDF of the given
+	 * word (and the collection of documents).
+	 *
+	 * @param word the word
+	 * @return the IDF value of all the documents and the given
+	 * word
+	 */
 	private double calculateIDF(String word) {
 		int freq = wordFrequency.get(word);
 		//return Math.max(0, Math.log((documents.size() - freq + 0.5) / (freq + 0.5)));
@@ -36,12 +58,15 @@ public class OkapiBM25 extends RankingFunction {
 		processor.setReader(new ConsoleReader(query));
 		List<String> words = processor.process();
 
-		double avgdl = documents.values().stream().mapToLong(Document::getLength).average().getAsDouble();
+		double avgdl = documents.values().stream()
+				.mapToLong(Document::getLength)
+				.average()
+				.getAsDouble();
 
 		// calculate the results
 		List<Result> results = new ArrayList<>();
 		for (Document d : documents.values()) {
-			double res = 0;
+			double score = 0;
 			for (String w : words) {
 				Integer wordIndex = vocabulary.get(w);
 				if (wordIndex == null) continue;
@@ -49,9 +74,9 @@ public class OkapiBM25 extends RankingFunction {
 				double freq = d.getTFVector().get(wordIndex);
 				double num = freq * (k1 + 1);
 				double den = freq + k1 * (1 - b + b * (d.getLength() / avgdl));
-				res += calculateIDF(w) * num / den;
+				score += calculateIDF(w) * num / den;
 			}
-			results.add(new Result(res, d));
+			results.add(new Result(score, d));
 		}
 
 		results.sort(Comparator.reverseOrder());

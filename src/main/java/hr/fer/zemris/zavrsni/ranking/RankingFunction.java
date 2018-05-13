@@ -59,7 +59,6 @@ public abstract class RankingFunction {
 		init(dataset);
 	}
 
-
 	// abstract methods
 
 	/**
@@ -70,7 +69,6 @@ public abstract class RankingFunction {
 	 * @throws IOException if an error occurs while processing
 	 */
 	public abstract List<Result> process(String query) throws IOException;
-
 
 	// non-abstract methods
 

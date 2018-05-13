@@ -27,6 +27,9 @@ public class Main {
 	 */
 	public static final String STOP_WORDS_PATH = "src/main/resources/stop_words.txt";
 
+	/**
+	 * The function to perform the ranking of the documents.
+	 */
 	private static RankingFunction function;
 
 	/**
@@ -39,7 +42,7 @@ public class Main {
 		try {
 			System.out.println("Initializing, please wait...");
 			long t1 = System.currentTimeMillis();
-			function = new CosineSimilarity(Paths.get(args[0]));
+			function = new OkapiBM25(Paths.get(args[0]));
 			long t2 = System.currentTimeMillis();
 			System.out.printf("Dataset loaded in %d seconds.\n\n", (t2 - t1) / 1000);
 		} catch (IOException e) {
@@ -56,7 +59,7 @@ public class Main {
 			} catch (Exception ex) {
 				System.out.println("Sorry, but nothing was found...");
 			}
-			System.out.print("\nQuery: ");
+			System.out.print("\nQuery: ")   ;
 		}
 	}
 

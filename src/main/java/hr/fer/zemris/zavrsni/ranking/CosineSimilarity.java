@@ -11,6 +11,13 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * The implementation of the Okapi BM25 ranking function.
+ *
+ * @author Luka Cupic
+ * @see <a href="https://en.wikipedia.org/wiki/Cosine_similarity">
+ * https://en.wikipedia.org/wiki/Cosine_similarity</a>
+ */
 public class CosineSimilarity extends RankingFunction {
 
 	/**
