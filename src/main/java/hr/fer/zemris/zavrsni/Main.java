@@ -6,6 +6,7 @@ import hr.fer.zemris.zavrsni.ranking.OkapiBM25;
 import hr.fer.zemris.zavrsni.ranking.RankingFunction;
 import hr.fer.zemris.zavrsni.readers.ConsoleReader;
 import hr.fer.zemris.zavrsni.readers.DocumentReader;
+import hr.fer.zemris.zavrsni.readers.TextReader;
 import jdk.internal.util.xml.impl.Input;
 
 import javax.annotation.processing.Processor;
@@ -46,7 +47,7 @@ public class Main {
 		try {
 			System.out.println("Initializing, please wait...");
 			long t1 = System.currentTimeMillis();
-			function = new OkapiBM25(Paths.get(args[0]));
+			function = new CosineSimilarity(Paths.get(args[0]));
 			long t2 = System.currentTimeMillis();
 			System.out.printf("Dataset loaded in %d seconds.\n\n", (t2 - t1) / 1000);
 		} catch (IOException e) {
@@ -87,7 +88,8 @@ public class Main {
 	 */
 	private static void processQuery(String input) throws IOException {
 		System.out.println("Here are the search results:");
-		InputProcessor.setReader(new ConsoleReader(input));
+		//InputProcessor.setReader(new ConsoleReader(input));
+		InputProcessor.setReader(new TextReader(Paths.get("src/main/resources/pg4065.txt")));
 		printResults(function.process(InputProcessor.process()));
 	}
 
