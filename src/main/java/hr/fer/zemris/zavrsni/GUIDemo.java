@@ -11,6 +11,9 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.ScatterChart;
 import javafx.scene.chart.XYChart;
 import javafx.stage.Stage;
+import org.nd4j.linalg.api.ndarray.INDArray;
+import org.nd4j.linalg.dimensionalityreduction.PCA;
+import org.nd4j.linalg.factory.Nd4j;
 
 import java.io.IOException;
 import java.nio.file.Paths;
@@ -23,19 +26,12 @@ import java.util.stream.Collectors;
 public class GUIDemo extends Application {
 
 	private static RankingFunction function;
+	private static double[][] vals;
 
 	@Override
 	public void start(Stage stage) {
-		List<Vector> vectors = RankingFunction.documents.values().stream()
-				.map(Document::getVector)
-				.collect(Collectors.toList());
-
-		double[][] vals = VectorUtil.vectorsToMatrix(vectors);
-		vals = VisualizationDemo.processData(vals);
-
-		NumberAxis xAxis = new NumberAxis(0, 10, 1);
-		NumberAxis yAxis = new NumberAxis(-100, 500, 100);
-
+		NumberAxis xAxis = new NumberAxis(0, 100, 1);
+		NumberAxis yAxis = new NumberAxis(0, 100, 1);
 		ScatterChart<Number, Number> sc = new ScatterChart<>(xAxis, yAxis);
 		XYChart.Series<Number, Number> series = new XYChart.Series<>();
 
@@ -57,15 +53,27 @@ public class GUIDemo extends Application {
 			e.printStackTrace();
 		}
 
+		List<Vector> vectors = RankingFunction.documents.values().stream()
+				.map(Document::getVector)
+				.collect(Collectors.toList());
+
+		vals = VectorUtil.vectorsToMatrix(vectors);
+
+//		INDArray rand = Nd4j.rand(40, 11000);
+//		INDArray rand2 = Nd4j.rand(100, 60000);
+//		INDArray small = Nd4j.create(new double[][]{
+//				{1, 1, 1, 1},
+//				{2, 2, 2, 2},
+//				{3, 3, 3, 3}
+//		});
+
+		//vals = SerializeUtil.deserializeDocMatrix();
+		INDArray real = Nd4j.create(vals);
+		INDArray p = PCA.pca(real, 2, true);
+
+		vals = p.toDoubleMatrix();
+		VectorUtil.normalize(vals, 100);
+
 		launch(args);
 	}
 }
-
-
-
-
-
-
-
-
-

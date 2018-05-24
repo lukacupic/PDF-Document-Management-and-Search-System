@@ -48,8 +48,8 @@ public class OkapiBM25 extends RankingFunction {
 	 */
 	private double calculateIDF(String word) {
 		int freq = wordFrequency.get(word);
-		//return Math.max(0, Math.log((documents.size() - freq + 0.5) / (freq + 0.5)));
-		return Math.log(documents.size() / (double) freq);
+		return Math.log((documents.size() - freq + 0.5) / (freq + 0.5));
+		//return Math.log(documents.size() / (double) freq);
 	}
 
 	@Override
