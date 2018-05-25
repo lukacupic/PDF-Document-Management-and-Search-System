@@ -23,14 +23,15 @@ public abstract class RankingFunction {
 
 	/**
 	 * The collection of all words from all the documents (aka. dataset).
+	 * Each word maps to it's position (i.e. index) in the vocabulary.
 	 */
-	protected Map<String, Integer> vocabulary = new HashMap<>();
+	public static Map<String, Integer> vocabulary = new HashMap<>();
 
 	/**
 	 * Holds the number of occurrences in the documents for each word from
 	 * the vocabulary.
 	 */
-	protected Map<String, Integer> wordFrequency = new LinkedHashMap<>();
+	protected static Map<String, Integer> wordFrequency = new LinkedHashMap<>();
 
 	/**
 	 * A map of all the documents, mapped to by their appropriate file system
@@ -44,6 +45,8 @@ public abstract class RankingFunction {
 	 */
 	protected Vector idf;
 
+	private static RankingFunction current;
+
 	/**
 	 * Creates a new {@link RankingFunction} function.
 	 *
@@ -52,6 +55,7 @@ public abstract class RankingFunction {
 	 */
 	public RankingFunction(Path dataset) throws IOException {
 		init(dataset);
+		current = this;
 	}
 
 	// abstract methods
@@ -64,6 +68,14 @@ public abstract class RankingFunction {
 	 * @throws IOException if an error occurs while processing
 	 */
 	public abstract List<Result> process(List<String> words) throws IOException;
+
+	/**
+	 * Compares the given two documents and returns the result.
+	 *
+	 * @param d1 the first document
+	 * @param d2 the second document
+	 */
+	public abstract double sim(Document d1, Document d2);
 
 	// non-abstract methods
 
@@ -174,5 +186,14 @@ public abstract class RankingFunction {
 		for (Document d : documents.values()) {
 			d.setVector(Vector.multiply(d.getTFVector(), idf));
 		}
+	}
+
+	/**
+	 * Retrieve the current ranking function.
+	 *
+	 * @return current ranking function
+	 */
+	public static RankingFunction getCurrent() {
+		return current;
 	}
 }

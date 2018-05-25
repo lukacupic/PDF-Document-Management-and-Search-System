@@ -4,29 +4,53 @@ import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.graph.Graph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
+import hr.fer.zemris.zavrsni.model.Document;
+import hr.fer.zemris.zavrsni.ranking.CosineSimilarity;
+import hr.fer.zemris.zavrsni.ranking.RankingFunction;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import java.awt.*;
+import java.io.IOException;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Luka Cupic
  */
 public class FDGDemo {
 
+	private static final double threshold = 0.2;
+
 	public static void main(String[] args) {
-		Graph<Integer, Edge> g = new DirectedSparseGraph<>();
-		g.addVertex(1);
-		g.addVertex(2);
-		g.addVertex(3);
-		g.addVertex(4);
+		RankingFunction function;
+		try {
+			String path = "/media/chup0x/Data/FER/6. semestar/Završni rad/Corpus/dataset_txt_simple";
+			function = new CosineSimilarity(Paths.get(path));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-		g.addEdge(new Edge(10), 1, 2);
-		g.addEdge(new Edge(10), 1, 3);
-		g.addEdge(new Edge(10), 2, 3);
-		g.addEdge(new Edge(1), 2, 4);
+		List<Document> documents = new ArrayList<>(RankingFunction.documents.values());
 
-		FRLayout<Integer, Edge> layout = new FRLayout<>(g);
+		Graph<Document, Edge> g = new DirectedSparseGraph<>();
+		documents.forEach(g::addVertex);
+
+		for (int i = 0; i < documents.size(); i++) {
+			for (int j = 0; j < documents.size(); j++) {
+				if (i >= j) continue;
+
+				Document d1 = documents.get(i);
+				Document d2 = documents.get(j);
+
+				if (d1.sim(d2)/d1.sim(d1) > threshold) {
+					g.addEdge(new Edge(1), d1, d2);
+				}
+			}
+		}
+
+		FRLayout<Document, Edge> layout = new FRLayout<>(g);
 		//SpringLayout<Integer, Edge> layout = new SpringLayout<>(g, e -> e.weight);
 		layout.setSize(new Dimension(600, 600));
 		layout.initialize();
@@ -37,7 +61,7 @@ public class FDGDemo {
 			count++;
 		}
 
-		VisualizationViewer<Integer, Edge> vv = new VisualizationViewer<>(layout);
+		VisualizationViewer<Document, Edge> vv = new VisualizationViewer<>(layout);
 
 		JFrame frame = new JFrame("Simple Graph View");
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

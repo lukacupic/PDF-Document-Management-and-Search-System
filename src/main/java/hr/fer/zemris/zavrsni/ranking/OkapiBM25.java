@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * The implementation of the Okapi BM25 ranking function.
@@ -38,6 +39,47 @@ public class OkapiBM25 extends RankingFunction {
 		super(dataset);
 	}
 
+	@Override
+	public List<Result> process(List<String> words) {
+		double avgdl = calculateAvgdl();
+
+		// calculate the results
+		List<Result> results = new ArrayList<>();
+		for (Document d : documents.values()) {
+			double score = processOne(words, d, avgdl);
+			results.add(new Result(score, d));
+		}
+
+		results.sort(Comparator.reverseOrder());
+		return results.subList(0, Math.min(9, results.size()));
+	}
+
+	private static double processOne(List<String> words, Document d, double avgdl) {
+		double score = 0;
+		for (String w : words) {
+			Integer wordIndex = vocabulary.get(w);
+			if (wordIndex == null) continue;
+
+			double freq = d.getTFVector().get(wordIndex);
+			double num = freq * (k1 + 1);
+			double den = freq + k1 * (1 - b + b * (d.getLength() / avgdl));
+			score += calculateIDF(w) * num / den;
+		}
+		return score;
+	}
+
+	/**
+	 * Calculates the avgdl parameter.
+	 *
+	 * @return the avgdl value, as defined in the BM25 method
+	 */
+	private static double calculateAvgdl() {
+		return documents.values().stream()
+				.mapToLong(Document::getLength)
+				.average()
+				.getAsDouble();
+	}
+
 	/**
 	 * A helper method for calculating the IDF of the given
 	 * word (and the collection of documents).
@@ -46,36 +88,26 @@ public class OkapiBM25 extends RankingFunction {
 	 * @return the IDF value of all the documents and the given
 	 * word
 	 */
-	private double calculateIDF(String word) {
+	private static double calculateIDF(String word) {
 		int freq = wordFrequency.get(word);
-		return Math.log((documents.size() - freq + 0.5) / (freq + 0.5));
-		//return Math.log(documents.size() / (double) freq);
+		//return Math.log((documents.size() - freq + 0.5) / (freq + 0.5));
+		return Math.log(documents.size() / (double) freq);
+	}
+
+	private static List<String> getWordsFrom(Document d) {
+		List<String> words = new ArrayList<>();
+
+		for (Map.Entry<String, Integer> e : RankingFunction.vocabulary.entrySet()) {
+			if (d.getVector().getValues()[e.getValue()] != 0) {
+				words.add(e.getKey());
+			}
+		}
+		return words;
 	}
 
 	@Override
-	public List<Result> process(List<String> words) {
-		double avgdl = documents.values().stream()
-				.mapToLong(Document::getLength)
-				.average()
-				.getAsDouble();
-
-		// calculate the results
-		List<Result> results = new ArrayList<>();
-		for (Document d : documents.values()) {
-			double score = 0;
-			for (String w : words) {
-				Integer wordIndex = vocabulary.get(w);
-				if (wordIndex == null) continue;
-
-				double freq = d.getTFVector().get(wordIndex);
-				double num = freq * (k1 + 1);
-				double den = freq + k1 * (1 - b + b * (d.getLength() / avgdl));
-				score += calculateIDF(w) * num / den;
-			}
-			results.add(new Result(score, d));
-		}
-
-		results.sort(Comparator.reverseOrder());
-		return results.subList(0, Math.min(9, results.size()));
+	public double sim(Document d1, Document d2) {
+		List<String> words = getWordsFrom(d1);
+		return processOne(words, d2, calculateAvgdl());
 	}
 }

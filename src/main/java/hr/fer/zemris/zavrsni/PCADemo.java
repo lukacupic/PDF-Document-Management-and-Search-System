@@ -1,8 +1,5 @@
 package hr.fer.zemris.zavrsni;
 
-import hr.fer.zemris.zavrsni.model.Document;
-import hr.fer.zemris.zavrsni.model.Vector;
-import hr.fer.zemris.zavrsni.ranking.CosineSimilarity;
 import hr.fer.zemris.zavrsni.ranking.RankingFunction;
 import hr.fer.zemris.zavrsni.util.VectorUtil;
 import javafx.application.Application;
@@ -15,15 +12,10 @@ import org.nd4j.linalg.api.ndarray.INDArray;
 import org.nd4j.linalg.dimensionalityreduction.PCA;
 import org.nd4j.linalg.factory.Nd4j;
 
-import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.stream.Collectors;
-
 /**
  * @author Luka Cupic
  */
-public class GUIDemo extends Application {
+public class PCADemo extends Application {
 
 	private static RankingFunction function;
 	private static double[][] vals;
@@ -46,21 +38,21 @@ public class GUIDemo extends Application {
 	}
 
 	public static void main(String[] args) {
-		try {
-			String path = "/media/chup0x/Data/FER/6. semestar/Završni rad/Corpus/dataset_txt_simple";
-			function = new CosineSimilarity(Paths.get(path));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			String path = "/media/chup0x/Data/FER/6. semestar/Završni rad/Corpus/dataset_txt_simple";
+//			function = new CosineSimilarity(Paths.get(path));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
-		List<Vector> vectors = RankingFunction.documents.values().stream()
-				.map(Document::getVector)
-				.collect(Collectors.toList());
+//		List<Vector> vectors = RankingFunction.documents.values().stream()
+//				.map(Document::getVector)
+//				.collect(Collectors.toList());
+//
+//		vals = VectorUtil.vectorsToMatrix(vectors);
 
-		vals = VectorUtil.vectorsToMatrix(vectors);
-
-//		INDArray rand = Nd4j.rand(40, 11000);
-//		INDArray rand2 = Nd4j.rand(100, 60000);
+		INDArray rand = Nd4j.rand(40, 11000);
+		INDArray rand2 = Nd4j.rand(100, 60000);
 //		INDArray small = Nd4j.create(new double[][]{
 //				{1, 1, 1, 1},
 //				{2, 2, 2, 2},
@@ -68,8 +60,10 @@ public class GUIDemo extends Application {
 //		});
 
 		//vals = SerializeUtil.deserializeDocMatrix();
-		INDArray real = Nd4j.create(vals);
-		INDArray p = PCA.pca(real, 2, true);
+		//INDArray real = Nd4j.create(vals);
+		INDArray p = PCA.pca(rand2, 2, true);
+		System.out.println("Done PCA");
+		System.exit(0);
 
 		vals = p.toDoubleMatrix();
 		VectorUtil.normalize(vals, 100);

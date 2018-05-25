@@ -43,4 +43,9 @@ public class CosineSimilarity extends RankingFunction {
 		results.sort(Comparator.reverseOrder());
 		return results.subList(0, Math.min(9, results.size()));
 	}
+
+	@Override
+	public double sim(Document d1, Document d2) {
+		return d1.getVector().cos(d2.getVector());
+	}
 }

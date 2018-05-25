@@ -1,5 +1,7 @@
 package hr.fer.zemris.zavrsni.model;
 
+import hr.fer.zemris.zavrsni.ranking.RankingFunction;
+
 import java.nio.file.Path;
 
 /**
@@ -61,7 +63,8 @@ public class Document {
 	 * @return the similarity between this and the provided document
 	 */
 	public double sim(Document other) {
-		return this.getVector().cos(other.getVector());
+		RankingFunction f = RankingFunction.getCurrent();
+		return f.sim(this, other);
 	}
 
 	/**
