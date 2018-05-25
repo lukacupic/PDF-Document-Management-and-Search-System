@@ -8,6 +8,7 @@ import hr.fer.zemris.zavrsni.model.Vector;
 import hr.fer.zemris.zavrsni.readers.TextReader;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.FileVisitResult;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,9 +22,13 @@ import java.util.Map;
 
 public abstract class RankingFunction {
 
-	public static DatasetInfo datasetInfo;
+	public static DatasetInfo datasetInfo = new DatasetInfo();
 
 	private static RankingFunction current;
+
+	public RankingFunction() {
+		current = this;
+	}
 
 	/**
 	 * Creates a new {@link RankingFunction} function.
@@ -32,8 +37,9 @@ public abstract class RankingFunction {
 	 * @throws IOException if an I/O error occurs
 	 */
 	public RankingFunction(Path dataset) throws IOException {
+		this();
 		init(dataset);
-		current = this;
+		//SerializationUtil.serialize(datasetInfo, "src/main/resources/datasetInfo.ser");
 	}
 
 	// abstract methods
@@ -117,7 +123,7 @@ public abstract class RankingFunction {
 				List<String> words = InputProcessor.process();
 
 				Document doc = new Document(path, createTFVector(words), null, words.size());
-				datasetInfo.documents.put(path, doc);
+				datasetInfo.documents.put(path.toString(), doc);
 
 				// Update wordFrequency for each word
 				words.stream().distinct().forEach(word ->
@@ -175,7 +181,10 @@ public abstract class RankingFunction {
 		return current;
 	}
 
-	public static class DatasetInfo {
+	public static class DatasetInfo implements Serializable {
+
+		private static final long serialVersionUID = 1L;
+
 		/**
 		 * The collection of all words from all the documents (aka. dataset).
 		 * Each word maps to it's position (i.e. index) in the vocabulary.
@@ -192,7 +201,7 @@ public abstract class RankingFunction {
 		 * A map of all the documents, mapped to by their appropriate file system
 		 * paths.
 		 */
-		public Map<Path, Document> documents = new LinkedHashMap<>();
+		public Map<String, Document> documents = new LinkedHashMap<>();
 
 		/**
 		 * A helper IDF vector which holds the IDF components for each of the

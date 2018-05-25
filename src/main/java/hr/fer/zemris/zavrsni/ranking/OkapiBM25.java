@@ -29,6 +29,10 @@ public class OkapiBM25 extends RankingFunction {
 	 */
 	private static final double b = 0.75;
 
+	public OkapiBM25() {
+		super();
+	}
+
 	/**
 	 * Creates a new {@link CosineSimilarity} function.
 	 *

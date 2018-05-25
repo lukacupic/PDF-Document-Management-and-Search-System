@@ -1,12 +1,14 @@
 package hr.fer.zemris.zavrsni;
 
+import hr.fer.zemris.zavrsni.model.Document;
 import hr.fer.zemris.zavrsni.model.Result;
 import hr.fer.zemris.zavrsni.ranking.CosineSimilarity;
 import hr.fer.zemris.zavrsni.ranking.RankingFunction;
 import hr.fer.zemris.zavrsni.readers.ConsoleReader;
+import hr.fer.zemris.zavrsni.util.SerializationUtil;
 
 import java.io.IOException;
-import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -39,16 +41,21 @@ public class Main {
 	 *             with documents
 	 */
 	public static void main(String[] args) {
-		try {
-			System.out.println("Initializing, please wait...");
-			long t1 = System.currentTimeMillis();
-			function = new CosineSimilarity(Paths.get(args[0]));
-			long t2 = System.currentTimeMillis();
-			System.out.printf("Dataset loaded in %d seconds.\n\n", (t2 - t1) / 1000);
-		} catch (IOException e) {
-			System.out.println("Initialization error! " + e);
-			System.exit(0);
-		}
+//		try {
+		System.out.println("Initializing, please wait...");
+		long t1 = System.currentTimeMillis();
+		//function = new CosineSimilarity(Paths.get(args[0]));
+
+		function = new CosineSimilarity();
+		RankingFunction.datasetInfo = (RankingFunction.DatasetInfo) SerializationUtil.deserialize("src/main/resources/info.ser");
+		List<Document> documents = new ArrayList<>(RankingFunction.datasetInfo.documents.values());
+
+		long t2 = System.currentTimeMillis();
+		System.out.printf("Dataset loaded in %d seconds.\n\n", (t2 - t1) / 1000);
+//		} catch (IOException e) {
+//			System.out.println("Initialization error! " + e);
+//			System.exit(0);
+//		}
 
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Query: ");

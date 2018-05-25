@@ -19,6 +19,10 @@ import java.util.List;
  */
 public class CosineSimilarity extends RankingFunction {
 
+	public CosineSimilarity() {
+		super();
+	}
+
 	/**
 	 * Creates a new {@link CosineSimilarity} function.
 	 *

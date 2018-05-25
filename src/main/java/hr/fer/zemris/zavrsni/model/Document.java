@@ -2,7 +2,9 @@ package hr.fer.zemris.zavrsni.model;
 
 import hr.fer.zemris.zavrsni.ranking.RankingFunction;
 
+import java.io.Serializable;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * This class represents a single document from the collection.
@@ -12,12 +14,14 @@ import java.nio.file.Path;
  *
  * @author Luka Čupić
  */
-public class Document {
+public class Document implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Represents the file system path to the document.
 	 */
-	private Path path;
+	private String path;
 
 	/**
 	 * Represents the TF-IDF vector for the document.
@@ -45,7 +49,7 @@ public class Document {
 	 * @param length the length of the document (in words)
 	 */
 	public Document(Path path, Vector tf, Vector tfidf, long length) {
-		this.path = path != null ? path.toAbsolutePath() : null;
+		this.path = path != null ? path.toAbsolutePath().toString() : null;
 		this.tfVector = tf;
 		this.vector = tfidf;
 		this.length = length;
@@ -73,7 +77,7 @@ public class Document {
 	 * @return the path to the document
 	 */
 	public Path getPath() {
-		return path;
+		return Paths.get(path);
 	}
 
 	/**

@@ -1,11 +1,15 @@
 package hr.fer.zemris.zavrsni.model;
 
+import java.io.Serializable;
+
 /**
  * This class represents an immutable N-dimensional vector.
  *
  * @author Luka Cupic
  */
-public class Vector {
+public class Vector implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Represents the values of this vector.

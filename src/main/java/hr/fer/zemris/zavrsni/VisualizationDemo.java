@@ -7,31 +7,34 @@ import edu.uci.ics.jung.visualization.VisualizationViewer;
 import hr.fer.zemris.zavrsni.model.Document;
 import hr.fer.zemris.zavrsni.ranking.CosineSimilarity;
 import hr.fer.zemris.zavrsni.ranking.RankingFunction;
+import hr.fer.zemris.zavrsni.util.SerializationUtil;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
 import java.awt.*;
-import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author Luka Cupic
  */
-public class FDGDemo {
+public class VisualizationDemo {
 
 	private static final double threshold = 0.2;
 
 	public static void main(String[] args) {
 		RankingFunction function;
-		try {
-			String path = "/media/chup0x/Data/FER/6. semestar/Završni rad/Corpus/dataset_txt_simple";
-			function = new CosineSimilarity(Paths.get(path));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			String path = "/media/chup0x/Data/FER/6. semestar/Završni rad/Corpus/dataset_txt_simple";
+//			function = new CosineSimilarity(Paths.get(path));
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//		SerializationUtil.serialize(RankingFunction.datasetInfo, "src/main/resources/info.ser");
+//		System.exit(1);
 
+		function = new CosineSimilarity();
+		RankingFunction.datasetInfo = (RankingFunction.DatasetInfo) SerializationUtil.deserialize("src/main/resources/info.ser");
 		List<Document> documents = new ArrayList<>(RankingFunction.datasetInfo.documents.values());
 
 		Graph<Document, Edge> g = new DirectedSparseGraph<>();
@@ -44,7 +47,7 @@ public class FDGDemo {
 				Document d1 = documents.get(i);
 				Document d2 = documents.get(j);
 
-				if (d1.sim(d2)/d1.sim(d1) > threshold) {
+				if (d1.sim(d2) / d1.sim(d1) > threshold) {
 					g.addEdge(new Edge(1), d1, d2);
 				}
 			}

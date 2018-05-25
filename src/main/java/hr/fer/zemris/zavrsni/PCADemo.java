@@ -59,7 +59,7 @@ public class PCADemo extends Application {
 //				{3, 3, 3, 3}
 //		});
 
-		//vals = SerializationUtil.deserializeDocMatrix();
+		//vals = SerializationUtil.deserialize();
 		//INDArray real = Nd4j.create(vals);
 		INDArray p = PCA.pca(rand2, 2, true);
 		System.out.println("Done PCA");
