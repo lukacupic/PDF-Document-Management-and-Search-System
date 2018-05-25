@@ -1,7 +1,7 @@
 package hr.fer.zemris.zavrsni;
 
 import hr.fer.zemris.zavrsni.readers.DocumentReader;
-import hr.fer.zemris.zavrsni.util.Stemmer2;
+import hr.fer.zemris.zavrsni.util.Stemmer;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,7 +27,7 @@ public class InputProcessor {
 	/**
 	 * The word stemmer.
 	 */
-	private static Stemmer2 stemmer = new Stemmer2();
+	private static Stemmer stemmer = new Stemmer();
 
 	/**
 	 * The document reader.

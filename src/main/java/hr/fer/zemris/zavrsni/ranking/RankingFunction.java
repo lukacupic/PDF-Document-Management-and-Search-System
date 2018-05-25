@@ -6,6 +6,7 @@ import hr.fer.zemris.zavrsni.model.Document;
 import hr.fer.zemris.zavrsni.model.Result;
 import hr.fer.zemris.zavrsni.model.Vector;
 import hr.fer.zemris.zavrsni.readers.TextReader;
+import hr.fer.zemris.zavrsni.util.IOUtils;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -26,6 +27,10 @@ public abstract class RankingFunction {
 
 	private static RankingFunction current;
 
+	/**
+	 * The default constructor. Used when constructing the object
+	 * through deserialization.
+	 */
 	public RankingFunction() {
 		current = this;
 	}
@@ -39,7 +44,8 @@ public abstract class RankingFunction {
 	public RankingFunction(Path dataset) throws IOException {
 		this();
 		init(dataset);
-		//SerializationUtil.serialize(datasetInfo, "src/main/resources/datasetInfo.ser");
+		// we're here the first time, so serialize the dataset info
+		IOUtils.serialize(datasetInfo, Main.DATASET_INFO_PATH);
 	}
 
 	// abstract methods

@@ -29,6 +29,10 @@ public class OkapiBM25 extends RankingFunction {
 	 */
 	private static final double b = 0.75;
 
+	/**
+	 * The default constructor. Used when constructing the object
+	 * through deserialization.
+	 */
 	public OkapiBM25() {
 		super();
 	}

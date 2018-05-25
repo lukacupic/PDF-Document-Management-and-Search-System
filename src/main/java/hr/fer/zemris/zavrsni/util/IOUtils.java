@@ -5,13 +5,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * @author Luka Cupic
  */
-public class SerializationUtil {
-
-	public static final String DATASET_INFO_PATH = "src/main/resources/info.ser";
+public class IOUtils {
 
 	public static <T> void serialize(T object, String path) {
 		try (FileOutputStream fos = new FileOutputStream(path);
@@ -32,5 +34,16 @@ public class SerializationUtil {
 		} catch (Exception e) {
 		}
 		return object;
+	}
+
+	public static String readFromTextFile(String path) throws IOException {
+		return new String(Files.readAllBytes(Paths.get(path)), StandardCharsets.UTF_8);
+	}
+
+	public static void writeToTextFile(String path, String data) throws IOException {
+		PrintWriter pw = new PrintWriter(path);
+		pw.write(data);
+		pw.flush();
+		pw.close();
 	}
 }

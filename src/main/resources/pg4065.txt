@@ -373,7 +373,7 @@ opposite	that	of	the	sun.	It	is	so	faint	that	it	can	be	seen	only	by	a	practised
 most	favorable	conditions.	But	it	is	always	there.	The	latest	suggestion	is	that	it	is	a	tail	of
 the	earth,	of	the	same	kind	as	the	tail	of	a	comet!
 We	 know	 that	 the	 motions	 of	 the	 heavenly	 bodies	 are	 predicted	 with	 extraordinary
-exactness	by	the	theory	of	gravitation.	When	one	finds	that	the	exact	path	of	the	moon’s
+exactness	by	the	theory	of	gravitation.	When	one	finds	that	the	exact	directory	of	the	moon’s
 shadow	on	 the	earth	during	a	 total	eclipse	of	 the	sun	can	be	mapped	out	many	years	 in
 advance,	and	 that	 the	planets	 follow	the	predictions	of	 the	astronomer	so	closely	 that,	 if
 you	 could	 see	 the	 predicted	 planet	 as	 a	 separate	 object,	 it	 would	 look,	 even	 in	 a	 good
@@ -2317,7 +2317,7 @@ show	 that	 she	 is	deviating	 from	her	predicted	place,	and	 that	 this	deviati
 increase.	True,	 it	 is	not	very	great	when	measured	by	an	ordinary	standard.	The	 time	at
 which	 the	moon’s	 shadow	passed	 a	given	point	 near	Norfolk	during	 the	 total	 eclipse	of
 May	 29,	 1900,	 was	 only	 about	 seven	 seconds	 different	 from	 the	 time	 given	 in	 the
-Astronomical	Ephemeris.	The	path	of	the	shadow	along	the	earth	was	not	out	of	place	by
+Astronomical	Ephemeris.	The	directory	of	the	shadow	along	the	earth	was	not	out	of	place	by
 more	 than	 one	 or	 two	 miles	 But,	 small	 though	 these	 deviations	 are,	 they	 show	 that
 something	is	wrong,	and	no	one	has	as	yet	found	out	what	it	is.	Worse	yet,	the	deviation	is
 increasing	 rapidly.	The	observers	of	 the	 total	eclipse	 in	August,	1905,	were	surprised	 to
@@ -2672,7 +2672,7 @@ determined	 by	 its	 attraction	 on	 some	 other	 body.	 There	 are	 two	 ways	 
 attraction	of	a	planet	may	be	measured.	One	is	by	its	attraction	on	the	planets	next	to	it.	If
 these	bodies	did	not	attract	one	another	at	all,	but	only	moved	under	the	influence	of	the
 sun,	they	would	move	in	orbits	having	the	form	of	ellipses.	They	are	found	to	move	very
-nearly	in	such	orbits,	only	the	actual	path	deviates	from	an	ellipse,	now	in	one	direction
+nearly	in	such	orbits,	only	the	actual	directory	deviates	from	an	ellipse,	now	in	one	direction
 and	then	in	another,	and	it	slowly	changes	its	position	from	year	to	year.	These	deviations
 are	due	to	the	pull	of	the	other	planets,	and	by	measuring	the	deviations	we	can	determine
 the	amount	of	the	pull,	and	hence	the	mass	of	the	planet.
@@ -2687,10 +2687,10 @@ thrown	from	the	hand.	If	the	stone	were	not	attracted	by	the	earth,	it	would	go	
 in	the	line	of	throw,	and	leave	the	earth	entirely.	But	under	the	attraction	of	the	earth,	it	is
 drawn	down	and	down,	as	it	travels	onward,	until	finally	it	reaches	the	ground.	The	faster
 the	stone	is	thrown,	of	course,	the	farther	it	will	go,	and	the	greater	will	be	the	sweep	of
-the	curve	of	its	path.	If	it	were	a	cannon-ball,	the	first	part	of	the	curve	would	be	nearly	a
+the	curve	of	its	directory.	If	it	were	a	cannon-ball,	the	first	part	of	the	curve	would	be	nearly	a
 right	line.	If	we	could	fire	a	cannon-ball	horizontally	from	the	top	of	a	high	mountain	with
 a	velocity	of	five	miles	a	second,	and	if	it	were	not	resisted	by	the	air,	the	curvature	of	the
-path	would	be	equal	to	that	of	the	surface	of	our	earth,	and	so	the	ball	would	never	reach
+directory	would	be	equal	to	that	of	the	surface	of	our	earth,	and	so	the	ball	would	never	reach
 the	earth,	but	would	revolve	round	it	like	a	little	satellite	in	an	orbit	of	its	own.	Could	this
 be	done,	the	astronomer	would	be	able,	knowing	the	velocity	of	the	ball,	to	calculate	the
 attraction	 of	 the	 earth	 as	 well	 as	 we	 determine	 it	 by	 actually	 observing	 the	 motion	 of

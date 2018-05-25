@@ -7,7 +7,7 @@ import edu.uci.ics.jung.visualization.VisualizationViewer;
 import hr.fer.zemris.zavrsni.model.Document;
 import hr.fer.zemris.zavrsni.ranking.CosineSimilarity;
 import hr.fer.zemris.zavrsni.ranking.RankingFunction;
-import hr.fer.zemris.zavrsni.util.SerializationUtil;
+import hr.fer.zemris.zavrsni.util.IOUtils;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;
@@ -30,11 +30,11 @@ public class VisualizationDemo {
 //		} catch (IOException e) {
 //			e.printStackTrace();
 //		}
-//		SerializationUtil.serialize(RankingFunction.datasetInfo, "src/main/resources/info.ser");
+//		IOUtils.serialize(RankingFunction.datasetInfo, "src/main/resources/info.ser");
 //		System.exit(1);
 
 		function = new CosineSimilarity();
-		RankingFunction.datasetInfo = (RankingFunction.DatasetInfo) SerializationUtil.deserialize("src/main/resources/info.ser");
+		RankingFunction.datasetInfo = (RankingFunction.DatasetInfo) IOUtils.deserialize("src/main/resources/info.ser");
 		List<Document> documents = new ArrayList<>(RankingFunction.datasetInfo.documents.values());
 
 		Graph<Document, Edge> g = new DirectedSparseGraph<>();

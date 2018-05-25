@@ -19,6 +19,10 @@ import java.util.List;
  */
 public class CosineSimilarity extends RankingFunction {
 
+	/**
+	 * The default constructor. Used when constructing the object
+	 * through deserialization.
+	 */
 	public CosineSimilarity() {
 		super();
 	}
