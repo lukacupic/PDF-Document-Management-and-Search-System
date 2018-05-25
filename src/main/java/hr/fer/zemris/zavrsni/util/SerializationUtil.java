@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
 /**
  * @author Luka Cupic
  */
-public class SerializeUtil {
+public class SerializationUtil {
 
 	public static void searilizeDocMatrix(double[][] documentsMatrix) {
 		try {

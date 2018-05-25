@@ -21,29 +21,7 @@ import java.util.Map;
 
 public abstract class RankingFunction {
 
-	/**
-	 * The collection of all words from all the documents (aka. dataset).
-	 * Each word maps to it's position (i.e. index) in the vocabulary.
-	 */
-	public static Map<String, Integer> vocabulary = new HashMap<>();
-
-	/**
-	 * Holds the number of occurrences in the documents for each word from
-	 * the vocabulary.
-	 */
-	protected static Map<String, Integer> wordFrequency = new LinkedHashMap<>();
-
-	/**
-	 * A map of all the documents, mapped to by their appropriate file system
-	 * paths.
-	 */
-	public static Map<Path, Document> documents = new LinkedHashMap<>();
-
-	/**
-	 * A helper IDF vector which holds the IDF components for each of the
-	 * words from the vocabulary.
-	 */
-	protected Vector idf;
+	public static DatasetInfo datasetInfo;
 
 	private static RankingFunction current;
 
@@ -110,8 +88,8 @@ public abstract class RankingFunction {
 			public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
 				InputProcessor.setReader(new TextReader(path));
 				for (String word : InputProcessor.process()) {
-					if (vocabulary.containsKey(word)) continue;
-					vocabulary.put(word, -1);
+					if (datasetInfo.vocabulary.containsKey(word)) continue;
+					datasetInfo.vocabulary.put(word, -1);
 				}
 				return FileVisitResult.CONTINUE;
 			}
@@ -119,13 +97,13 @@ public abstract class RankingFunction {
 
 		// After the vocabulary has been created, iterate it and store
 		// the index of each word as the word's value in the vocabulary map
-		List<String> words = new ArrayList<>(vocabulary.keySet());
-		vocabulary.keySet().forEach(key -> vocabulary.put(key, words.indexOf(key)));
+		List<String> words = new ArrayList<>(datasetInfo.vocabulary.keySet());
+		datasetInfo.vocabulary.keySet().forEach(key -> datasetInfo.vocabulary.put(key, words.indexOf(key)));
 	}
 
 	/**
 	 * Creates the TF vectors for all documents in the dataset (which are
-	 * then added to the {@link #documents } map) and fills {@link #wordFrequency}
+	 * then added to the {@link DatasetInfo#documents} map) and fills {@link DatasetInfo#wordFrequency}
 	 * with values obtained from the documents.
 	 *
 	 * @param path the path to the folder containing the documents
@@ -139,11 +117,11 @@ public abstract class RankingFunction {
 				List<String> words = InputProcessor.process();
 
 				Document doc = new Document(path, createTFVector(words), null, words.size());
-				documents.put(path, doc);
+				datasetInfo.documents.put(path, doc);
 
 				// Update wordFrequency for each word
 				words.stream().distinct().forEach(word ->
-						wordFrequency.merge(word, 1, (a, b) -> a + b)
+						datasetInfo.wordFrequency.merge(word, 1, (a, b) -> a + b)
 				);
 
 				return FileVisitResult.CONTINUE;
@@ -160,9 +138,9 @@ public abstract class RankingFunction {
 	 * @return the TF vector representation of the given document
 	 */
 	protected Vector createTFVector(List<String> words) {
-		double[] values = new double[vocabulary.size()];
+		double[] values = new double[datasetInfo.vocabulary.size()];
 		for (String word : words) {
-			Integer wordIndex = vocabulary.get(word);
+			Integer wordIndex = datasetInfo.vocabulary.get(word);
 			if (wordIndex == null) continue;
 			values[wordIndex]++;
 		}
@@ -174,17 +152,17 @@ public abstract class RankingFunction {
 	 * frequencies in all of the documents.
 	 */
 	protected void createIDFVector() {
-		double[] values = new double[vocabulary.size()];
+		double[] values = new double[datasetInfo.vocabulary.size()];
 
-		for (String word : vocabulary.keySet()) {
-			Integer freq = wordFrequency.get(word);
+		for (String word : datasetInfo.vocabulary.keySet()) {
+			Integer freq = datasetInfo.wordFrequency.get(word);
 			if (freq == null) continue;
-			values[vocabulary.get(word)] = Math.log(documents.size() / (double) freq);
+			values[datasetInfo.vocabulary.get(word)] = Math.log(datasetInfo.documents.size() / (double) freq);
 		}
-		idf = new Vector(values);
+		datasetInfo.idf = new Vector(values);
 
-		for (Document d : documents.values()) {
-			d.setVector(Vector.multiply(d.getTFVector(), idf));
+		for (Document d : datasetInfo.documents.values()) {
+			d.setVector(Vector.multiply(d.getTFVector(), datasetInfo.idf));
 		}
 	}
 
@@ -195,5 +173,31 @@ public abstract class RankingFunction {
 	 */
 	public static RankingFunction getCurrent() {
 		return current;
+	}
+
+	public static class DatasetInfo {
+		/**
+		 * The collection of all words from all the documents (aka. dataset).
+		 * Each word maps to it's position (i.e. index) in the vocabulary.
+		 */
+		public Map<String, Integer> vocabulary = new HashMap<>();
+
+		/**
+		 * Holds the number of occurrences in the documents for each word from
+		 * the vocabulary.
+		 */
+		public Map<String, Integer> wordFrequency = new LinkedHashMap<>();
+
+		/**
+		 * A map of all the documents, mapped to by their appropriate file system
+		 * paths.
+		 */
+		public Map<Path, Document> documents = new LinkedHashMap<>();
+
+		/**
+		 * A helper IDF vector which holds the IDF components for each of the
+		 * words from the vocabulary.
+		 */
+		public Vector idf;
 	}
 }

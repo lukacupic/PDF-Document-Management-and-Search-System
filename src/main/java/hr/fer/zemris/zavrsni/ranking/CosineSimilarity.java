@@ -33,11 +33,11 @@ public class CosineSimilarity extends RankingFunction {
 	public List<Result> process(List<String> words) {
 		// create document from the query
 		Vector tf = createTFVector(words);
-		Document inputDoc = new Document(null, null, Vector.multiply(tf, idf), 0);
+		Document inputDoc = new Document(null, null, Vector.multiply(tf, datasetInfo.idf), 0);
 
 		// get the results
 		List<Result> results = new ArrayList<>();
-		for (Document d : documents.values()) {
+		for (Document d : datasetInfo.documents.values()) {
 			results.add(new Result(inputDoc.sim(d), d));
 		}
 		results.sort(Comparator.reverseOrder());

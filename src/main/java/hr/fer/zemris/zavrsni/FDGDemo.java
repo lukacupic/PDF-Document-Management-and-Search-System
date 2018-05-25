@@ -32,7 +32,7 @@ public class FDGDemo {
 			e.printStackTrace();
 		}
 
-		List<Document> documents = new ArrayList<>(RankingFunction.documents.values());
+		List<Document> documents = new ArrayList<>(RankingFunction.datasetInfo.documents.values());
 
 		Graph<Document, Edge> g = new DirectedSparseGraph<>();
 		documents.forEach(g::addVertex);

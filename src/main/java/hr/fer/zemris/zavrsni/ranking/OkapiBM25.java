@@ -45,7 +45,7 @@ public class OkapiBM25 extends RankingFunction {
 
 		// calculate the results
 		List<Result> results = new ArrayList<>();
-		for (Document d : documents.values()) {
+		for (Document d : datasetInfo.documents.values()) {
 			double score = processOne(words, d, avgdl);
 			results.add(new Result(score, d));
 		}
@@ -57,7 +57,7 @@ public class OkapiBM25 extends RankingFunction {
 	private static double processOne(List<String> words, Document d, double avgdl) {
 		double score = 0;
 		for (String w : words) {
-			Integer wordIndex = vocabulary.get(w);
+			Integer wordIndex = datasetInfo.vocabulary.get(w);
 			if (wordIndex == null) continue;
 
 			double freq = d.getTFVector().get(wordIndex);
@@ -74,7 +74,7 @@ public class OkapiBM25 extends RankingFunction {
 	 * @return the avgdl value, as defined in the BM25 method
 	 */
 	private static double calculateAvgdl() {
-		return documents.values().stream()
+		return datasetInfo.documents.values().stream()
 				.mapToLong(Document::getLength)
 				.average()
 				.getAsDouble();
@@ -89,15 +89,15 @@ public class OkapiBM25 extends RankingFunction {
 	 * word
 	 */
 	private static double calculateIDF(String word) {
-		int freq = wordFrequency.get(word);
+		int freq = datasetInfo.wordFrequency.get(word);
 		//return Math.log((documents.size() - freq + 0.5) / (freq + 0.5));
-		return Math.log(documents.size() / (double) freq);
+		return Math.log(datasetInfo.documents.size() / (double) freq);
 	}
 
 	private static List<String> getWordsFrom(Document d) {
 		List<String> words = new ArrayList<>();
 
-		for (Map.Entry<String, Integer> e : RankingFunction.vocabulary.entrySet()) {
+		for (Map.Entry<String, Integer> e : datasetInfo.vocabulary.entrySet()) {
 			if (d.getVector().getValues()[e.getValue()] != 0) {
 				words.add(e.getKey());
 			}
