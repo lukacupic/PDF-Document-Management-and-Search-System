@@ -11,6 +11,13 @@ import java.nio.file.SimpleFileVisitor;
 import java.nio.file.attribute.BasicFileAttributes;
 
 /**
+ * A recursive directory visitor responsible for calculating the
+ * MD5 hash of an arbitrary directory.
+ * <p>
+ * The visitor automatically starts traversing the given directory
+ * upon instantiation; there is no need (nor way) to perform this
+ * manually.
+ *
  * @author Luka Cupic
  */
 public class MD5Visitor extends SimpleFileVisitor<Path> {
@@ -21,12 +28,13 @@ public class MD5Visitor extends SimpleFileVisitor<Path> {
 	private StringBuilder md5 = new StringBuilder();
 
 	/**
-	 * The path of the directory to visit.
+	 * Creates a new {@link MD5Visitor}.
+	 *
+	 * @param directory the directory to visit
+	 * @throws IOException if an error occurs while performing
+	 *                     the traversal of the directory
 	 */
-	private Path directory;
-
 	public MD5Visitor(Path directory) throws IOException {
-		this.directory = directory;
 		Files.walkFileTree(directory, this);
 	}
 
@@ -41,6 +49,11 @@ public class MD5Visitor extends SimpleFileVisitor<Path> {
 		return FileVisitResult.CONTINUE;
 	}
 
+	/**
+	 * Returns the calculated MD5 hash value.
+	 *
+	 * @return the MD5 hash
+	 */
 	public String getMd5() {
 		return md5.toString();
 	}

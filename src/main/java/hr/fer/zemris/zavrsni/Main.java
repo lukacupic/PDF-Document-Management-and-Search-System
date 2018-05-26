@@ -77,6 +77,15 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Checks if the dataset serialization file exists and whether the
+	 * MD5 hash file matches the current hash.
+	 *
+	 * @param dataset the path to the dataset
+	 * @return true iff the serialized file exists and the MD5 hashes
+	 * match
+	 * @throws IOException if an error occurs while reading the files
+	 */
 	private static boolean isDatasetCorrect(Path dataset) throws IOException {
 		String md5 = new MD5Visitor(dataset).getMd5();
 		String md5Real;
@@ -100,6 +109,16 @@ public class Main {
 		}
 	}
 
+	/**
+	 * Initializes the dataset information.
+	 * The method recovers the dataset info from the serialized file,
+	 * if any, or recreates the dataset info from scratch and stores
+	 * it in the serialized file for later use.
+	 *
+	 * @param dataset the path to the dataset
+	 * @return the ranking function responsible for comparing the documents
+	 * @throws IOException if an error occurs while initializing the dataset
+	 */
 	private static RankingFunction init(Path dataset) throws IOException {
 		RankingFunction function;
 
