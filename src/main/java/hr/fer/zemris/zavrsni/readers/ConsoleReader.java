@@ -1,6 +1,6 @@
 package hr.fer.zemris.zavrsni.readers;
 
-import hr.fer.zemris.zavrsni.util.TextUtil;
+import hr.fer.zemris.zavrsni.utils.TextUtil;
 
 import java.util.List;
 

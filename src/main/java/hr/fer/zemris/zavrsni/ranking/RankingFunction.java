@@ -5,8 +5,9 @@ import hr.fer.zemris.zavrsni.Main;
 import hr.fer.zemris.zavrsni.model.Document;
 import hr.fer.zemris.zavrsni.model.Result;
 import hr.fer.zemris.zavrsni.model.Vector;
+import hr.fer.zemris.zavrsni.readers.FileReader;
 import hr.fer.zemris.zavrsni.readers.TextReader;
-import hr.fer.zemris.zavrsni.util.IOUtils;
+import hr.fer.zemris.zavrsni.utils.IOUtils;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -23,16 +24,29 @@ import java.util.Map;
 
 public abstract class RankingFunction {
 
+	/**
+	 * The object holding all the information about the function
+	 * dataset.
+	 */
 	public static DatasetInfo datasetInfo = new DatasetInfo();
 
-	private static RankingFunction current;
+	/**
+	 * The ranking function used to compare the documents.
+	 */
+	private static RankingFunction function;
+
+	/**
+	 * The concrete reader responsible for reading the documents
+	 * from the dataset.
+	 */
+	private static FileReader reader = new TextReader();
 
 	/**
 	 * The default constructor. Used when constructing the object
 	 * through deserialization.
 	 */
 	public RankingFunction() {
-		current = this;
+		function = this;
 	}
 
 	/**
@@ -48,7 +62,8 @@ public abstract class RankingFunction {
 		IOUtils.serialize(datasetInfo, Main.DATASET_INFO_PATH);
 	}
 
-	// abstract methods
+
+	// ----------------------------- abstract methods -----------------------------
 
 	/**
 	 * Parses the given query, processes it, and returns a list of results.
@@ -67,7 +82,8 @@ public abstract class RankingFunction {
 	 */
 	public abstract double sim(Document d1, Document d2);
 
-	// non-abstract methods
+	// -------------------------- end of abstract methods --------------------------
+
 
 	/**
 	 * Initializes the program.
@@ -77,8 +93,8 @@ public abstract class RankingFunction {
 	 */
 	private void init(Path path) throws IOException {
 		// Initialize document reading mechanism
-		//processor = new InputProcessor(Main.STOP_WORDS_PATH);
 		InputProcessor.setStopWords(Main.STOP_WORDS_PATH);
+		InputProcessor.setReader(reader);
 
 		// Initialize the dataset
 		createVocabulary(path);
@@ -98,8 +114,8 @@ public abstract class RankingFunction {
 		Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
 			@Override
 			public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-				InputProcessor.setReader(new TextReader(path));
-				for (String word : InputProcessor.process()) {
+				List<String> words = readWords(path);
+				for (String word : words) {
 					if (datasetInfo.vocabulary.containsKey(word)) continue;
 					datasetInfo.vocabulary.put(word, -1);
 				}
@@ -125,8 +141,7 @@ public abstract class RankingFunction {
 		Files.walkFileTree(path, new SimpleFileVisitor<Path>() {
 			@Override
 			public FileVisitResult visitFile(Path path, BasicFileAttributes attrs) throws IOException {
-				InputProcessor.setReader(new TextReader(path));
-				List<String> words = InputProcessor.process();
+				List<String> words = readWords(path);
 
 				Document doc = new Document(path, createTFVector(words), null, words.size());
 				datasetInfo.documents.put(path.toString(), doc);
@@ -135,11 +150,24 @@ public abstract class RankingFunction {
 				words.stream().distinct().forEach(word ->
 						datasetInfo.wordFrequency.merge(word, 1, (a, b) -> a + b)
 				);
-
 				return FileVisitResult.CONTINUE;
 			}
 		});
 		createIDFVector();
+	}
+
+	/**
+	 * Returns a list of filtered (removal of stop words, stemming etc.) words
+	 * read from the given document by the current InputProcessor.
+	 *
+	 * @param path the path to the document to read
+	 * @return a list of words extracted from the document
+	 * @throws IOException if the document cannot be read
+	 */
+	private List<String> readWords(Path path) throws IOException {
+		// implicitly change the document the InputProcessor is reading
+		reader.setPath(path);
+		return InputProcessor.process();
 	}
 
 	/**
@@ -179,14 +207,19 @@ public abstract class RankingFunction {
 	}
 
 	/**
-	 * Retrieve the current ranking function.
+	 * Retrieve the function ranking function.
 	 *
-	 * @return current ranking function
+	 * @return function ranking function
 	 */
 	public static RankingFunction getCurrent() {
-		return current;
+		return function;
 	}
 
+	/**
+	 * Holds all the relevant information about the dataset.
+	 *
+	 * @author Luka Cupic
+	 */
 	public static class DatasetInfo implements Serializable {
 
 		private static final long serialVersionUID = 1L;

@@ -4,8 +4,8 @@ import hr.fer.zemris.zavrsni.model.Result;
 import hr.fer.zemris.zavrsni.ranking.CosineSimilarity;
 import hr.fer.zemris.zavrsni.ranking.RankingFunction;
 import hr.fer.zemris.zavrsni.readers.ConsoleReader;
-import hr.fer.zemris.zavrsni.util.IOUtils;
-import hr.fer.zemris.zavrsni.util.MD5Visitor;
+import hr.fer.zemris.zavrsni.utils.IOUtils;
+import hr.fer.zemris.zavrsni.utils.MD5Visitor;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,7 +39,7 @@ public class Main {
 	/**
 	 * The path to the dataset directory MD5 hash file.
 	 */
-	public static final String MD5_PATH = "src/main/resources/md5.txt";
+	private static final String MD5_PATH = "src/main/resources/md5.txt";
 
 	/**
 	 * The function to perform the ranking of the documents.

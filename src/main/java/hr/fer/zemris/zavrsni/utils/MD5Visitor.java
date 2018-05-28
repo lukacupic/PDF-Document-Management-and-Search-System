@@ -1,4 +1,4 @@
-package hr.fer.zemris.zavrsni.util;
+package hr.fer.zemris.zavrsni.utils;
 
 import org.apache.commons.codec.digest.DigestUtils;
 

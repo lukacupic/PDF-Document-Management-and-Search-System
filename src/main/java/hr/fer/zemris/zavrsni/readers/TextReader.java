@@ -1,6 +1,6 @@
 package hr.fer.zemris.zavrsni.readers;
 
-import hr.fer.zemris.zavrsni.util.TextUtil;
+import hr.fer.zemris.zavrsni.utils.TextUtil;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -8,15 +8,20 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-public class TextReader implements DocumentReader {
-
-	private Path path;
+public class TextReader extends FileReader {
 
 	/**
-	 * Creates a new TextReader.
+	 * The default constructor.
+	 */
+	public TextReader() {
+		super();
+	}
+
+	/**
+	 * Creates a new {@link TextReader} object.
 	 */
 	public TextReader(Path path) {
-		this.path = path;
+		super(path);
 	}
 
 	@Override
@@ -26,13 +31,5 @@ public class TextReader implements DocumentReader {
 		}
 		String text = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
 		return TextUtil.getWordsFromText(text);
-	}
-
-	public Path getPath() {
-		return path;
-	}
-
-	public void setPath(Path path) {
-		this.path = path;
 	}
 }

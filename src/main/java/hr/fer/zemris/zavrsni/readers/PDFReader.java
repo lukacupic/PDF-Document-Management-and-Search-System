@@ -1,6 +1,6 @@
 package hr.fer.zemris.zavrsni.readers;
 
-import hr.fer.zemris.zavrsni.util.TextUtil;
+import hr.fer.zemris.zavrsni.utils.TextUtil;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
@@ -8,15 +8,13 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 
-public class PDFReader implements DocumentReader {
-
-	private Path path;
+public class PDFReader extends FileReader {
 
 	/**
 	 * Creates a new PDFReader.
 	 */
 	public PDFReader(Path path) {
-		this.path = path;
+		super(path);
 	}
 
 	@Override
@@ -28,13 +26,5 @@ public class PDFReader implements DocumentReader {
 			String text = new PDFTextStripper().getText(doc);
 			return TextUtil.getWordsFromText(text);
 		}
-	}
-
-	public Path getPath() {
-		return path;
-	}
-
-	public void setPath(Path path) {
-		this.path = path;
 	}
 }

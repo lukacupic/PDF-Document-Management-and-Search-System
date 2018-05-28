@@ -1,7 +1,7 @@
 package hr.fer.zemris.zavrsni;
 
 import hr.fer.zemris.zavrsni.ranking.RankingFunction;
-import hr.fer.zemris.zavrsni.util.VectorUtil;
+import hr.fer.zemris.zavrsni.utils.VectorUtil;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.chart.NumberAxis;

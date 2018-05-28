@@ -7,7 +7,7 @@ import edu.uci.ics.jung.visualization.VisualizationViewer;
 import hr.fer.zemris.zavrsni.model.Document;
 import hr.fer.zemris.zavrsni.ranking.CosineSimilarity;
 import hr.fer.zemris.zavrsni.ranking.RankingFunction;
-import hr.fer.zemris.zavrsni.util.IOUtils;
+import hr.fer.zemris.zavrsni.utils.IOUtils;
 
 import javax.swing.JFrame;
 import javax.swing.WindowConstants;

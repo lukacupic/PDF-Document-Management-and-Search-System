@@ -1,4 +1,4 @@
-package hr.fer.zemris.zavrsni.util;
+package hr.fer.zemris.zavrsni.utils;
 
 import hr.fer.zemris.zavrsni.model.Vector;
 import org.nd4j.linalg.api.ndarray.INDArray;
