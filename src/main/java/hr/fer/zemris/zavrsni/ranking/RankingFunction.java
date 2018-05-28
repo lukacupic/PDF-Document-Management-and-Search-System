@@ -6,7 +6,7 @@ import hr.fer.zemris.zavrsni.model.Document;
 import hr.fer.zemris.zavrsni.model.Result;
 import hr.fer.zemris.zavrsni.model.Vector;
 import hr.fer.zemris.zavrsni.readers.FileReader;
-import hr.fer.zemris.zavrsni.readers.PDFReader;
+import hr.fer.zemris.zavrsni.readers.TextReader;
 import hr.fer.zemris.zavrsni.utils.IOUtils;
 
 import java.io.IOException;
@@ -39,7 +39,7 @@ public abstract class RankingFunction {
 	 * The concrete reader responsible for reading the documents
 	 * from the dataset.
 	 */
-	private static FileReader reader = new PDFReader();
+	private static FileReader reader = new TextReader();
 
 	/**
 	 * The default constructor. Used when constructing the object

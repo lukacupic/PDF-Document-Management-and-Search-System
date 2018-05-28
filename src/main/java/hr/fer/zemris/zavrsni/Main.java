@@ -34,12 +34,12 @@ public class Main {
 	/**
 	 * The path to the serialized dataset file.
 	 */
-	public static final String DATASET_INFO_PATH = "src/main/resources/info.ser";
+	public static final String DATASET_INFO_PATH = "src/main/resources/ser/dataset_cosine/info.ser";
 
 	/**
 	 * The path to the dataset directory MD5 hash file.
 	 */
-	private static final String MD5_PATH = "src/main/resources/md5.txt";
+	private static final String MD5_PATH = "src/main/resources/ser/dataset_cosine/md5.hash";
 
 	/**
 	 * The function to perform the ranking of the documents.
@@ -119,7 +119,7 @@ public class Main {
 	 * @return the ranking function responsible for comparing the documents
 	 * @throws IOException if an error occurs while initializing the dataset
 	 */
-	private static RankingFunction init(Path dataset) throws IOException {
+	public static RankingFunction init(Path dataset) throws IOException {
 		RankingFunction function;
 
 		if (isDatasetCorrect(dataset)) {
