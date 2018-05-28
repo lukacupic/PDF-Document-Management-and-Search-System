@@ -11,6 +11,13 @@ import java.util.List;
 public class PDFReader extends FileReader {
 
 	/**
+	 * The default constructor.
+	 */
+	public PDFReader() {
+		super();
+	}
+
+	/**
 	 * Creates a new PDFReader.
 	 */
 	public PDFReader(Path path) {
