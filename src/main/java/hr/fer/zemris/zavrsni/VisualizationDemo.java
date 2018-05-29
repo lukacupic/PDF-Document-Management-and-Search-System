@@ -30,6 +30,15 @@ public class VisualizationDemo {
 
 	private static final double threshold = 0.07;
 
+	private static Color[] colors = new Color[]{
+			new Color(72, 118, 190),
+			new Color(42, 161, 33),
+			new Color(158, 18, 22),
+			new Color(214, 156, 43),
+			new Color(206, 18, 215),
+			new Color(30, 215, 211),
+	};
+
 	public static void main(String[] args) throws IOException {
 		Main.init(Paths.get(args[0]));
 		List<Document> documents = new ArrayList<>(RankingFunction.datasetInfo.documents.values());
@@ -67,23 +76,8 @@ public class VisualizationDemo {
 		List<DocumentLocation> clusterInput = new ArrayList<>();
 		documents.forEach(document -> clusterInput.add(new DocumentLocation(document, layout)));
 
-		KMeansPlusPlusClusterer<DocumentLocation> clusterer = new KMeansPlusPlusClusterer<>(5, 10000);
-		List<CentroidCluster<DocumentLocation>> clusterResults = clusterer.cluster(clusterInput);
-
-		Color[] colors = new Color[]{
-				new Color(72, 118, 190),
-				new Color(42, 161, 33),
-				new Color(158, 18, 22),
-				new Color(214, 156, 43),
-				new Color(206, 18, 215),
-		};
-
-		for (int i = 0; i < clusterResults.size(); i++) {
-			CentroidCluster<DocumentLocation> cluster = clusterResults.get(i);
-			for (DocumentLocation docLoc : cluster.getPoints()) {
-				docLoc.getDocument().setCluster(i);
-			}
-		}
+		//getK(documents, layout);
+		performClustering(documents, layout);
 
 		// -- visualize --
 
@@ -97,6 +91,7 @@ public class VisualizationDemo {
 		vv.getRenderContext().setVertexStrokeTransformer(input -> new BasicStroke(0.1f));
 		vv.getRenderContext().setVertexShapeTransformer(input -> new Ellipse2D.Double(-10, -10, 10, 10));
 		vv.getRenderContext().setVertexFillPaintTransformer(d -> colors[d.getCluster()]);
+		vv.setVertexToolTipTransformer(input -> input.getPath().toFile().getName());
 
 		vv.addGraphMouseListener(new GraphMouseListener<Document>() {
 			@Override
@@ -124,6 +119,51 @@ public class VisualizationDemo {
 		frame.getContentPane().add(vv);
 		frame.pack();
 		frame.setVisible(true);
+	}
+
+	private static int getK(List<Document> documents, AbstractLayout<Document, Edge> layout) {
+		List<DocumentLocation> clusterInput = new ArrayList<>();
+		documents.forEach(document -> clusterInput.add(new DocumentLocation(document, layout)));
+
+		List<Double> sums = new ArrayList<>();
+		for (int k = 2; k < 25; k++) {
+			KMeansPlusPlusClusterer<DocumentLocation> clusterer = new KMeansPlusPlusClusterer<>(k, 10000);
+			List<CentroidCluster<DocumentLocation>> clusterResults = clusterer.cluster(clusterInput);
+
+			double sum = 0;
+			for (int i = 0; i < clusterResults.size(); i++) {
+				CentroidCluster<DocumentLocation> cluster = clusterResults.get(i);
+				for (DocumentLocation docLoc : cluster.getPoints()) {
+					docLoc.getDocument().setCluster(i);
+					double[] cc = cluster.getCenter().getPoint();
+					double[] dp = docLoc.getPoint();
+					sum += dist(cc, dp);
+				}
+			}
+			sums.add(sum);
+		}
+		System.out.println();
+		return 6;
+	}
+
+	private static void performClustering(List<Document> documents, AbstractLayout<Document, Edge> layout) {
+		List<DocumentLocation> clusterInput = new ArrayList<>();
+		documents.forEach(document -> clusterInput.add(new DocumentLocation(document, layout)));
+
+		int k = (int) Math.sqrt(documents.size() / (double) 2);
+		KMeansPlusPlusClusterer<DocumentLocation> clusterer = new KMeansPlusPlusClusterer<>(6, 10000);
+		List<CentroidCluster<DocumentLocation>> clusterResults = clusterer.cluster(clusterInput);
+
+		for (int i = 0; i < clusterResults.size(); i++) {
+			CentroidCluster<DocumentLocation> cluster = clusterResults.get(i);
+			for (DocumentLocation docLoc : cluster.getPoints()) {
+				docLoc.getDocument().setCluster(i);
+			}
+		}
+	}
+
+	private static double dist(double[] p1, double[] p2) {
+		return Math.sqrt(Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2));
 	}
 
 	private static class Edge {

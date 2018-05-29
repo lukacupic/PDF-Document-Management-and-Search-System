@@ -4,6 +4,7 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TextUtil {
 
@@ -15,7 +16,8 @@ public class TextUtil {
 	 */
 	public static List<String> getWordsFromText(String text) {
 		text = text.replaceAll("[^A-Za-z[\t][\n][\r]]+", " ").trim().toLowerCase();
-		return new ArrayList<>(Arrays.asList(text.split(" ")));
+		List<String> words = Arrays.asList(text.split(" "));
+		return words.stream().filter(s -> !s.isEmpty()).collect(Collectors.toList());
 	}
 
 	/**
