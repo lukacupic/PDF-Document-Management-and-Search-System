@@ -78,7 +78,6 @@ public class VisualizationDemo {
 				new Color(206, 18, 215),
 		};
 
-		// output the clusters
 		for (int i = 0; i < clusterResults.size(); i++) {
 			CentroidCluster<DocumentLocation> cluster = clusterResults.get(i);
 			for (DocumentLocation docLoc : cluster.getPoints()) {
@@ -95,7 +94,6 @@ public class VisualizationDemo {
 		vv.getRenderContext().setEdgeShapeTransformer(EdgeShape.line(g));
 		vv.getRenderContext().setEdgeStrokeTransformer(input -> new BasicStroke(0.2f));
 
-		vv.getRenderContext().setVertexLabelTransformer(input -> input.getPath().toFile().getParentFile().getName());
 		vv.getRenderContext().setVertexStrokeTransformer(input -> new BasicStroke(0.1f));
 		vv.getRenderContext().setVertexShapeTransformer(input -> new Ellipse2D.Double(-10, -10, 10, 10));
 		vv.getRenderContext().setVertexFillPaintTransformer(d -> colors[d.getCluster()]);
@@ -137,7 +135,7 @@ public class VisualizationDemo {
 	}
 
 	// wrapper class
-	public static class DocumentLocation implements Clusterable {
+	private static class DocumentLocation implements Clusterable {
 
 		private double[] points;
 		private Document document;
