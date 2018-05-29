@@ -6,6 +6,7 @@ import edu.uci.ics.jung.visualization.VisualizationViewer;
 import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.GraphMouseListener;
 import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
+import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import edu.uci.ics.jung.visualization.decorators.ToStringLabeller;
 import hr.fer.zemris.zavrsni.model.Document;
 import hr.fer.zemris.zavrsni.ranking.RankingFunction;
@@ -65,6 +66,10 @@ public class VisualizationDemo {
 				return ((Document) v).getPath().toFile().getParentFile().getName();
 			}
 		});
+
+		vv.getRenderContext().setEdgeArrowPredicate(input -> false);
+
+		vv.getRenderContext().setEdgeShapeTransformer(EdgeShape.line(g));
 
 		Function<Document, Paint> vertexColor = d -> new Color(9, 67, 138, 188);
 		vv.getRenderContext().setVertexFillPaintTransformer(vertexColor::apply);
