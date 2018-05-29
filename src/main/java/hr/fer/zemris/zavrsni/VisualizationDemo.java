@@ -4,7 +4,9 @@ import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
+import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.GraphMouseListener;
+import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import hr.fer.zemris.zavrsni.model.Document;
 import hr.fer.zemris.zavrsni.ranking.RankingFunction;
@@ -46,22 +48,23 @@ public class VisualizationDemo {
 		DirectedSparseGraph<Document, Edge> g = new DirectedSparseGraph<>();
 		documents.forEach(g::addVertex);
 
-		double t1 = System.currentTimeMillis();
+		RankingFunction.DatasetInfo.DocumentPair pair = new RankingFunction.DatasetInfo.DocumentPair();
 		for (int i = 0; i < documents.size(); i++) {
 			for (int j = 0; j < documents.size(); j++) {
 				if (i >= j) continue;
 
 				Document d1 = documents.get(i);
 				Document d2 = documents.get(j);
+				pair.setDocuments(d1, d2);
 
-				double sim = d1.sim(d2) / d1.sim(d1);
+				//double sim = d1.sim(d2) / d1.sim(d1);
+				double sim = RankingFunction.datasetInfo.similarities.get(pair);
+
 				if (sim > threshold) {
 					g.addEdge(new Edge(sim), d1, d2);
 				}
 			}
 		}
-		double t2 = System.currentTimeMillis();
-		System.out.println((t2 - t1) / 1000);
 
 		FRLayout<Document, Edge> layout = new FRLayout<>(g);
 		layout.setSize(new Dimension(600, 600));
@@ -114,6 +117,10 @@ public class VisualizationDemo {
 			}
 		});
 
+		DefaultModalGraphMouse graphMouse = new DefaultModalGraphMouse();
+		graphMouse.setMode(ModalGraphMouse.Mode.PICKING);
+		vv.setGraphMouse(graphMouse);
+
 		JFrame frame = new JFrame("Simple Graph View");
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.getContentPane().add(vv);
@@ -142,7 +149,6 @@ public class VisualizationDemo {
 			}
 			sums.add(sum);
 		}
-		System.out.println();
 		return 6;
 	}
 

@@ -5,6 +5,7 @@ import hr.fer.zemris.zavrsni.ranking.RankingFunction;
 import java.io.Serializable;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 /**
  * This class represents a single document from the collection.
@@ -117,7 +118,25 @@ public class Document implements Serializable {
 		return tfVector;
 	}
 
+	/**
+	 * Gets the length (in words) of this document.
+	 *
+	 * @return the length of this document
+	 */
 	public long getLength() {
 		return length;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		Document document = (Document) o;
+		return Objects.equals(path, document.path);
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(path);
 	}
 }

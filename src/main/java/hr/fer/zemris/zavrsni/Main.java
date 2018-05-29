@@ -31,15 +31,19 @@ public class Main {
 	 */
 	public static final String STOP_WORDS_PATH = "src/main/resources/stop_words.txt";
 
+	public static final String CACHE_FOLDER = "src/main/resources/cache/";
+
 	/**
 	 * The path to the serialized dataset file.
 	 */
-	public static final String DATASET_INFO_PATH = "src/main/resources/ser/dataset_new_cosine/info.ser";
+	public static String datasetInfoPrefix = "dinfo";
+	public static String DATASET_INFO_FILENAME;
 
 	/**
 	 * The path to the dataset directory MD5 hash file.
 	 */
-	private static final String MD5_PATH = "src/main/resources/ser/dataset_new_cosine/md5.hash";
+	private static String md5Prefix = "md5";
+	public static String MD5_FILENAME;
 
 	/**
 	 * The function to perform the ranking of the documents.
@@ -55,10 +59,7 @@ public class Main {
 	public static void main(String[] args) {
 		System.out.println("Initializing, please wait...");
 		try {
-			long t1 = System.currentTimeMillis();
 			function = init(Paths.get(args[0]));
-			long t2 = System.currentTimeMillis();
-			System.out.printf("Dataset loaded in %d seconds.\n\n", (t2 - t1) / 1000);
 		} catch (IOException ex) {
 			System.out.println("Initialization error: " + ex);
 			System.exit(0);
@@ -90,18 +91,18 @@ public class Main {
 		String md5 = new MD5Visitor(dataset).getMd5();
 		String md5Real;
 
-		if (new File(MD5_PATH).exists()) {
-			md5Real = IOUtils.readFromTextFile(MD5_PATH);
+		if (new File(MD5_FILENAME).exists()) {
+			md5Real = IOUtils.readFromTextFile(MD5_FILENAME);
 		} else {
-			IOUtils.writeToTextFile(MD5_PATH, md5);
+			IOUtils.writeToTextFile(MD5_FILENAME, md5);
 			return false;
 		}
 
-		if (new File(DATASET_INFO_PATH).exists()) {
+		if (new File(DATASET_INFO_FILENAME).exists()) {
 			if (md5.equals(md5Real)) {
 				return true;
 			} else {
-				IOUtils.writeToTextFile(MD5_PATH, md5);
+				IOUtils.writeToTextFile(MD5_FILENAME, md5);
 				return false;
 			}
 		} else {
@@ -120,11 +121,19 @@ public class Main {
 	 * @throws IOException if an error occurs while initializing the dataset
 	 */
 	public static RankingFunction init(Path dataset) throws IOException {
+		Path filename = Paths.get(dataset.toFile().getName());
+
+		DATASET_INFO_FILENAME = datasetInfoPrefix + "_" + filename + ".ser";
+		DATASET_INFO_FILENAME = Paths.get(CACHE_FOLDER).resolve(DATASET_INFO_FILENAME).toString();
+
+		MD5_FILENAME = md5Prefix + "_" + filename + ".hash";
+		MD5_FILENAME = Paths.get(CACHE_FOLDER).resolve(MD5_FILENAME).toString();
+
 		RankingFunction function;
 
 		if (isDatasetCorrect(dataset)) {
 			function = new CosineSimilarity();
-			RankingFunction.datasetInfo = IOUtils.deserialize(DATASET_INFO_PATH);
+			RankingFunction.datasetInfo = IOUtils.deserialize(DATASET_INFO_FILENAME);
 		} else {
 			System.out.println("You changed the dataset!");
 			function = new CosineSimilarity(dataset);

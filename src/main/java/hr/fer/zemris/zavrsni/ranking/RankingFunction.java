@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public abstract class RankingFunction {
 
@@ -59,7 +60,7 @@ public abstract class RankingFunction {
 		this();
 		init(dataset);
 		// we're here the first time, so serialize the dataset info
-		IOUtils.serialize(datasetInfo, Main.DATASET_INFO_PATH);
+		IOUtils.serialize(datasetInfo, Main.DATASET_INFO_FILENAME);
 	}
 
 
@@ -99,6 +100,7 @@ public abstract class RankingFunction {
 		// Initialize the dataset
 		createVocabulary(path);
 		initDocuments(path);
+		calculateSimilarities();
 	}
 
 	/**
@@ -207,6 +209,26 @@ public abstract class RankingFunction {
 	}
 
 	/**
+	 * Calculates the similarity coefficients between all documents.
+	 */
+	private void calculateSimilarities() {
+		Map<DatasetInfo.DocumentPair, Double> similiarities = new HashMap<>();
+		List<Document> documents = new ArrayList<>(datasetInfo.documents.values());
+		for (int i = 0; i < documents.size(); i++) {
+			for (int j = 0; j < documents.size(); j++) {
+				if (i >= j) continue;
+
+				Document d1 = documents.get(i);
+				Document d2 = documents.get(j);
+
+				double sim = d1.sim(d2) / d1.sim(d1);
+				similiarities.put(new DatasetInfo.DocumentPair(d1, d2), sim);
+			}
+		}
+		datasetInfo.similarities = similiarities;
+	}
+
+	/**
 	 * Retrieve the function ranking function.
 	 *
 	 * @return function ranking function
@@ -247,5 +269,42 @@ public abstract class RankingFunction {
 		 * words from the vocabulary.
 		 */
 		public Vector idf;
+
+		public Map<DocumentPair, Double> similarities = new HashMap<>();
+
+		public static class DocumentPair implements Serializable {
+
+			private static final long serialVersionUID = 1L;
+
+			Document doc1;
+
+			Document doc2;
+
+			public DocumentPair() {
+			}
+
+			public DocumentPair(Document doc1, Document doc2) {
+				this.doc1 = doc1;
+				this.doc2 = doc2;
+			}
+
+			public void setDocuments(Document doc1, Document doc2) {
+				this.doc1 = doc1;
+				this.doc2 = doc2;
+			}
+
+			@Override
+			public boolean equals(Object o) {
+				if (this == o) return true;
+				if (o == null || getClass() != o.getClass()) return false;
+				DocumentPair that = (DocumentPair) o;
+				return Objects.equals(doc1, that.doc1) && Objects.equals(doc2, that.doc2);
+			}
+
+			@Override
+			public int hashCode() {
+				return Objects.hash(doc1, doc2);
+			}
+		}
 	}
 }
