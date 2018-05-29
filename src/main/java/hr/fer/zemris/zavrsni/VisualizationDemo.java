@@ -1,5 +1,6 @@
 package hr.fer.zemris.zavrsni;
 
+import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
@@ -7,6 +8,9 @@ import edu.uci.ics.jung.visualization.control.GraphMouseListener;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import hr.fer.zemris.zavrsni.model.Document;
 import hr.fer.zemris.zavrsni.ranking.RankingFunction;
+import org.apache.commons.math3.ml.clustering.CentroidCluster;
+import org.apache.commons.math3.ml.clustering.Clusterable;
+import org.apache.commons.math3.ml.clustering.KMeansPlusPlusClusterer;
 
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
@@ -60,6 +64,30 @@ public class VisualizationDemo {
 			layout.step();
 		}
 
+		List<DocumentLocation> clusterInput = new ArrayList<>();
+		documents.forEach(document -> clusterInput.add(new DocumentLocation(document, layout)));
+
+		KMeansPlusPlusClusterer<DocumentLocation> clusterer = new KMeansPlusPlusClusterer<>(5, 10000);
+		List<CentroidCluster<DocumentLocation>> clusterResults = clusterer.cluster(clusterInput);
+
+		Color[] colors = new Color[]{
+				new Color(72, 118, 190),
+				new Color(42, 161, 33),
+				new Color(158, 18, 22),
+				new Color(214, 156, 43),
+				new Color(206, 18, 215),
+		};
+
+		// output the clusters
+		for (int i = 0; i < clusterResults.size(); i++) {
+			CentroidCluster<DocumentLocation> cluster = clusterResults.get(i);
+			for (DocumentLocation docLoc : cluster.getPoints()) {
+				docLoc.getDocument().setCluster(i);
+			}
+		}
+
+		// -- visualize --
+
 		VisualizationViewer<Document, Edge> vv = new VisualizationViewer<>(layout);
 
 		vv.getRenderContext().setEdgeDrawPaintTransformer(input -> new Color(163, 163, 163));
@@ -70,7 +98,7 @@ public class VisualizationDemo {
 		vv.getRenderContext().setVertexLabelTransformer(input -> input.getPath().toFile().getParentFile().getName());
 		vv.getRenderContext().setVertexStrokeTransformer(input -> new BasicStroke(0.1f));
 		vv.getRenderContext().setVertexShapeTransformer(input -> new Ellipse2D.Double(-10, -10, 10, 10));
-		vv.getRenderContext().setVertexFillPaintTransformer(d -> new Color(9, 67, 138, 188));
+		vv.getRenderContext().setVertexFillPaintTransformer(d -> colors[d.getCluster()]);
 
 		vv.addGraphMouseListener(new GraphMouseListener<Document>() {
 			@Override
@@ -107,4 +135,27 @@ public class VisualizationDemo {
 			this.weight = weight;
 		}
 	}
+
+	// wrapper class
+	public static class DocumentLocation implements Clusterable {
+
+		private double[] points;
+		private Document document;
+
+		public DocumentLocation(Document document, AbstractLayout<Document, Edge> layout) {
+			this.document = document;
+			points = new double[2];
+			points[0] = layout.getX(document);
+			points[1] = layout.getY(document);
+		}
+
+		public double[] getPoint() {
+			return points;
+		}
+
+		public Document getDocument() {
+			return document;
+		}
+	}
+
 }

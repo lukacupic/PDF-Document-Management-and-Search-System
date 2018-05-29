@@ -40,6 +40,16 @@ public class Document implements Serializable {
 	 */
 	private long length;
 
+	private transient int cluster;
+
+	public int getCluster() {
+		return cluster;
+	}
+
+	public void setCluster(int cluster) {
+		this.cluster = cluster;
+	}
+
 	/**
 	 * Creates a new document object.
 	 *
