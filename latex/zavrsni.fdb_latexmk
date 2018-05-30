@@ -1,15 +1,15 @@
 # Fdb version 3
-["bibtex zavrsni"] 1527610172 "zavrsni.aux" "zavrsni.bbl" "zavrsni" 1527610234
+["bibtex zavrsni"] 1527690681 "zavrsni.aux" "zavrsni.bbl" "zavrsni" 1527690879
   "./fer.bst" 1284151297 26009 c9fe7ac62e814ee4c7bb7b0cdf6bf7a5 ""
   "literatura.bib" 1268922119 694 14ef1ef6963dccc1171f34d0309bf39f ""
-  "zavrsni.aux" 1527610232 2106 46fc56c4e86ccff7a8b9b1713795c0d7 ""
+  "zavrsni.aux" 1527690878 2331 2a296a7ec857cd0002215799c54bd2b7 ""
   "zavrsni.bcf" 0 -1 0 ""
   (generated)
   "zavrsni.bbl"
   "zavrsni.blg"
-["pdflatex"] 1527610231 "/media/chup0x/Data/FER/6. semestar/Završni rad/Projekt/latex/zavrsni.tex" "zavrsni.pdf" "zavrsni" 1527610234
+["pdflatex"] 1527690878 "/media/chup0x/Data/FER/6. semestar/Završni rad/Projekt/latex/zavrsni.tex" "zavrsni.pdf" "zavrsni" 1527690879
   "/etc/texmf/web2c/texmf.cnf" 1524232533 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/media/chup0x/Data/FER/6. semestar/Završni rad/Projekt/latex/zavrsni.tex" 1527610234 16828 40ca8903ad06923c913ebd47d1380ad4 ""
+  "/media/chup0x/Data/FER/6. semestar/Završni rad/Projekt/latex/zavrsni.tex" 1527690877 21787 30fa75b79fbca280d6e647a59aafd22f ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/courier/pcrro8r.tfm" 1480098688 1544 4fb84cf2931ec523c2c6a08d939088ba ""
@@ -133,12 +133,12 @@
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1524237349 4126389 b312de3707f4affb0426559e86a95e5d ""
   "fer.cls" 1284151396 10145 76761193ed91b0ce7a5a85bc13f7191d ""
   "images/vectors.png" 1379005180 36116 5be84646d4a8cb7179c88cc63fc4b0fe ""
-  "zavrsni.aux" 1527610232 2106 46fc56c4e86ccff7a8b9b1713795c0d7 ""
-  "zavrsni.bbl" 1527610173 275 de5ffaf5b665b622658d80bed97ba2a5 "bibtex zavrsni"
-  "zavrsni.tex" 1527610234 16828 40ca8903ad06923c913ebd47d1380ad4 ""
-  "zavrsni.toc" 1527610232 992 d470560a00cd7db3fa449ae3df6b6b6a ""
+  "zavrsni.aux" 1527690878 2331 2a296a7ec857cd0002215799c54bd2b7 ""
+  "zavrsni.bbl" 1527690682 275 de5ffaf5b665b622658d80bed97ba2a5 "bibtex zavrsni"
+  "zavrsni.tex" 1527690877 21787 30fa75b79fbca280d6e647a59aafd22f ""
+  "zavrsni.toc" 1527690878 1071 42334c8b65d501172740a8aca1fa2daf ""
   (generated)
-  "zavrsni.pdf"
+  "zavrsni.log"
   "zavrsni.aux"
   "zavrsni.toc"
-  "zavrsni.log"
+  "zavrsni.pdf"

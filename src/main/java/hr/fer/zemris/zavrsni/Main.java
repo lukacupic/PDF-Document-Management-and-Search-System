@@ -36,7 +36,7 @@ public class Main {
 	/**
 	 * The path to the serialized dataset file.
 	 */
-	public static String datasetInfoPrefix = "dinfo";
+	public static String datasetInfoPrefix = "info";
 	public static String DATASET_INFO_FILENAME;
 
 	/**
@@ -59,7 +59,10 @@ public class Main {
 	public static void main(String[] args) {
 		System.out.println("Initializing, please wait...");
 		try {
+			double t1 = System.currentTimeMillis();
 			function = init(Paths.get(args[0]));
+			double t2 = System.currentTimeMillis();
+			System.out.println((t2 - t1) / 1000);
 		} catch (IOException ex) {
 			System.out.println("Initialization error: " + ex);
 			System.exit(0);
