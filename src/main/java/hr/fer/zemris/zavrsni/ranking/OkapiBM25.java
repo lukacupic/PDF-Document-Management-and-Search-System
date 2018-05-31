@@ -62,6 +62,14 @@ public class OkapiBM25 extends RankingFunction {
 		return results.subList(0, Math.min(9, results.size()));
 	}
 
+	/**
+	 * Performs the BM25 calculation for the given document and query.
+	 *
+	 * @param words the list of words from the query
+	 * @param d     the document
+	 * @param avgdl the average length of the documents
+	 * @return the similarity measure of the given document and query
+	 */
 	private static double processOne(List<String> words, Document d, double avgdl) {
 		double score = 0;
 		for (String w : words) {
@@ -102,6 +110,18 @@ public class OkapiBM25 extends RankingFunction {
 		return Math.log(datasetInfo.documents.size() / (double) freq);
 	}
 
+	@Override
+	public double sim(Document d1, Document d2) {
+		List<String> words = getWordsFrom(d1);
+		return processOne(words, d2, calculateAvgdl());
+	}
+
+	/**
+	 * Returns all the words contained in the given document.
+	 *
+	 * @param d the document
+	 * @return all the words contained in the given document
+	 */
 	private static List<String> getWordsFrom(Document d) {
 		List<String> words = new ArrayList<>();
 
@@ -111,11 +131,5 @@ public class OkapiBM25 extends RankingFunction {
 			}
 		}
 		return words;
-	}
-
-	@Override
-	public double sim(Document d1, Document d2) {
-		List<String> words = getWordsFrom(d1);
-		return processOne(words, d2, calculateAvgdl());
 	}
 }

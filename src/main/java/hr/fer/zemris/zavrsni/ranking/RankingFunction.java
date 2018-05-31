@@ -60,7 +60,7 @@ public abstract class RankingFunction {
 		this();
 		init(dataset);
 		// we're here the first time, so serialize the dataset info
-		IOUtils.serialize(datasetInfo, Main.DATASET_INFO_FILENAME);
+		IOUtils.serialize(datasetInfo, Main.datasetInfoFilename);
 	}
 
 

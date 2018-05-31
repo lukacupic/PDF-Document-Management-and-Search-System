@@ -1,5 +1,6 @@
 package hr.fer.zemris.zavrsni.utils;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -15,6 +16,31 @@ import java.nio.file.Paths;
  */
 public class IOUtils {
 
+	/**
+	 * Gets the user home directory.
+	 * @return the user home directory
+	 */
+	public static String getUserHomeDir() {
+		String s = File.separator;
+		return System.getProperty("user.home") + s + ".zavrsni" + s;
+	}
+
+	/**
+	 * Creates
+	 */
+	public static void createUserHomeDir() {
+		File dir = new File(IOUtils.getUserHomeDir());
+		if (!dir.exists()) {
+			dir.mkdirs();
+		}
+	}
+
+	/**
+	 * Serializes the given object and stores it on the given path.
+	 *
+	 * @param object the object to serialize
+	 * @param path   the path
+	 */
 	public static <T> void serialize(T object, String path) {
 		try (FileOutputStream fos = new FileOutputStream(path);
 		     ObjectOutputStream out = new ObjectOutputStream(fos)) {
@@ -24,6 +50,12 @@ public class IOUtils {
 		}
 	}
 
+	/**
+	 * Deserializes and returns the object at the given path.
+	 *
+	 * @param path the path the object is located at
+	 * @return the serialized object
+	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T deserialize(String path) {
 		T object = null;

@@ -1,15 +1,15 @@
 # Fdb version 3
-["bibtex zavrsni"] 1527690681 "zavrsni.aux" "zavrsni.bbl" "zavrsni" 1527690879
+["bibtex zavrsni"] 1527775917 "zavrsni.aux" "zavrsni.bbl" "zavrsni" 1527775918
   "./fer.bst" 1284151297 26009 c9fe7ac62e814ee4c7bb7b0cdf6bf7a5 ""
   "literatura.bib" 1268922119 694 14ef1ef6963dccc1171f34d0309bf39f ""
-  "zavrsni.aux" 1527690878 2331 2a296a7ec857cd0002215799c54bd2b7 ""
+  "zavrsni.aux" 1527775918 2848 a845b40014519f837873b0be36dada01 ""
   "zavrsni.bcf" 0 -1 0 ""
   (generated)
-  "zavrsni.bbl"
   "zavrsni.blg"
-["pdflatex"] 1527690878 "/media/chup0x/Data/FER/6. semestar/Završni rad/Projekt/latex/zavrsni.tex" "zavrsni.pdf" "zavrsni" 1527690879
+  "zavrsni.bbl"
+["pdflatex"] 1527775917 "/media/chup0x/Data/FER/6. semestar/Završni rad/Projekt/latex/zavrsni.tex" "zavrsni.pdf" "zavrsni" 1527775918
   "/etc/texmf/web2c/texmf.cnf" 1524232533 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/media/chup0x/Data/FER/6. semestar/Završni rad/Projekt/latex/zavrsni.tex" 1527690877 21787 30fa75b79fbca280d6e647a59aafd22f ""
+  "/media/chup0x/Data/FER/6. semestar/Završni rad/Projekt/latex/zavrsni.tex" 1527775915 25510 71fac33612a7e627626b0ee2586112f7 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/courier/pcrro8r.tfm" 1480098688 1544 4fb84cf2931ec523c2c6a08d939088ba ""
@@ -132,13 +132,14 @@
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1524237313 2377213 8bc19c9e6d8db8e1c35694d1be199981 ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1524237349 4126389 b312de3707f4affb0426559e86a95e5d ""
   "fer.cls" 1284151396 10145 76761193ed91b0ce7a5a85bc13f7191d ""
+  "images/clustering.png" 1527755733 40070 e4eb3231b716f5830e104ec83c0f654f ""
   "images/vectors.png" 1379005180 36116 5be84646d4a8cb7179c88cc63fc4b0fe ""
-  "zavrsni.aux" 1527690878 2331 2a296a7ec857cd0002215799c54bd2b7 ""
-  "zavrsni.bbl" 1527690682 275 de5ffaf5b665b622658d80bed97ba2a5 "bibtex zavrsni"
-  "zavrsni.tex" 1527690877 21787 30fa75b79fbca280d6e647a59aafd22f ""
-  "zavrsni.toc" 1527690878 1071 42334c8b65d501172740a8aca1fa2daf ""
+  "zavrsni.aux" 1527775918 2848 a845b40014519f837873b0be36dada01 ""
+  "zavrsni.bbl" 1527775917 275 de5ffaf5b665b622658d80bed97ba2a5 "bibtex zavrsni"
+  "zavrsni.tex" 1527775915 25510 71fac33612a7e627626b0ee2586112f7 ""
+  "zavrsni.toc" 1527775918 1396 a5789515ffc1af887f6942e686b8a964 ""
   (generated)
+  "zavrsni.pdf"
+  "zavrsni.toc"
   "zavrsni.log"
   "zavrsni.aux"
-  "zavrsni.toc"
-  "zavrsni.pdf"

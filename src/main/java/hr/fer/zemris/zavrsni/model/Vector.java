@@ -64,18 +64,6 @@ public class Vector implements Serializable {
 	}
 
 	/**
-	 * Checks if this vector is a null vector.
-	 *
-	 * @return true if this vector is a null vector; false otherwise
-	 */
-	public boolean isNullVector() {
-		for (double value : values) {
-			if (value != 0) return false;
-		}
-		return true;
-	}
-
-	/**
 	 * Performs the dot product between the given vectors. Meaning,
 	 * for the two given vectors (with the same number of elements),
 	 * e.g for the given vectors V1 and V2 where: {@code V1 = [a1, a2,

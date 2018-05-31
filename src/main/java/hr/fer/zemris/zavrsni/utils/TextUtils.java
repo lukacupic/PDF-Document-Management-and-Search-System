@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TextUtil {
+public class TextUtils {
 
 	/**
 	 * Extracts the words from the given string and returns them as a list.

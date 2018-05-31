@@ -79,8 +79,8 @@ public class VisualizationDemo {
 		List<DocumentLocation> clusterInput = new ArrayList<>();
 		documents.forEach(document -> clusterInput.add(new DocumentLocation(document, layout)));
 
-		//getK(documents, layout);
-		performClustering(documents, layout);
+		int k = (int) Math.sqrt(documents.size() / (double) 2);
+		performClustering(documents, layout, k);
 
 		// -- visualize --
 
@@ -152,11 +152,10 @@ public class VisualizationDemo {
 		return 6;
 	}
 
-	private static void performClustering(List<Document> documents, AbstractLayout<Document, Edge> layout) {
+	private static void performClustering(List<Document> documents, AbstractLayout<Document, Edge> layout, int k) {
 		List<DocumentLocation> clusterInput = new ArrayList<>();
 		documents.forEach(document -> clusterInput.add(new DocumentLocation(document, layout)));
 
-		int k = (int) Math.sqrt(documents.size() / (double) 2);
 		KMeansPlusPlusClusterer<DocumentLocation> clusterer = new KMeansPlusPlusClusterer<>(6, 10000);
 		List<CentroidCluster<DocumentLocation>> clusterResults = clusterer.cluster(clusterInput);
 

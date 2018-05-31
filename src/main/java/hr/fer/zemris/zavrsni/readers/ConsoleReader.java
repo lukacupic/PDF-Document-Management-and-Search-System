@@ -1,6 +1,6 @@
 package hr.fer.zemris.zavrsni.readers;
 
-import hr.fer.zemris.zavrsni.utils.TextUtil;
+import hr.fer.zemris.zavrsni.utils.TextUtils;
 
 import java.util.List;
 
@@ -17,6 +17,6 @@ public class ConsoleReader implements DocumentReader {
 
 	@Override
 	public List<String> readDocument() {
-		return TextUtil.getWordsFromText(text);
+		return TextUtils.getWordsFromText(text);
 	}
 }

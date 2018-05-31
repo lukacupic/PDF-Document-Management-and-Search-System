@@ -1,6 +1,6 @@
 package hr.fer.zemris.zavrsni.readers;
 
-import hr.fer.zemris.zavrsni.utils.TextUtil;
+import hr.fer.zemris.zavrsni.utils.TextUtils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
 
@@ -26,12 +26,12 @@ public class PDFReader extends FileReader {
 
 	@Override
 	public List<String> readDocument() throws IOException {
-		if (!TextUtil.getFileExtension(path).equals("pdf")) {
+		if (!TextUtils.getFileExtension(path).equals("pdf")) {
 			throw new IOException("Unreadable extension!");
 		}
 		try (PDDocument doc = PDDocument.load(path.toFile())) {
 			String text = new PDFTextStripper().getText(doc);
-			return TextUtil.getWordsFromText(text);
+			return TextUtils.getWordsFromText(text);
 		}
 	}
 }

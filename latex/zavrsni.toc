@@ -9,8 +9,12 @@
 \contentsline {chapter}{\numberline {4}Prikaz dokumenata u 2D koordinatnom sustavu}{8}
 \contentsline {section}{\numberline {4.1}Silom usmjereno crtanje grafova}{8}
 \contentsline {section}{\numberline {4.2}Grupiranje dokumenata}{9}
-\contentsline {section}{\numberline {4.3}Primjena na prikaz dokumenata}{9}
-\contentsline {chapter}{\numberline {5}Isprobavanje metoda...}{10}
-\contentsline {chapter}{\numberline {6}Programsko rje\IeC {\v s}enje}{11}
-\contentsline {chapter}{\numberline {7}Zaklju\IeC {\v c}ak}{13}
-\contentsline {chapter}{Literatura}{14}
+\contentsline {subsection}{\numberline {4.2.1}Grupiranje k-sredina}{9}
+\contentsline {section}{\numberline {4.3}Primjena na prikaz dokumenata}{10}
+\contentsline {chapter}{\numberline {5}Isprobavanje metoda...}{11}
+\contentsline {chapter}{\numberline {6}Programsko rje\IeC {\v s}enje}{12}
+\contentsline {section}{\numberline {6.1}Procesiranje i obrada korisni\IeC {\v c}kog unosa}{13}
+\contentsline {section}{\numberline {6.2}Pronalazak sli\IeC {\v c}nih dokumenata}{13}
+\contentsline {section}{\numberline {6.3}Vizualizacija dokumenata}{14}
+\contentsline {chapter}{\numberline {7}Zaklju\IeC {\v c}ak}{15}
+\contentsline {chapter}{Literatura}{16}

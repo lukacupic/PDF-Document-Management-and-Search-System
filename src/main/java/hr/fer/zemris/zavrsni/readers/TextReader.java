@@ -1,6 +1,6 @@
 package hr.fer.zemris.zavrsni.readers;
 
-import hr.fer.zemris.zavrsni.utils.TextUtil;
+import hr.fer.zemris.zavrsni.utils.TextUtils;
 
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -26,10 +26,10 @@ public class TextReader extends FileReader {
 
 	@Override
 	public List<String> readDocument() throws IOException {
-		if (!TextUtil.getFileExtension(path).equals("txt")) {
+		if (!TextUtils.getFileExtension(path).equals("txt")) {
 			throw new IOException("Unreadable extension!");
 		}
 		String text = new String(Files.readAllBytes(path), StandardCharsets.UTF_8);
-		return TextUtil.getWordsFromText(text);
+		return TextUtils.getWordsFromText(text);
 	}
 }

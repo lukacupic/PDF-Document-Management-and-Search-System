@@ -220,6 +220,9 @@ INPUT /usr/share/texlive/texmf-dist/fonts/vf/adobe/times/ptmb8t.vf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmb8r.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/vf/adobe/times/ptmr8t.vf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmr8r.tfm
+INPUT ./images/clustering.png
+INPUT ./images/clustering.png
+INPUT ./images/clustering.png
 INPUT zavrsni.bbl
 INPUT zavrsni.bbl
 INPUT zavrsni.aux

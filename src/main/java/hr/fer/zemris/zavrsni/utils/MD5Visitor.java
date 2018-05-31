@@ -12,7 +12,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 
 /**
  * A recursive directory visitor responsible for calculating the
- * MD5 hash of an arbitrary directory.
+ * MD5 hash of a given directory.
  * <p>
  * The visitor automatically starts traversing the given directory
  * upon instantiation; there is no need (nor way) to perform this
