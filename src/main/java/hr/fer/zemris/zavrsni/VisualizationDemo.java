@@ -33,12 +33,16 @@ public class VisualizationDemo {
 	private static final double threshold = 0.07;
 
 	private static Color[] colors = new Color[]{
-			new Color(72, 118, 190),
+			new Color(78, 122, 190),
 			new Color(42, 161, 33),
 			new Color(158, 18, 22),
 			new Color(214, 156, 43),
-			new Color(206, 18, 215),
+			new Color(215, 128, 196),
 			new Color(30, 215, 211),
+			new Color(179, 39, 215),
+			new Color(212, 215, 56),
+			new Color(11, 1, 215),
+			new Color(14, 10, 78),
 	};
 
 	public static void main(String[] args) throws IOException {
@@ -126,30 +130,6 @@ public class VisualizationDemo {
 		frame.getContentPane().add(vv);
 		frame.pack();
 		frame.setVisible(true);
-	}
-
-	private static int getK(List<Document> documents, AbstractLayout<Document, Edge> layout) {
-		List<DocumentLocation> clusterInput = new ArrayList<>();
-		documents.forEach(document -> clusterInput.add(new DocumentLocation(document, layout)));
-
-		List<Double> sums = new ArrayList<>();
-		for (int k = 2; k < 25; k++) {
-			KMeansPlusPlusClusterer<DocumentLocation> clusterer = new KMeansPlusPlusClusterer<>(k, 10000);
-			List<CentroidCluster<DocumentLocation>> clusterResults = clusterer.cluster(clusterInput);
-
-			double sum = 0;
-			for (int i = 0; i < clusterResults.size(); i++) {
-				CentroidCluster<DocumentLocation> cluster = clusterResults.get(i);
-				for (DocumentLocation docLoc : cluster.getPoints()) {
-					docLoc.getDocument().setCluster(i);
-					double[] cc = cluster.getCenter().getPoint();
-					double[] dp = docLoc.getPoint();
-					sum += dist(cc, dp);
-				}
-			}
-			sums.add(sum);
-		}
-		return 6;
 	}
 
 	private static void performClustering(List<Document> documents, AbstractLayout<Document, Edge> layout, int k) {
