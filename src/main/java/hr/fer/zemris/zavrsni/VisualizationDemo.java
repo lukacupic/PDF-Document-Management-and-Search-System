@@ -136,7 +136,7 @@ public class VisualizationDemo {
 		List<DocumentLocation> clusterInput = new ArrayList<>();
 		documents.forEach(document -> clusterInput.add(new DocumentLocation(document, layout)));
 
-		KMeansPlusPlusClusterer<DocumentLocation> clusterer = new KMeansPlusPlusClusterer<>(6, 10000);
+		KMeansPlusPlusClusterer<DocumentLocation> clusterer = new KMeansPlusPlusClusterer<>(k, 10000);
 		List<CentroidCluster<DocumentLocation>> clusterResults = clusterer.cluster(clusterInput);
 
 		for (int i = 0; i < clusterResults.size(); i++) {
@@ -145,10 +145,6 @@ public class VisualizationDemo {
 				docLoc.getDocument().setCluster(i);
 			}
 		}
-	}
-
-	private static double dist(double[] p1, double[] p2) {
-		return Math.sqrt(Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2));
 	}
 
 	private static class Edge {

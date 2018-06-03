@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.4.20)  3 JUN 2018 12:58
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.4.20)  3 JUN 2018 15:54
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -745,17 +745,17 @@ LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <17.28> not available
 
 Package amsmath Warning: Foreign command \over;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 90.
+(amsmath)                 on input line 91.
 
 <./images/vectors.png, id=43, 714.67pt x 200.75pt>
 File: ./images/vectors.png Graphic file (type png)
 <use ./images/vectors.png>
-Package pdftex.def Info: ./images/vectors.png  used on input line 96. on input 
-line 96.
+Package pdftex.def Info: ./images/vectors.png  used on input line 97. on input 
+line 97.
 Package pdftex.def Info: Requested size: 412.56497pt x 115.88982pt on input lin
-e 96.
+e 97.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 97.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 98.
 [6 <./images/vectors.png>] [7]
 Poglavlje 4.
 [8
@@ -764,10 +764,10 @@ Poglavlje 4.
 <./images/clustering.png, id=59, 584.1825pt x 220.57407pt>
 File: ./images/clustering.png Graphic file (type png)
 <use ./images/clustering.png>
-Package pdftex.def Info: ./images/clustering.png  used on input line 130. on in
-put line 130.
+Package pdftex.def Info: ./images/clustering.png  used on input line 132. on in
+put line 132.
 Package pdftex.def Info: Requested size: 412.56497pt x 155.78072pt on input lin
-e 130.
+e 132.
  [9 <./images/clustering.png (PNG copy)>] [10]
 Poglavlje 5.
 [11
@@ -775,7 +775,7 @@ Poglavlje 5.
 ]
 Poglavlje 6.
 
-Underfull \hbox (badness 10000) in paragraph at lines 151--155
+Underfull \hbox (badness 10000) in paragraph at lines 155--159
 
  []
 
@@ -793,13 +793,13 @@ Package natbib Warning: Empty `thebibliography' environment on input line 8.
 
 ] [17] (./zavrsni.aux) ) 
 Here is how much of TeX's memory you used:
- 5987 strings out of 492990
- 82779 string characters out of 6135005
- 158939 words of memory out of 5000000
- 9390 multiletter control sequences out of 15000+600000
+ 5989 strings out of 492990
+ 82821 string characters out of 6135005
+ 157959 words of memory out of 5000000
+ 9392 multiletter control sequences out of 15000+600000
  68645 words of font info for 86 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 43i,9n,40p,1500b,332s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 43i,9n,40p,1470b,332s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.
 enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></
 usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/sh
@@ -816,7 +816,7 @@ exlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-di
 st/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri
 8a.pfb>
-Output written on zavrsni.pdf (21 pages, 250924 bytes).
+Output written on zavrsni.pdf (21 pages, 251741 bytes).
 PDF statistics:
  141 PDF objects out of 1000 (max. 8388607)
  98 compressed objects within 1 object stream
