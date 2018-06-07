@@ -15,22 +15,23 @@ import org.apache.commons.math3.ml.clustering.Clusterable;
 import org.apache.commons.math3.ml.clustering.KMeansPlusPlusClusterer;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.WindowConstants;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
 import java.io.IOException;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * The graph visualizer; assumes that
+ * {@link RankingFunction#datasetInfo#documents} is already loader.
+ *
  * @author Luka Cupic
  */
-public class VisualizationDemo {
-
-	private static final double threshold = 0.07;
+public class DocumentGraph2 extends JPanel {
 
 	private static Color[] colors = new Color[]{
 			new Color(78, 122, 190),
@@ -45,11 +46,21 @@ public class VisualizationDemo {
 			new Color(14, 10, 78),
 	};
 
-	public static void main(String[] args) throws IOException {
-		Main.init(Paths.get(args[0]));
+	private double threshold = 0.07;
+
+	public DocumentGraph2() {
+		init();
+	}
+
+	public DocumentGraph2(double threshold) {
+		this.threshold = threshold;
+		init();
+	}
+
+	private void init() {
 		List<Document> documents = new ArrayList<>(RankingFunction.datasetInfo.documents.values());
 
-		DirectedSparseGraph<Document, Edge> g = new DirectedSparseGraph<>();
+		DirectedSparseGraph<Document, String> g = new DirectedSparseGraph<>();
 		documents.forEach(g::addVertex);
 
 		RankingFunction.DatasetInfo.DocumentPair pair = new RankingFunction.DatasetInfo.DocumentPair();
@@ -61,16 +72,15 @@ public class VisualizationDemo {
 				Document d2 = documents.get(j);
 				pair.setDocuments(d1, d2);
 
-				//double sim = d1.sim(d2) / d1.sim(d1);
 				double sim = RankingFunction.datasetInfo.similarities.get(pair);
 
 				if (sim > threshold) {
-					g.addEdge(new Edge(sim), d1, d2);
+					g.addEdge(d1.hashCode() + " " + d2.hashCode(), d1, d2);
 				}
 			}
 		}
 
-		FRLayout<Document, Edge> layout = new FRLayout<>(g);
+		FRLayout<Document, String> layout = new FRLayout<>(g);
 		layout.setSize(new Dimension(600, 600));
 		layout.initialize();
 
@@ -88,7 +98,7 @@ public class VisualizationDemo {
 
 		// -- visualize --
 
-		VisualizationViewer<Document, Edge> vv = new VisualizationViewer<>(layout);
+		VisualizationViewer<Document, String> vv = new VisualizationViewer<>(layout);
 
 		vv.getRenderContext().setEdgeDrawPaintTransformer(input -> new Color(163, 163, 163));
 		vv.getRenderContext().setEdgeArrowPredicate(input -> false);
@@ -130,9 +140,11 @@ public class VisualizationDemo {
 		frame.getContentPane().add(vv);
 		frame.pack();
 		frame.setVisible(true);
+
+		this.add(vv);
 	}
 
-	private static void performClustering(List<Document> documents, AbstractLayout<Document, Edge> layout, int k) {
+	private static void performClustering(List<Document> documents, AbstractLayout<Document, String> layout, int k) {
 		List<DocumentLocation> clusterInput = new ArrayList<>();
 		documents.forEach(document -> clusterInput.add(new DocumentLocation(document, layout)));
 
@@ -147,21 +159,13 @@ public class VisualizationDemo {
 		}
 	}
 
-	private static class Edge {
-		double weight;
-
-		public Edge(double weight) {
-			this.weight = weight;
-		}
-	}
-
 	// wrapper class
 	private static class DocumentLocation implements Clusterable {
 
 		private double[] points;
 		private Document document;
 
-		public DocumentLocation(Document document, AbstractLayout<Document, Edge> layout) {
+		public DocumentLocation(Document document, AbstractLayout<Document, String> layout) {
 			this.document = document;
 			points = new double[2];
 			points[0] = layout.getX(document);
