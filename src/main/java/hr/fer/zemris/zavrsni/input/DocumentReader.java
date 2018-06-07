@@ -1,4 +1,4 @@
-package hr.fer.zemris.zavrsni.readers;
+package hr.fer.zemris.zavrsni.input;
 
 import java.io.IOException;
 import java.util.List;

@@ -1,4 +1,4 @@
-package hr.fer.zemris.zavrsni.utils;
+package hr.fer.zemris.zavrsni.input;
 
 class NewString {
 	public String str;

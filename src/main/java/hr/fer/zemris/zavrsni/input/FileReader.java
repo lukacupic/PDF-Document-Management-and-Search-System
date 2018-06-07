@@ -1,4 +1,4 @@
-package hr.fer.zemris.zavrsni.readers;
+package hr.fer.zemris.zavrsni.input;
 
 import java.nio.file.Path;
 

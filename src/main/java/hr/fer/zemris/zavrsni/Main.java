@@ -1,9 +1,10 @@
 package hr.fer.zemris.zavrsni;
 
+import hr.fer.zemris.zavrsni.input.InputProcessor;
 import hr.fer.zemris.zavrsni.model.Result;
 import hr.fer.zemris.zavrsni.ranking.CosineSimilarity;
 import hr.fer.zemris.zavrsni.ranking.RankingFunction;
-import hr.fer.zemris.zavrsni.readers.ConsoleReader;
+import hr.fer.zemris.zavrsni.input.ConsoleReader;
 import hr.fer.zemris.zavrsni.utils.IOUtils;
 import hr.fer.zemris.zavrsni.utils.MD5Visitor;
 import org.apache.commons.codec.digest.DigestUtils;

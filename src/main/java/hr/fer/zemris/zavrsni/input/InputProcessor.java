@@ -1,7 +1,4 @@
-package hr.fer.zemris.zavrsni;
-
-import hr.fer.zemris.zavrsni.readers.DocumentReader;
-import hr.fer.zemris.zavrsni.utils.Stemmer;
+package hr.fer.zemris.zavrsni.input;
 
 import java.io.IOException;
 import java.nio.file.Files;

@@ -3,6 +3,30 @@
 \usepackage{graphicx}
 \graphicspath{{./images/}}
 
+\usepackage{listings}
+\usepackage{color}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
 \begin{document}
 
 % TODO: Navedite broj rada.
@@ -36,12 +60,22 @@ Korištenje računala za povrat informacija (engl. \textit{information retrieval
 
 \section{Prikaz dokumenata}
 \label{subchap:docmodel_docview}
-Prije svega, valja definirati što u kontekstu analize i pretraživanja teksta predstavlja dokument. Neformalno dokument možemo definirati kao kolekciju riječi. Ovakva kolekcija ne mora nužno biti skup, pošto dokument može imati više ponavljanja istih riječi (ova će činjenica doći do izražaja u \textbf{poglavlju X}). No ipak, za predstavljanje dokumenata biti će korišten tzv. model vreće riječi (engl. \textit{bag of words model}) kod kojeg nam nije bitna semantika samih dokumenata, pa čak niti poredak riječi, već je bitno samo pojavljuju li se riječi u određenom dokumentu, odnosno koja je učestalost njihovog pojavljivanja.
-Model vreće riječi zamišljen je tako da se na početku iz svih dokumenata iz kolekcije dokumenata (u daljnjem tekstu: zbirka) izvade sve riječi te potom uklone nebitne riječi (o kojima će više riječi biti u poglavlju \ref{chap:impl}) a od preostalih se riječi izgradi vektor koji će \textit{de-facto} predstavljati dokument. Ovakav prethodno opisani model često je korišten u području procesiranja prirodnog jezika te povrata informacija kako iz dokumenata tako iz drugih tekstualnih izvora.
+Prije svega, valja definirati što u kontekstu analize i pretraživanja teksta predstavlja dokument. Dokument neformalno možemo definirati kao kolekciju riječi. Ovakva kolekcija ne mora nužno biti skup, pošto dokument može imati više ponavljanja istih riječi, stoga na dokument možemo gledati upravo kao na poredanu kolekciju riječi u kojoj može biti ponavljanja. Ovakva definicija dokumenta bit će bitna u nastavku gdje se opisuje semantička sličnost dokumenata. Primjerice, neki dokument koji sadrži više pojavljivanja riječi "računalo", "algoritam" te "memorija" očito će biti relevantan u kontekstu dokumenata vezanih za računarsku znanost. Postavlja se pitanje kako tako definirane dokumente prikazati u računalu. Jedan (smisleni) pokušaj bio bi predstaviti riječi kao vektore, gdje bi svaki znak te riječi predstavljao jednu komponentu vektora. Ovakav model naziva se \textit{Word2Vec} te služi za predstavljanje riječi iz nekog vokabulara na način da svaka riječ dobije odgovarajući položaj u više-dimenzijskom prostoru. Tako definiran model ima za posljedicu to da će semantički sličnije riječi biti bliže (odnosno da pripadajući im vektori međusobno zatvarati manji kut) i obrnuto. Ovakav se model često koristi u kontekstu semantičke analize riječi, primjerice u pronalaženju sličnih riječi, sinonima, antonima itd. No ipak, u kontekstu ovog rada fokus će imati semantička sličnost \textit{dokumenata}, stoga će za predstavljanje dokumenata biti korišten tzv. model vreće riječi (engl. \textit{bag of words model}). U modelu vreće riječi, tekst dokumenta predstavljen je multiskupom riječi. Multiskup jest proširenje klasičnog skupa u smislu da dozvoljava više pojavljivanja elemenata, odnosno u ovom kontekstu, riječi. Kod modela vreće riječi dakle nije bitna semantika samih dokumenata, pa čak niti poredak riječi, već je bitno samo koje se riječi pojavljuju u određenom dokumentu, odnosno koja je učestalost njihovog pojavljivanja. Primjer modela vreće riječi prikazan je u nastavku:
+Neka su zadani dokumenti $d_{1}$ = "Marko jako voli domaćice. Domaćice su dobre." te $d_{2}$ = "Marko voli domaćice i programiranje." Za ovako zadane dokumente, prikazane su dobivene dobivene vreće riječi u JSON formatu:
+\begin{equation}
+{{BoW_{1}}=\{\text{{"Marko":1, "jako":1, "voli":1, "domaćice":2, "su":1, "dobre":1}}}\},
+\end{equation}
+\begin{equation}
+{{BoW_{2}}=\{\text{{"Marko":1, "voli":1, "domaćice":2, "i":1, "programiranje":1}}}\},
+\end{equation}
 
-Da bi se dokumenti mogli predstaviti u obliku vreća riječi, potrebno je odrediti vokabular—skup svih riječi koje se nalaze u svim dokumentima promatrane zbirke. Iz ovako zadanog vokabulara potrebno je ponajprije ukloniti sve tzv. zaustavne riječi (engl. \textit{stop words})—riječi koje su učestale u nekom jeziku te su stoga nebitne za sam postupak analize teksta. Primjeri nekih zaustavnih riječi u hrvatskom jeziku su: \textit{aha}, \textit{nešto}, \textit{okolo} te \textit{zaboga}. Osim zaustavnih riječi, dodatna obrada teksta može se obaviti tzv. \textit{stemanjem} (engl. \textit{stemming}). Ova metoda ima zadaću svesti riječi na njihov kanonski oblik; nebitno je je li riječ napisana u jednini ili množini ili pak u kojem je padežu već je bitan samo kanonski oblik riječi. Na primjer, riječi poput \textit{spavao} i \textit{spavati} biti će svedene na kanonski oblik \textit{spavanje}.
-Nakon stvaranja vokabulara te predobrade dokumenata (izbacivanje zaustavnih riječi, stemanje) sljedeći korak je predstavljanje dokumenata. Radi praktičnosti, najčešća metoda predstavljanja dokumenata je uz pomoć vektora.
-Najjednostavnija metoda vektorskog predstavljanja dokumenata jest binarna: za svaku riječ iz vokabulara naprosto se provjeri nalazi li se u danom dokumentu te ukoliko se nalazi, odgovarajuća komponenta vektora (indeks riječi u vokabularu) biti će 1, a u suprotnom 0. Primjerice, za dokumente $d_{1}$ = "Marko jako voli domaćice. Domaćice su dobre." te $d_{2}$ = "Marko voli domaćice i programiranje.", vokabular će nakon uklanjanja svih nebitnih znakova i stop riječi biti: V = \{"Marko", "jako", "voli", "domaćice", "dobre", "programiranje"\}. Koristeći binarnu metodu reprezentacije dokumenata, odgovarajući vektori će iznositi
+Kako bi se uopće moglo započeti sa semantičkom analizom dokumenata, potrebno je imati kolekciju dokumenata koji će se međusobno uspoređivati
+Korištenje modela vreće riječi zamišljeno je tako da se na početku iz svih dokumenata iz kolekcije dokumenata (u daljnjem tekstu: zbirka) izvade sve riječi te potom uklone nebitne riječi (o kojima će više riječi biti u poglavlju \ref{chap:impl}) a od preostalih se riječi izgradi vektor koji će \textit{de-facto} predstavljati dokument. Ovakav prethodno opisani model često je korišten u području procesiranja prirodnog jezika te povrata informacija kako iz dokumenata tako iz drugih tekstualnih izvora.
+
+U prethodnom primjeru prikazana je konstrukcija vreće riječi dvaju dokumenata. U tom primjeru, kao riječi koje se pojavljuju u vrećama uzete su sve riječi iz ulaznih dokumenata, što u praksi neće uvijek biti slučaj. Naime, u dokumentima se često znaju pronaći riječi koje nemaju nikakvo značenje za sam dokument. Takve su riječi primjerice zamjenice, pomoćni glagoli, veznici itd. Ovakve riječi nazivaju se zaustavne riječi (engl. \textit{stop words}) te su to riječi koje su učestale u nekom jeziku te su stoga nebitne za sam postupak analize teksta, pošto na nikakav način ne doprinose sadržaju dokumenta. Zaustavne se riječi stoga izbacuju iz vreća riječi te se zadržavaju samo riječi "bitne" za semantiku dokumenata. Empirijski je pokazano da uklanjanje zaustavnih riječi ima pozitivan utjecaj na daljnju obradu dokumenata. Primjeri nekih zaustavnih riječi u hrvatskom jeziku su: \textit{aha}, \textit{nešto}, \textit{okolo} te \textit{zaboga}.
+Kako bi se dokumenti mogli predstaviti u obliku vreća riječi, potrebno je odrediti vokabular—skup svih riječi koje se nalaze u svim dokumentima promatrane zbirke. Poznavanje vokabulara ključno je za semantičku sličnost dokumenata, što će i biti pokazano kasnije. Iz dobivenog vokabulara potrebno je na početku obrade ukloniti zaustavne riječi iz već opisanih razloga. Osim zaustavnih riječi, dodatna obrada teksta može se obaviti tzv. \textit{stemanjem} (engl. \textit{stemming}). Ova metoda ima zadaću svesti riječi na njihov kanonski oblik, kako bi riječi istog korijena bile svedene na istu riječ. Svođenje na kanonski oblik ne znači nužno i svođenje na morfološki korijen riječi. Primjerice, riječi "mačka", "mačkama" te "mačke" bile bi svedene na "mačk". Nebitno je dakle je li riječ napisana u jednini ili množini ili pak u kojem je padežu već je bitan samo njezin kanonski oblik.
+Nakon stvaranja vokabulara te predobrade dokumenata (izbacivanje zaustavnih riječi, stemanje) sljedeći korak jest predstavljanje dokumenata. Radi praktičnosti, najčešća metoda predstavljanja dokumenata je uz pomoć vektora.
+Najjednostavnija metoda vektorskog predstavljanja dokumenata jest binarna: za svaku riječ iz vokabulara naprosto se provjeri nalazi li se u danom dokumentu te ukoliko se nalazi, odgovarajuća komponenta vektora (indeks riječi u vokabularu) biti će 1, a u suprotnom 0. Primjerice, za prethodno definirane dokumente $d_{1}$ i $d_{2}$, vokabular će nakon uklanjanja svih nebitnih znakova i stop riječi biti: V = \{"Marko", "jako", "voli", "domaćice", "dobre", "programiranje"\}. Valja primijetiti kako su riječi "i" i "su" izbačene iz vokabulara. Koristeći binarnu metodu reprezentacije dokumenata, odgovarajući vektori će iznositi
 \begin{equation}
 {{d_{1}}=[1, 1, 1, 1, 1, 0]},
 \end{equation}
@@ -49,20 +83,20 @@ Najjednostavnija metoda vektorskog predstavljanja dokumenata jest binarna: za sv
 {{d_{2}}=[1, 0, 1, 1, 0, 1]}
 \end{equation}
 zbog toga što prvi dokument ne sadrži riječ "programiranje" (zadnja komponenta) dok drugi dokument ne sadrži riječi "jako" (druga komponenta) te "dobre" (predzadnja komponenta).
-Nadograđujući se na prethodnu metodu, dolazi se do frekvencijskog prikaza vektora. Umjesto obične binarne reprezentacije u kojoj se pamti samo nalazi li se riječ u dokumentu ili ne, u frekvencijskom prikazu pamti se i koliko se puta dotična riječ pojavljuje u dokumentu; komponente vektora zapravo su frekvencija (tj. broj) pojavljivanja određene riječi u dokumentu. Gledajući isti vokabular i dokumente kao u prethodnom primjeru, novi vektori će u ovom slučaju iznositi:
+Nadograđujući se na prethodnu metodu, dolazi se do frekvencijskog prikaza vektora. Umjesto obične binarne reprezentacije u kojoj se pamti samo nalazi li se riječ u dokumentu ili ne, u frekvencijskom prikazu pamti se i koliko se puta određena riječ pojavljuje u dokumentu; komponente vektora zapravo su frekvencija (tj. broj) pojavljivanja određene riječi u dokumentu. Gledajući isti vokabular i dokumente kao u prethodnom primjeru, novi vektori će u ovom slučaju iznositi:
 \begin{equation}
 {{d_{1}}=[1, 1, 1, 2, 1, 0]}
 \end{equation}
 \begin{equation}
 {{d_{2}}=[1, 0, 1, 1, 0, 1]}
 \end{equation}
-Valja uočiti da je jedina razlika u odnosu na prethodni primjer četvrta komponenta prvog vektora koja zapravo ukazuje na to da se riječ "domaćica" u prvom dokumentu pojavljuje dvaput.
-Naposlijetku dolazimo i do najčešće metode vektorskog prikaza dokumenata — TF-IDF (engl. \textit{term frequency–inverse document frequency}). Ova metoda zasniva se na dvije intuitivne pretpostavke:
+Jedina razlika u odnosu na prethodni primjer jest četvrta komponenta prvog vektora koja ukazuje na to da se riječ "domaćica" u prvom dokumentu pojavljuje dvaput.
+Naposlijetku dolazimo i do najčešće metode vektorskog prikaza dokumenata u kontekstu analize i pretraživanja teksta — TF-IDF (engl. \textit{term frequency–inverse document frequency}). Ova metoda zasniva se na dvije intuitivne pretpostavke:
 \begin{itemize}
 \item[$\bullet$] riječ je važnija za semantiku dokumenta što se češće u njemu pojavljuje (TF komponenta)
 \item[$\bullet$] riječ je manje važna za semantiku dokumenta što se češće pojavljuje u drugim dokumentima (IDF komponenta)
 \end{itemize}
-TF i IDF dakle predstavljaju dvije komponente vektora kojima ćemo predstavljati dokumente. Prva komponenta je već spomenuta, frekvencija pojavljivanja riječi \textit{w} u dokumentu \textit{d}, odnosno $f_\textit{w, d}$, dok je druga komponenta obrnuta frekvencija pojavljivanja riječi u cijeloj zbirci.
+TF i IDF dakle predstavljaju dvije komponente vektora kojima će se predstavljati dokumenti. Prva komponenta je već spomenuta frekvencija pojavljivanja riječi \textit{w} u dokumentu \textit{d}, odnosno $f_\textit{w, d}$, dok je druga komponenta obrnuta frekvencija pojavljivanja riječi u cijeloj zbirci.
 Za riječ \textit{w} i dokument \textit{d}, TF i IDF komponene računaju se na sljedeći način:
 \begin{equation}
 {\displaystyle \mathrm {tf} (t,d)=f_{t,d}}
@@ -71,18 +105,18 @@ Za riječ \textit{w} i dokument \textit{d}, TF i IDF komponene računaju se na s
 {\displaystyle \mathrm {idf} (t,D)=\log {\frac {N}{|\{d\in D:t\in d\}|}}}
 \end{equation}
 
-Formula za TF komponentu je intuitivna i trivijalna. Formula za IDF komponentu zahtjeva kratki osvrt: riječ će biti bitnija za neki dokument što se rijeđe pojavljuje u drugim dokumentima. Odnosno drugim riječima: riječ će biti manje bitna za neki dokument što se češće pojavljuje u drugim dokumentima. Ovo ima smisla zato što neke riječi mogu biti česte u dokumentima čisto zbog same prirode jezika pa stoga ima smisla takve riječi manje uzimati u obzir prilikom računanja relevantnosti dokumenata. Dakle: što je riječ češća u ostalim dokumentima, IDF vrijednost se smanjuje te riječ postaje manje bitna za neki dokument. Naposlijetku, cijeli se omjer logaritamski skalira kako bi se u smanjio utjecaj velikog i/ili malog broja dokumenata koji sadrže određenu riječ. U nastavku je prikazan primjer izračuna TF-IDF vektora za prethodno prikazane dokumente ${d_1}$ i ${d_2}$: JE LI OVO BITNO ???
+Izraz za TF komponentu je intuitivan i trivijalan. Izraz za IDF komponentu zahtjeva kratki osvrt: riječ će biti bitnija za neki dokument što se rijeđe pojavljuje u ostalim dokumentima zbirke, odnosno drugim riječima: riječ će biti manje bitna za neki dokument što se češće pojavljuje u drugim dokumentima. Ovo ima smisla zato što neke riječi mogu biti česte u dokumentima čisto zbog same prirode jezika (kao što je ranije pokazano u slučaju zamjenica, veznika itd.) pa stoga ima smisla takve riječi manje uzimati u obzir prilikom računanja relevantnosti riječi. Dakle: što je riječ češća u ostalim dokumentima, IDF vrijednost se smanjuje te riječ postaje manje bitna za neki dokument. Naposlijetku, cijeli se omjer logaritamski skalira kako bi se u smanjio utjecaj velikog i/ili malog broja dokumenata koji sadrže određenu riječ. U nastavku je prikazan primjer izračuna TF-IDF vektora za prethodno prikazane dokumente ${d_1}$ i ${d_2}$: JE LI OVO BITNO ???
 
-\section{Semantička sličnost dokumenata}]
+\section{Semantička sličnost dokumenata}
 \label{subchap:similarity}
 Nakon izgrađene vektorske reprezentacije svih dokumenata zbirke, sljedeći korak jest samo uspoređivanje dokumenata. U sklopu ovog završnog rada, uspoređivanja dokumenata ostvaruje se na dva semantički različita načina: uspoređivanje korisničkog unosa (engl. \textit{user input}, \textit{query}) sa zbirkom dokumenata odnosno uspoređivanje pojedinog dokumenta sa zbirkom dokumenata.
 Ova dva, naizgled različita problema, zapravo se svode na jedan: uspoređivanje kolekcije riječi sa zbirkom dokumenata. Ideja je dakle sljedeća: gleda se koliko riječi (bilo iz korisničkog unosa, bilo iz dokumenta, u daljnjem tekstu: ulazni vektor) iz ulaznog vektora odgovara riječima iz vokabulara, tj. koliko riječi iz ulaznog vektora odgovaraju riječima iz pojedinih dokumenata u zbirci. Što je veća korespondencija određenog ulaznog vektora s vektorom pojedinog dokumenta (tj. što više riječi dijele zajedno), to kažemo da su ta dva dokumenta sličnija. Primjerice, ukoliko se u zbirci nalazi dokument o Zvjezdanim ratovima, a kao ulazni vektor dovedemo frazu poput "May the Force be with you", taj ulazni vektor i taj dokument imati će određenu (potencijalno visoku) mjeru sličnosti — što nas dovodi do same definicije:
 \newline
-Mjeru sličnosti dokumenata (engl. \textit{document similarity}) definiramo kao vrijednost na skupu pozitivnih realnih brojeva, koja ukazuje na to koliko su dva dokumenta slična — što je brojka veća, dokumenti su sličniji.
+Mjeru sličnosti dokumenata (engl. \textit{document similarity}) definiramo kao vrijednost na skupu pozitivnih \footnote{Postoji i definicija koja mjeru sličnosti definira nad cijelim skupom realnih brojeva, no u kontekstu ovog rada definicija nad pozitivnim brojevima biti će sasvim dostatna} realnih brojeva, koja ukazuje na to koliko su dva dokumenta slična — što je brojka veća, dokumenti su sličniji.
 U nastavku će se razmotriti nekoliko metoda za izračun mjere sličnosti dokumenata.
 
 \subsection{Metoda kosinusne sličnosti}
-Kako su dokumenti zapravo predstavljeni vektorima u više-dimenzijskom prostoru, nad takvim dokumentima (odnosno njihovim vektorima), možemo primijenjivati operacije linearne algebre, odnosno vektorske operacije. Počevši od definicije skalarnog umnoška dvaju vektora
+Kako su dokumenti zapravo predstavljeni vektorima u više-dimenzijskom prostoru, nad njima (odnosno njihovim vektorima), možemo primijenjivati operacije linearne algebre, odnosno vektorske operacije. Počevši od definicije skalarnog umnoška dvaju vektora
 \begin{equation}
 \mathbf {a} \cdot \mathbf {b} =\left\|\mathbf {a} \right\|\left\|\mathbf {b} \right\|\cos \theta,
 \end{equation}
@@ -142,6 +176,7 @@ gdje je $D$ zbirka dokumenata, odnosno $|D|$ njezina veličina.
 Ovakva empirijska heuristika ne dovodi nužno do optimalnog rješenja (tj. do egzaktnog broja grupa), no služi kao relativno dobra aproksimacija, što je u ovome kontekstu često puta sasvim dovoljno.
 
 \section{Primjena na prikaz dokumenata}
+\label{sec:docdisplay}
 Prethodno definirane metode (silom usmjereno crtanje grafova te grupiranje k-sredina) mogu se iskoristiti upravo za prikaz i grupiranje dokumenata, odnosno njihovih međusobnih sličnosti u 2D koordinatnom sustavu. Prije početka ijednog od algoritama, svi dokumenti i pripadajući im vektori moraju biti učitani, odnosno inicijalizirani. Nadalje, za svaki par dokumenata $d_{i}$ i $d_{j}$, $i \neq j$, izračuna se njihova sličnost (koristeći neku od metoda prikazanih u potpoglavlju \ref{subchap:similarity}) te se čvorovi (dokumenti) i bridovi (sličnosti) predaju algoritmu koji odsimulira postupak opisan u potpoglavlju \ref{subchap:forcedir}. te nakon određenog broja koraka postupak prestaje i se prikazuje nacrtani graf.
 Nad tako nacrtanim grafom dalje se može primijeniti algoritam grupiranja k-sredina koji prvo procijenjuje hiperparametar \textit{k} uz pomoć već opisane heuristike te nakon toga provodi postupak grupiranja dokumenata. Nakon što se oba algoritma izvrše, dobiveni rezultat jest upravo prikaz dokumenata u 2D koordinatnom sustavu s naznačenim grupama koje predstavljaju aproksimaciju (broja) kategorija dokumenata iz zbirke.
 
@@ -152,23 +187,26 @@ Prilikom istraživanja različitih metoda rangiranja za potrebe ovog rada, metod
 
 \chapter{Implementacija i rezultati}
 \label{chap:impl}
-Programske potpora kao implementacija ovog završnog rada napisana je u programskom jeziku Java. Razlog ovakvog odabira leži u tome što je Java popularan i praktičan objektno orijentirani jezik zbog čega je idealan za rješavanje problema iz domene analize i obrade teksta zbog svoje objektne metodologije, nativne podrške apstraktnih kolekcija podataka, mogućnosti korištenja raznih vanjskih biblioteka itd. \newline \newline
+
+
+Programska implementacija ovog završnog rada napisana je u programskom jeziku Java koji je zbog svoje objektne metodologije, nativne podrške apstraktnih kolekcija podataka te postojana podrška raznih vanjskih biblioteka idealan za implementaciju problema iz domene analize i pretraživanja teksta.
+Korištene biblioteke su Apache PDFBox za parsiranje PDF dokumenata, Apache Commons Math za proračun k-sredina, Apache Digest Utils za izračun MD5 \textit{hash} vrijednosti te Jung biblioteke za proračun te vizualizaciju grafova.  \newline \newline
+
 Kao što je već ranije spomenuto, pročitani dokumenti reprezentirani su vektorima obzirom da je to jedan od  najjednostavnijih i najefikasnijih način prikaza dokumenata. Naime, u memoriji se na taj način ne trebaju eksplicitno spremati riječi za svaki dokument već se mogu spremiti samo brojke koje govore koliko je dotična riječ relevantna za dokument. Kako se u sklopu ovog rada koristi TF-IDF reprezentacija dokumenata, to znači da se za svaki dokument treba izračunati njegova TF-IDF (vektorska) reprezentacija. Prije samog izračuna komponenata TF-IDF vektora, potrebno je pročitati PDF dokumenti smještene na disku. Pošto su PDF dokumenti zapravo binarne datoteke, po svojoj strukturi nisu trivijalno parsabilni, što znači da ih nije moguće pročitati odnosno dekodirati na jednostavan način kao što je to moguće s primjerice tekstualnim datotekama. Zbog toga se za njihovo čitanje, odnosno parsiranje koristi vanjska biblioteka Apache PDFBox koja iz zadanog PDF dokumenta ekstrahira Unicode znakove koje može pročitati te ih vrati kao rezultat. Tako dobiveni tekst dodatno se obrađuje pri čemu se uklanjaju bilo kakvi interpunkcijski znakovi, dijakritici, brojke, odnosno svi znakovi koji nisu mala ili velika slova engleske abecede. Ovakav postupak nužan je kako bi se što više smanjio utjecaj nebitnih znakova na točnost uspoređivanja dokumenata.
 Jednom kada je tekst isfiltriran, nad njim se provodi daljnja predobrada koja: 1) uklanja iz teksta stop-riječi te 2) vrši stemanje nad dobivenim riječima dokumenata. Obje metode opisane su u potpoglavlju
 \ref{subchap:docmodel_docview}. Nakon završene predobrade teksta, stvaraju se vokabular, vektori (za reprezentaciju dokumenata) te nekoliko dodatnih pomoćnih struktura podataka. Nakon ovog koraka vrši se još i izračun sličnosti dokumenata kako bi jednom izračunati podaci bili spremljeni za ponovno korištenje bez da se moraju svaki puta iznova računati.
-
-Kako bi upiti korisnika bili što optimiraniji, nakon što se prvi put izvrši čitav gore opisan postupak (preprocesiranje dokumenata, stvaranje vokabulara, računanje sličnosti dokumenata itd.), dobiveni se podaci spremaju u keš (engl. \textit{cache}) memoriju, odnosno bivaju serijalizirani (engl. \textit{serialization}) na disk. Svrha ovog postupka jest jednom dobivene i izračunate relevantne podatke zbirke dokumenata spremiti u perzistentnu memoriju računala kako bi se po svakom sljedećem pokretanju programa, umjesto ponovnog prikupljanja i izračuna svih relevantnih podataka, isti mogli efikasnije isčitati iz zapisane datoteke te deserijalizirati u odgovarajuće strukture podataka čime se uvelike dobija na brzini izvođenja programa, kao što se može vidjeti u Tablici
-\ref{table:serialization} u kojoj je vidljivo da se korištenjem serijalizacije postiže prosječno ubrzanje od čak 58 puta prilikom svakog (ne-inicijalnog) pokretanja programa.
 
 \section{Procesiranje i obrada korisničkog unosa}
 Programsko rješenje ovog završnog rada nudi korisniku interaktivan način pretraživanja postojeće zbirke dokumenata postavljanjem upita kroz grafičko korisničko sučelje. Naime, nakon odabrane putanje do zbirke dokumenata, korisnik postavlja upit te program pretražuje zbirku dokumenata i korisniku prikazuje dokumente sortirane po relevantnosti korisničkom upitu.
 Korisnički se upit procesira kao što je već ranije spomenuto u poglavlju \ref{docmodel}: zanemaruju se svi znakovi koji nisu slova engleske abecede, uklanjaju se stop riječi, provodi se stemanje te se nakon toga korisnički unos procesira. Naime, za svaku riječ provodi se metoda kosinisne sličnosti odnosno BM25 te se od korisničkog unosa izgradi vektor koji taj unos predstavlja u \textit{n}-dimenzijskom koordinatnom sustavu, gdje \textit{n} predstavlja veličinu (broj riječi) vokabulara. Nakon izračuna sličnosti s dokumentima zbirke, program korisniku prikazuje popis svih relevantnih dokumenata, zajedno s odgovarajućim koeficijentima sličnosti.
 
+Za procesiranje korisničkog unosa (odnosno bilo kakvog unosa od strane korisnika, kao što će biti jasno u idućem potpoglavlju) koristi se razred \textit{InputProcessor} iz paketa \textit{hr.fer.zemris.zavrsni.input}. Ovaj razred se koristi kad god treba napraviti učitavanje dokumenta s diska. Naime, on sadrži popis zaustavnih riječi te referencu na objekt \text{Stemmer} iz istog paketa. Stemmer predstavlja tzv. \textit{Porter stemming algorithm} čija je implementacija u Javi javno dostupna na Internetskoj stranici samog algoritma. Ovaj razred čita proizvoljan dokument s diska, uklanja zaustavne riječi,  provodi ranije opisan postupak stemanja riječi te vraća tako obrađenu listu riječi.
+
 \section{Pronalazak sličnih dokumenata}
 Osim pretraživanja zbirke dokumenata prema korisničkom upitu, program nudi mogućnost pronalaska sličnih dokumenata odabranome dokumentu koji se ne nalazi u zbirci. Naime, nakon pokretanja programa i odabira putanje do zbirke dokumenata, korisnik može odabrati proizvoljan dokument s diska kako bi pronašao njemu slične dokumente iz zbirke. Nakon odabira dokumenta, korisnik može odabrati između dva načina prikaza rezultata: analitički (???) te grafički.
 
 \section{Vizualizacija dokumenata}
-Dobiveni vektor također se može iskoristiti kako bi se korisnički unos vizualizirao na isti način kao i dokumenti zbirke; naime, jednom kada se između korisničkog upita i dokumenata zbirke izračunaju sličnosti, tada je programsko rješenje trivijalno proširivo tako da podrži i vizualizaciju korisničkog unosa kako bi se moglo grafički vidjeti gdje korisnikov upit točno "pripada".
+Kao što je već ranije spomenuto u potpoglavlju \ref{sec:docdisplay}, dokumenti zbirke mogu se grafički prikazati u 2D koordinatnom sustavu tako da se uzme u obzir njihova međusobna sličnost.
 
 \begin{table}
 \begin{center}
@@ -181,9 +219,66 @@ Br. dokumenata & Ponovno čitanje (sek) & Deserijalizacija (sek) \\
 \hline
 \end{tabular}
 \end{center}
-\caption{Usporedba vremena inicijalizacije podataka za učitavanje svih podataka iznova i za deserijalizaciju}
+\caption{Usporedba trajanja ponovnog čitanja dokumenata i deserijalizacije}
 \label{table:serialization}
 \end{table}
+
+
+Ulazni vektor (dobiven bilo iz korisničkog upita ili iz dokumenta učitanog s diska) može se iskoristiti kako bi se korisnički upit, odnosno učitani dokument mogli prikazati grafički. Naime, osim prikazanih dokumenata zbirke i njihovih međusobnih sličnosti, moguće je vidjeti i gdje pripada korisnički unos, odnosno učitani dokument.
+
+\begin{lstlisting}[caption={Isječak programskog koda za generičku usporedbu dokumenata},captionpos=b]
+private void calculateSimilarities() {
+    Map<DatasetInfo.DocumentPair, Double> similiarities = new HashMap<>();
+    List<Document> documents = new ArrayList<>(datasetInfo.documents.values());
+    for (int i = 0; i < documents.size(); i++) {
+        for (int j = 0; j < documents.size(); j++) {
+            if (i >= j) continue;
+
+            Document d1 = documents.get(i);
+            Document d2 = documents.get(j);
+
+            double sim = d1.sim(d2) / d1.sim(d1);
+            similiarities.put(new DatasetInfo.DocumentPair(d1, d2), sim);
+        }
+    }
+    datasetInfo.similarities = similiarities;
+}
+\end{lstlisting}
+
+\section{Provjera integriteta zbirke dokumenata}
+Kako bi program bio u mogućnosti detektirati promjene nad zbirkom dokumenata (primjerice, ako je novi dokument dodan, ako je neki dokument uklonjen itd.), koristi se tehnika provjere kontrolne sume (engl. \textit{checksum}) dokumenata. Naime, nakon što korisnik odabere direktorij na disku koji predstavlja zbirku dokumenata, nad njim se provede rekurzivan postupak izračuna MD5 \textit{hash} (engl. \textit{hash}) vrijednosti svakog od dokumenata u tom direktoriju. Dobivene \textit{hash} vrijednosti se tada usporede s postojećim \textit{hash} vrijednostima koje su spremljene u posebnoj datoteci. Ukoliko se vrijednosti poklapaju, nad zbirkom nije bilo nikakvih promjena od zadnjeg pokretanja te program učitava serijalizirane podatke o zbirci dokumenata i postaje spreman za korištenje. Ako je međutim uočena razlika između postojeće i izračunate \textit{hash} vrijednosti, očito je da je zbirka promijenjena te se nanovo računaju sve relevantne informacije.
+
+\begin{lstlisting}[caption={Isječak programskog koda za provjeru ispravnosti zbirke},captionpos=b]
+    private static boolean isDatasetCorrect(Path dataset) throws IOException {
+        String md5 = new MD5Visitor(dataset).getMd5();
+        String md5Real;
+    
+        if (new File(md5Filename).exists()) {
+            md5Real = IOUtils.readFromTextFile(md5Filename);
+    
+        } else {
+            IOUtils.writeToTextFile(md5Filename, md5);
+            return false;
+        }
+    
+        if (new File(datasetInfoFilename).exists()) {
+            if (md5.equals(md5Real)) {
+                return true;
+    
+            } else {
+                IOUtils.writeToTextFile(md5Filename, md5);
+                return false;
+            }
+    
+        } else {
+            return false;
+        }
+    }
+    \end{lstlisting}
+
+\section{Optimizacija izvođenja programa}
+Kako bi upiti korisnika bili što optimiraniji, nakon što se prvi put izvrši čitav gore opisan postupak (preprocesiranje dokumenata, stvaranje vokabulara, računanje sličnosti dokumenata itd.), dobiveni se podaci spremaju u keš (engl. \textit{cache}) memoriju, odnosno bivaju serijalizirani (engl. \textit{serialization}) na disk. Svrha ovog postupka jest jednom dobivene i izračunate relevantne podatke zbirke dokumenata spremiti u perzistentnu memoriju računala kako bi se po svakom sljedećem pokretanju programa, umjesto ponovnog prikupljanja i izračuna svih relevantnih podataka, isti mogli efikasnije isčitati iz zapisane datoteke te deserijalizirati u odgovarajuće strukture podataka čime se uvelike dobija na brzini izvođenja programa, kao što se može vidjeti u Tablici
+\ref{table:serialization} u kojoj je vidljivo da se korištenjem serijalizacije postiže prosječno ubrzanje od čak 58 puta prilikom svakog (ne-inicijalnog) pokretanja programa.
 
 \chapter{Zaključak}
 Zaključak.

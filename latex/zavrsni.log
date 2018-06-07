@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.4.20)  3 JUN 2018 15:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.4.20)  7 JUN 2018 14:40
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -568,22 +568,58 @@ Package: booktabs 2016/04/27 v1.618033 publication quality tables
 \@thisruleclass=\count109
 \@lastruleclass=\count110
 \@thisrulewidth=\dimen144
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count111
+\lst@gtempboxa=\box29
+\lst@token=\toks25
+\lst@length=\count112
+\lst@currlwidth=\dimen145
+\lst@column=\count113
+\lst@pos=\count114
+\lst@lostspace=\dimen146
+\lst@width=\dimen147
+\lst@newlines=\count115
+\lst@lineno=\count116
+\lst@maxwidth=\dimen148
+
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
+\c@lstnumber=\count117
+\lst@skipnumbers=\count118
+\lst@framebox=\box30
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2015/06/04 1.6 listings configuration
+))
+Package: listings 2015/06/04 1.6 (Carsten Heinz)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics/color.sty
+Package: color 2016/07/10 v1.1e Standard LaTeX Color (DPC)
+
+(/usr/share/texlive/texmf-dist/tex/latex/graphics-cfg/color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 147.
+)
+(/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2015/06/04 1.6 listings language file
 ) (./zavrsni.aux)
 \openout1 = `zavrsni.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
-LaTeX Font Info:    ... okay on input line 6.
-LaTeX Font Info:    Try loading font information for T1+ptm on input line 6.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 30.
+LaTeX Font Info:    ... okay on input line 30.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 30.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
@@ -623,17 +659,17 @@ File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count111
-\scratchdimen=\dimen145
-\scratchbox=\box29
-\nofMPsegments=\count112
-\nofMParguments=\count113
-\everyMPshowfont=\toks25
-\MPscratchCnt=\count114
-\MPscratchDim=\dimen146
-\MPnumerator=\count115
-\makeMPintoPDFobject=\count116
-\everyMPtoPDFconversion=\toks26
+\scratchcounter=\count119
+\scratchdimen=\dimen149
+\scratchbox=\box31
+\nofMPsegments=\count120
+\nofMParguments=\count121
+\everyMPshowfont=\toks26
+\MPscratchCnt=\count122
+\MPscratchDim=\dimen150
+\MPnumerator=\count123
+\makeMPintoPDFobject=\count124
+\everyMPtoPDFconversion=\toks27
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 
@@ -687,33 +723,35 @@ File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
 Package caption Info: Begin \AtBeginDocument code.
+Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-LaTeX Font Info:    Try loading font information for T1+phv on input line 17.
+\c@lstlisting=\count125
+LaTeX Font Info:    Try loading font information for T1+phv on input line 41.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 17.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 41.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 17.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 41.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <24.88> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 17.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 41.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <24.88> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 17.
-LaTeX Font Info:    Try loading font information for U+msa on input line 17.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 41.
+LaTeX Font Info:    Try loading font information for U+msa on input line 41.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 17.
+LaTeX Font Info:    Try loading font information for U+msb on input line 41.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 20.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 44.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
@@ -738,68 +776,73 @@ Poglavlje 2.
 ]
 Poglavlje 3.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <17.28> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 37.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 61.
 [3
 
-] [4] [5]
+] [4] [5] [6]
 
 Package amsmath Warning: Foreign command \over;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 91.
+(amsmath)                 on input line 125.
 
-<./images/vectors.png, id=43, 714.67pt x 200.75pt>
+<./images/vectors.png, id=46, 714.67pt x 200.75pt>
 File: ./images/vectors.png Graphic file (type png)
 <use ./images/vectors.png>
-Package pdftex.def Info: ./images/vectors.png  used on input line 97. on input 
-line 97.
+Package pdftex.def Info: ./images/vectors.png  used on input line 131. on input
+ line 131.
 Package pdftex.def Info: Requested size: 412.56497pt x 115.88982pt on input lin
-e 97.
+e 131.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 98.
-[6 <./images/vectors.png>] [7]
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 132.
+[7 <./images/vectors.png>] [8]
 Poglavlje 4.
-[8
+[9
 
 ]
-<./images/clustering.png, id=59, 584.1825pt x 220.57407pt>
+<./images/clustering.png, id=63, 584.1825pt x 220.57407pt>
 File: ./images/clustering.png Graphic file (type png)
 <use ./images/clustering.png>
-Package pdftex.def Info: ./images/clustering.png  used on input line 132. on in
-put line 132.
+Package pdftex.def Info: ./images/clustering.png  used on input line 166. on in
+put line 166.
 Package pdftex.def Info: Requested size: 412.56497pt x 155.78072pt on input lin
-e 132.
- [9 <./images/clustering.png (PNG copy)>] [10]
+e 166.
+ [10 <./images/clustering.png (PNG copy)>] [11]
 Poglavlje 5.
-[11
+[12
 
 ]
 Poglavlje 6.
 
-Underfull \hbox (badness 10000) in paragraph at lines 155--159
+Underfull \hbox (badness 10000) in paragraph at lines 192--194
 
  []
 
-[12
 
-] [13] [14]
+Underfull \hbox (badness 10000) in paragraph at lines 192--194
+
+ []
+
+[13
+
+] [14] [15] [16] [17]
 Poglavlje 7.
-(./zavrsni.bbl [15
+(./zavrsni.bbl [18
 
 ]
 
 Package natbib Warning: Empty `thebibliography' environment on input line 8.
 
-) [16
+) [19
 
-] [17] (./zavrsni.aux) ) 
+] [20] (./zavrsni.aux) ) 
 Here is how much of TeX's memory you used:
- 5989 strings out of 492990
- 82821 string characters out of 6135005
- 157959 words of memory out of 5000000
- 9392 multiletter control sequences out of 15000+600000
- 68645 words of font info for 86 fonts, out of 8000000 for 9000
+ 7776 strings out of 492990
+ 106273 string characters out of 6135005
+ 210826 words of memory out of 5000000
+ 11153 multiletter control sequences out of 15000+600000
+ 75677 words of font info for 96 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 43i,9n,40p,1470b,332s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 43i,9n,40p,2157b,1649s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.
 enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></
 usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/sh
@@ -810,16 +853,16 @@ st/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/font
 s/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/
 public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/u
-crro8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/t
-exlive/texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri
-8a.pfb>
-Output written on zavrsni.pdf (21 pages, 251741 bytes).
+crr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utm
+r8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on zavrsni.pdf (24 pages, 276258 bytes).
 PDF statistics:
- 141 PDF objects out of 1000 (max. 8388607)
- 98 compressed objects within 1 object stream
+ 155 PDF objects out of 1000 (max. 8388607)
+ 107 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  11 words of extra memory for PDF output out of 10000 (max. 10000000)
 

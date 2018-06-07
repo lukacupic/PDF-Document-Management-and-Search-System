@@ -1,12 +1,12 @@
 package hr.fer.zemris.zavrsni.ranking;
 
-import hr.fer.zemris.zavrsni.InputProcessor;
+import hr.fer.zemris.zavrsni.input.InputProcessor;
 import hr.fer.zemris.zavrsni.Main;
 import hr.fer.zemris.zavrsni.model.Document;
 import hr.fer.zemris.zavrsni.model.Result;
 import hr.fer.zemris.zavrsni.model.Vector;
-import hr.fer.zemris.zavrsni.readers.FileReader;
-import hr.fer.zemris.zavrsni.readers.PDFReader;
+import hr.fer.zemris.zavrsni.input.FileReader;
+import hr.fer.zemris.zavrsni.input.PDFReader;
 import hr.fer.zemris.zavrsni.utils.IOUtils;
 
 import java.io.IOException;
