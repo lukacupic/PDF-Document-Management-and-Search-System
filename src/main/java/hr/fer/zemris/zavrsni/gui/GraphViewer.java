@@ -1,4 +1,4 @@
-package hr.fer.zemris.zavrsni;
+package hr.fer.zemris.zavrsni.gui;
 
 import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
@@ -14,10 +14,7 @@ import org.apache.commons.math3.ml.clustering.CentroidCluster;
 import org.apache.commons.math3.ml.clustering.Clusterable;
 import org.apache.commons.math3.ml.clustering.KMeansPlusPlusClusterer;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
-import javax.swing.WindowConstants;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
@@ -26,12 +23,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The graph visualizer; assumes that
- * {@link RankingFunction#datasetInfo#documents} is already loader.
- *
  * @author Luka Cupic
  */
-public class DocumentGraph2 extends JPanel {
+public class GraphViewer {
 
 	private static Color[] colors = new Color[]{
 			new Color(78, 122, 190),
@@ -46,21 +40,12 @@ public class DocumentGraph2 extends JPanel {
 			new Color(14, 10, 78),
 	};
 
-	private double threshold = 0.07;
+	private static double threshold = 0.07;
 
-	public DocumentGraph2() {
-		init();
-	}
-
-	public DocumentGraph2(double threshold) {
-		this.threshold = threshold;
-		init();
-	}
-
-	private void init() {
+	public static VisualizationViewer createViewer(int width, int height) {
 		List<Document> documents = new ArrayList<>(RankingFunction.datasetInfo.documents.values());
 
-		DirectedSparseGraph<Document, String> g = new DirectedSparseGraph<>();
+		DirectedSparseGraph<Document, Edge> g = new DirectedSparseGraph<>();
 		documents.forEach(g::addVertex);
 
 		RankingFunction.DatasetInfo.DocumentPair pair = new RankingFunction.DatasetInfo.DocumentPair();
@@ -75,13 +60,13 @@ public class DocumentGraph2 extends JPanel {
 				double sim = RankingFunction.datasetInfo.similarities.get(pair);
 
 				if (sim > threshold) {
-					g.addEdge(d1.hashCode() + " " + d2.hashCode(), d1, d2);
+					g.addEdge(new Edge(sim), d1, d2);
 				}
 			}
 		}
 
-		FRLayout<Document, String> layout = new FRLayout<>(g);
-		layout.setSize(new Dimension(600, 600));
+		FRLayout<Document, Edge> layout = new FRLayout<>(g);
+		layout.setSize(new Dimension(width, height));
 		layout.initialize();
 
 		layout.setRepulsionMultiplier(1);
@@ -98,7 +83,7 @@ public class DocumentGraph2 extends JPanel {
 
 		// -- visualize --
 
-		VisualizationViewer<Document, String> vv = new VisualizationViewer<>(layout);
+		VisualizationViewer<Document, Edge> vv = new VisualizationViewer<>(layout);
 
 		vv.getRenderContext().setEdgeDrawPaintTransformer(input -> new Color(163, 163, 163));
 		vv.getRenderContext().setEdgeArrowPredicate(input -> false);
@@ -135,16 +120,10 @@ public class DocumentGraph2 extends JPanel {
 		graphMouse.setMode(ModalGraphMouse.Mode.PICKING);
 		vv.setGraphMouse(graphMouse);
 
-		JFrame frame = new JFrame("Simple Graph View");
-		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		frame.getContentPane().add(vv);
-		frame.pack();
-		frame.setVisible(true);
-
-		this.add(vv);
+		return vv;
 	}
 
-	private static void performClustering(List<Document> documents, AbstractLayout<Document, String> layout, int k) {
+	private static void performClustering(List<Document> documents, AbstractLayout<Document, Edge> layout, int k) {
 		List<DocumentLocation> clusterInput = new ArrayList<>();
 		documents.forEach(document -> clusterInput.add(new DocumentLocation(document, layout)));
 
@@ -159,13 +138,21 @@ public class DocumentGraph2 extends JPanel {
 		}
 	}
 
+	private static class Edge {
+		double weight;
+
+		public Edge(double weight) {
+			this.weight = weight;
+		}
+	}
+
 	// wrapper class
 	private static class DocumentLocation implements Clusterable {
 
 		private double[] points;
 		private Document document;
 
-		public DocumentLocation(Document document, AbstractLayout<Document, String> layout) {
+		public DocumentLocation(Document document, AbstractLayout<Document, Edge> layout) {
 			this.document = document;
 			points = new double[2];
 			points[0] = layout.getX(document);

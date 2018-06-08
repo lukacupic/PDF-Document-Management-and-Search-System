@@ -4,14 +4,14 @@ import hr.fer.zemris.zavrsni.utils.TextUtils;
 
 import java.util.List;
 
-public class ConsoleReader implements DocumentReader {
+public class QueryReader implements DocumentReader {
 
 	private String text;
 
 	/**
 	 * Creates a new TextReader.
 	 */
-	public ConsoleReader(String text) {
+	public QueryReader(String text) {
 		this.text = text;
 	}
 

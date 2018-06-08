@@ -139,4 +139,9 @@ public class Document implements Serializable {
 	public int hashCode() {
 		return Objects.hash(path);
 	}
+
+	@Override
+	public String toString() {
+		return Paths.get(path).getFileName().toString();
+	}
 }

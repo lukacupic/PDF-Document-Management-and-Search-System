@@ -59,7 +59,7 @@ public class OkapiBM25 extends RankingFunction {
 		}
 
 		results.sort(Comparator.reverseOrder());
-		return results.subList(0, Math.min(9, results.size()));
+		return filterResults(results);
 	}
 
 	/**

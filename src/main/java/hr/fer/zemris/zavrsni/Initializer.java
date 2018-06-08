@@ -1,10 +1,7 @@
 package hr.fer.zemris.zavrsni;
 
-import hr.fer.zemris.zavrsni.input.InputProcessor;
-import hr.fer.zemris.zavrsni.model.Result;
 import hr.fer.zemris.zavrsni.ranking.CosineSimilarity;
 import hr.fer.zemris.zavrsni.ranking.RankingFunction;
-import hr.fer.zemris.zavrsni.input.ConsoleReader;
 import hr.fer.zemris.zavrsni.utils.IOUtils;
 import hr.fer.zemris.zavrsni.utils.MD5Visitor;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -13,8 +10,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.List;
-import java.util.Scanner;
 
 /**
  * This class represent a CLI document search engine. It uses
@@ -26,7 +21,7 @@ import java.util.Scanner;
  *
  * @author Luka Cupic
  */
-public class Main {
+public class Initializer {
 
 	/**
 	 * The path to the file containing the stop words.
@@ -56,37 +51,6 @@ public class Main {
 	 * The function to perform the ranking of the documents.
 	 */
 	private static RankingFunction function;
-
-	/**
-	 * The main method.
-	 *
-	 * @param args a single argument - representing the path to the folder of
-	 *             with documents
-	 */
-	public static void main(String[] args) {
-		System.out.println("Initializing, please wait...");
-		try {
-			double t1 = System.currentTimeMillis();
-			function = init(Paths.get(args[0]));
-			double t2 = System.currentTimeMillis();
-			System.out.println((t2 - t1) / 1000);
-		} catch (IOException ex) {
-			System.out.println("Initialization error: " + ex);
-			System.exit(0);
-		}
-
-		Scanner sc = new Scanner(System.in);
-		System.out.print("Query: ");
-		while (sc.hasNextLine()) {
-			String line = sc.nextLine();
-			try {
-				parseInput(line);
-			} catch (Exception ex) {
-				System.out.println("Sorry, but nothing was found...");
-			}
-			System.out.print("\nQuery: ");
-		}
-	}
 
 	/**
 	 * Initializes the dataset information.
@@ -157,41 +121,6 @@ public class Main {
 			}
 		} else {
 			return false;
-		}
-	}
-
-	/**
-	 * Parses the given input and performs an appropriate command or
-	 * throws an exception if an illegal (or unknown) command is given.
-	 *
-	 * @param input the user's input.
-	 */
-	private static void parseInput(String input) throws IOException {
-		if (input.equals("exit") || input.equals("quit")) {
-			System.exit(0);
-		} else {
-			processQuery(input);
-		}
-	}
-
-	/**
-	 * Processes the user's query input, read from the given scanner object, and
-	 * displays the results (onto the standard output).
-	 */
-	private static void processQuery(String input) throws IOException {
-		System.out.println("Here are the search results:");
-		InputProcessor.setReader(new ConsoleReader(input));
-		//InputProcessor.setReader(new TextReader(Paths.get("src/main/resources/pg4065.txt")));
-		printResults(function.process(InputProcessor.process()));
-	}
-
-	/**
-	 * Prints the given results onto the standard output.
-	 */
-	private static void printResults(List<Result> results) {
-		for (int i = 0; i < results.size(); i++) {
-			Result r = results.get(i);
-			System.out.printf("[%d] (%f) %s\n", i, r.getSim(), r.getDocument().getPath());
 		}
 	}
 }

@@ -49,7 +49,7 @@ public class CosineSimilarity extends RankingFunction {
 			results.add(new Result(inputDoc.sim(d), d));
 		}
 		results.sort(Comparator.reverseOrder());
-		return results.subList(0, Math.min(9, results.size()));
+		return filterResults(results);
 	}
 
 	@Override

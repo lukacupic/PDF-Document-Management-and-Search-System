@@ -1,12 +1,12 @@
 package hr.fer.zemris.zavrsni.ranking;
 
+import hr.fer.zemris.zavrsni.Initializer;
+import hr.fer.zemris.zavrsni.input.FileReader;
 import hr.fer.zemris.zavrsni.input.InputProcessor;
-import hr.fer.zemris.zavrsni.Main;
+import hr.fer.zemris.zavrsni.input.PDFReader;
 import hr.fer.zemris.zavrsni.model.Document;
 import hr.fer.zemris.zavrsni.model.Result;
 import hr.fer.zemris.zavrsni.model.Vector;
-import hr.fer.zemris.zavrsni.input.FileReader;
-import hr.fer.zemris.zavrsni.input.PDFReader;
 import hr.fer.zemris.zavrsni.utils.IOUtils;
 
 import java.io.IOException;
@@ -22,6 +22,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public abstract class RankingFunction {
 
@@ -60,7 +62,7 @@ public abstract class RankingFunction {
 		this();
 		init(dataset);
 		// we're here the first time, so serialize the dataset info
-		IOUtils.serialize(datasetInfo, Main.datasetInfoFilename);
+		IOUtils.serialize(datasetInfo, Initializer.datasetInfoFilename);
 	}
 
 
@@ -86,6 +88,27 @@ public abstract class RankingFunction {
 	// -------------------------- end of abstract methods --------------------------
 
 
+	// ------------------------------- static methods -------------------------------
+
+	/**
+	 * Filters the given results and removes the one with similarity
+	 * of 0.0 and NaN.
+	 *
+	 * @param results the results to filter
+	 * @return filtered results
+	 */
+	public static List<Result> filterResults(List<Result> results) {
+		return results.stream().filter(new Predicate<Result>() {
+			@Override
+			public boolean test(Result result) {
+				return result.getSim() != 0.0 && !Double.isNaN(result.getSim());
+			}
+		}).collect(Collectors.toList());
+	}
+
+	// ---------------------------- end of static methods ---------------------------
+
+
 	/**
 	 * Initializes the program.
 	 *
@@ -94,7 +117,7 @@ public abstract class RankingFunction {
 	 */
 	private void init(Path path) throws IOException {
 		// Initialize document reading mechanism
-		InputProcessor.setStopWords(Main.STOP_WORDS_PATH);
+		InputProcessor.setStopWords(Initializer.STOP_WORDS_PATH);
 		InputProcessor.setReader(reader);
 
 		// Initialize the dataset
