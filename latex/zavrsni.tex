@@ -1,6 +1,7 @@
 \documentclass[times, utf8, zavrsni]{fer}
 \usepackage{booktabs}
 \usepackage{graphicx}
+\usepackage{svg}
 \graphicspath{{./images/}}
 
 \usepackage{listings}
@@ -159,7 +160,15 @@ Silom usmjereno crtanje grafova jedna je od metoda crtanja grafova koja se oslan
 Jedna od često korištenih metoda u kontekstu analize i pretraživanja teksta jest grupiranje dokumenata (engl. \textit{document clustering}). Cilj grupiranja jest izdvojiti dokumente neke zbirke u grupe tako da su dokumenti u jednoj grupi na neki način međusobno slični. Primjer jedne grupe dokumenata bili bi dokumenti o nogometu, košarci i odbojci pošto se sva tri dokumenta tiču sportskih aktivnosti. Kako bi se dokumenti mogli svrstati u grupe, potrebno je iskoristiti neki od algoritama za grupiranje. Jedan takav algoritam jest grupiranje k-sredina (engl. \textit{k-means clustering}).
 
 \subsection{Grupiranje k-sredina}
-Cilj ovog algoritma jest grupirati dokumente u \textit{k} grupa na način da se svakom dokumentu—točki u 2D prostoru koja ga predstavlja—dodijeli grupa do čijeg je centra ta točka najbliža. Algoritam započinje tako da slučajnim mehanizmom odabere \textit{k} grupa te dodijeli dokumente u najbliže im grupe. Nakon inicijalne dodjele u grupe, računa se novih \textit{k} grupa te se postupak iterativno ponavlja do konvergencije. Nakon završenog algoritma, svaki će se dokument nalaziti u najbližoj mu grupi, zajedno s ostalim dokumentima koji su mu najsličniji. Demonstracija algoritma prikazana je na slici
+\label{k_means_clustering}
+Grupiranje k-sredina spada u nenadzirano učenje (engl. \textit{unsupervised learning}) koje se koristi kada podaci nisu označeni—u kontekstu grupiranja dokumenata to bi značilo da za dokumente nisu unaprijed poznate grupe kojima ti dokumenti pripadaju. Cilj algoritma grupiranja k-sredina jest napraviti upravo to: odvojiti postojeće podatke u \textit{k} grupa (odnosno pronaći iste), po čemu je algoritam i dobio naziv. Algoritam iterativno svakoj točki dodjeljuje grupu ovisno o sličnostima u odnosu na sve ostale točke (u kontekstu grupiranja dokumenata, ta sličnost je upravo mjera sličnosti dokumenata).
+Ulazni podaci algoritmu jesu podaci (engl. \textit{dataset}) te parametar \textit{k}. Algoritam tada započinje s radom pri čemu iterirativno ponavlja dva koraka:
+\begin{enumerate}
+\item Dodjela grupa podacima. U svakom koraku, za svaki podatak odredi se euklidska udaljenost do najbliže grupe (centroida)
+\item The numbers starts at 1 with every call to the enumerate environment.
+\end{enumerate}
+
+grupirati dokumente u \textit{k} grupa na način da se svakom dokumentu—točki u 2D prostoru koja ga predstavlja—dodijeli grupa do čijeg je centra ta točka najbliža. Algoritam započinje tako da slučajnim mehanizmom odabere \textit{k} grupa te dodijeli dokumente u najbliže im grupe. Nakon inicijalne dodjele u grupe, računa se novih \textit{k} grupa te se postupak iterativno ponavlja do konvergencije. Nakon završenog algoritma, svaki će se dokument nalaziti u najbližoj mu grupi, zajedno s ostalim dokumentima koji su mu najsličniji. Demonstracija algoritma prikazana je na slici
 \ref{img:clustering}.
 
 \begin{figure}
@@ -168,12 +177,7 @@ Cilj ovog algoritma jest grupirati dokumente u \textit{k} grupa na način da se 
 \label{img:clustering}
 \end{figure}
 
-Nažalost, grupiranje dokumenta u ovome kontekstu nije izravno moguće zbog toga što algoritam apriorno (lat. \textit{a priori}) nema informaciju o broju grupa dokumenata iz zbirke. Razlog tome jest sama priroda problema koji se rješava, a to je da su na početku nepoznate grupe dokumenata (kao i njihov broj), odnosno jedini podaci dostupni programu su sami dokumenti. No ipak, broj grupa zbirke, \textit{k}, ipak se može procijeniti određenim heuristikama. Heuristika koja se koristi u ovom radu je sljedeća:
-\begin{equation}
-{k}={\mathbf {\sqrt{|\textit{D}| \over 2}}},
-\end{equation}
-gdje je $D$ zbirka dokumenata, odnosno $|D|$ njezina veličina.
-Ovakva empirijska heuristika ne dovodi nužno do optimalnog rješenja (tj. do egzaktnog broja grupa), no služi kao relativno dobra aproksimacija, što je u ovome kontekstu često puta sasvim dovoljno.
+Nažalost, grupiranje dokumenta u ovome kontekstu nije izravno moguće zbog toga što algoritam apriorno (lat. \textit{a priori}) nema informaciju o broju grupa dokumenata iz zbirke. Razlog tome jest sama priroda problema koji se rješava, a to je da su na početku nepoznate grupe dokumenata (kao i njihov broj), odnosno jedini podaci dostupni programu su sami dokumenti. No ipak, broj grupa zbirke, \textit{k}, ipak se može procijeniti određenim heuristikama kao što će biti pokazano u potpoglavlju \ref{kmeans_optimization}.
 
 \section{Primjena na prikaz dokumenata}
 \label{sec:docdisplay}
@@ -207,22 +211,6 @@ Osim pretraživanja zbirke dokumenata prema korisničkom upitu, program nudi mog
 
 \section{Vizualizacija dokumenata}
 Kao što je već ranije spomenuto u potpoglavlju \ref{sec:docdisplay}, dokumenti zbirke mogu se grafički prikazati u 2D koordinatnom sustavu tako da se uzme u obzir njihova međusobna sličnost.
-
-\begin{table}
-\begin{center}
-\begin{tabular}{|c|c|c|}
-\hline
-Br. dokumenata & Ponovno čitanje (sek) & Deserijalizacija (sek) \\
-\hline
-7 & 63.94 & 0.76 \\
-157 & 670.81 & 21.05 \\
-\hline
-\end{tabular}
-\end{center}
-\caption{Usporedba trajanja ponovnog čitanja dokumenata i deserijalizacije}
-\label{table:serialization}
-\end{table}
-
 
 Ulazni vektor (dobiven bilo iz korisničkog upita ili iz dokumenta učitanog s diska) može se iskoristiti kako bi se korisnički upit, odnosno učitani dokument mogli prikazati grafički. Naime, osim prikazanih dokumenata zbirke i njihovih međusobnih sličnosti, moguće je vidjeti i gdje pripada korisnički unos, odnosno učitani dokument.
 
@@ -279,6 +267,65 @@ Kako bi program bio u mogućnosti detektirati promjene nad zbirkom dokumenata (p
 \section{Optimizacija izvođenja programa}
 Kako bi upiti korisnika bili što optimiraniji, nakon što se prvi put izvrši čitav gore opisan postupak (preprocesiranje dokumenata, stvaranje vokabulara, računanje sličnosti dokumenata itd.), dobiveni se podaci spremaju u keš (engl. \textit{cache}) memoriju, odnosno bivaju serijalizirani (engl. \textit{serialization}) na disk. Svrha ovog postupka jest jednom dobivene i izračunate relevantne podatke zbirke dokumenata spremiti u perzistentnu memoriju računala kako bi se po svakom sljedećem pokretanju programa, umjesto ponovnog prikupljanja i izračuna svih relevantnih podataka, isti mogli efikasnije isčitati iz zapisane datoteke te deserijalizirati u odgovarajuće strukture podataka čime se uvelike dobija na brzini izvođenja programa, kao što se može vidjeti u Tablici
 \ref{table:serialization} u kojoj je vidljivo da se korištenjem serijalizacije postiže prosječno ubrzanje od čak 58 puta prilikom svakog (ne-inicijalnog) pokretanja programa.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Br. dokumenata & Ponovno čitanje (sek) & Deserijalizacija (sek) \\
+\hline
+7 & 63.94 & 0.76 \\
+157 & 670.81 & 21.05 \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Usporedba trajanja ponovnog čitanja dokumenata i deserijalizacije}
+\label{table:serialization}
+\end{table}
+
+\section{Optimizacija hiperparametra \textit{k} algoritma k-sredina}
+\label{kmeans_optimization}
+Kao što je već spomenuto u potpoglavlju \ref{k_means_clustering}, određivanje hiperparametra \textit{k} nije izravno moguće iz razloga što algoritmu grupiranja k-means (štoviše, niti cijelome programu) nije dostupna informacija o broju grupa. Ovaj podatak inherentno je nepoznat cijelome programu iz razloga što prije početka izvođenja programa nije poznato koliko se grupa nalazi u zbirci dokumenata. Štoviše, jedan od ciljeva implementacije ovog rada jest i automatsko grupiranje dokumenata koje pak ne mora nužno biti egzaktno, u smislu da točno odredi koji dokumenti spadaju u koju kategoriju dokumenata. Naime, ako bi takva kategorizacija bila relevantna, tada nastaje problem definicije kategorije dokumenata. Budući da, je sličnost dokumenata po definiciji kontinuirana vrijednost, nije moguće odrediti "granicu" koja će odrediti kada neki dokument prestaje pripadati jednoj, a počinje pripadati drugoj kategoriji. Zbog ovog razloga, a i zbog inherentnog nepoznavanja broja kategorija od strane korisnika na početku izvođenja programa, parametar \textit{k} nije moguće odrediti sa sigurnošću.
+Kako bi se riješio problem određivanja parametra \textit{k}, moguće je iskoristiti određene heuristike koje procijenjuju parametar na temelju empirijskih podataka. Jedna relativno dobra heuristika za optimiranje parametra \textit{k} jest metoda koljena (engl. \textit{elbow method}).
+
+\subsection{Metoda koljena}
+Metoda koljena je jedna od metoda za određivanje broja grupa. Ideja metode je jednostavna: algoritam k-sredina iterativno se izvede za vrijednosti \textit{k} u nekom rasponu (npr. [1, 10]) te se u svakoj iteraciji izračuna suma srednjih kvadratnih pogrešaka (engl. \textit{residual sum of squares, RSS}) udaljenosti svake od točaka do centroida dodijeljene joj grupe. Nakon izvršenog postuka, biti će izračunate sume kvadratnih pogrešaka za svaku od iteracija koje su se izvršile, odnosno za svaku vrijednost parametra \textit{k} iz prethodno zadanog raspona. Nakon izvršenog postupka, za svaku od vrijednosti parametra \textit{k} nacrta se pripadajuća suma kvadratnih pogrešaka te se promotri u kojoj točki (tj. za koji \textit{k}) se nalazi "koljeno", u smislu najveći pad vrijednosti sume pogreške. Jedan takav primjer prikazan je na slici \ref{img:elbow} na kojoj se jasno vidi veliko smanjenje pogreške između \textit{k=1} i \textit{k=2} što znači da će se kao vrijednost parametra \textit{k} uzeti vrijednost 2 zbog toga što je upravo za tu vrijednost pronađena najveći pad pogreške, što ukazuje na to da je algoritam pronašao optimalan broj grupa. Čitatelj bi se mogao zapitati zbog čega se kao broj grupa onda ne uzme neka veća vrijednost, primjerice onu za koju je pogreška najmanja (nula). No odgovor na ovo je jednostavan: kada bi suma pogrešaka bila nula, to znači da bi broj grupa bio upravo jednak broju dokumenata. No ovo nema smisla, pošto u kontekstu ovog problema želimo grupirati više dokumenata u grupe. Zaključak je dakle da treba odabrati takvu rijednost parametra \textit{k} za kojeg postoji najveći pad pogreške. Ovakav odabir skoro uvijek biti će optimalan. \newline
+Metoda koljena bila bi idealna za optimizaciju parametra \textit{k} kada bi postojala jednostavna metoda određivanja već spomenutog "koljena". No ovdje nastaje novi problem programskog određivanja točke najvećeg pada pogreške. Tome problemu moglo bi se doskočiti novim heuristikama (koje bi s obzirom na početni problem zapravo bile metaheuristike), no u tom slučaju je rješenje problema postalo novi problem kojeg treba riješiti te razina apstrakcije time značajno raste. Ovakav pokušaj nema previše smisla u kontekstu automatskog računanja, stoga ova metoda nažalost nije dovoljno dobra u kontekstu ovog završnog rada. U sljedećem potpoglavlju biti će pokazana još jedna heuristika koja se može iskoristiti za problem određivanja parametra \textit{k}.
+
+% mozda dodati ovo?
+Pošto se izvođenje same metode koljena direktno nadovezuje na algoritam k-sredina, u smislu da je metodu potrebno izvršiti nad podacima dobivenim od samog algoritma k-sredina te pošto je određivanje
+
+%\centering
+%\includesvg{elbow}
+%\caption{Ovisnost sume kvadratnih pogrešaka o parametru \textit{k}}
+%\end{figure}
+
+\subsection{Metoda polovičnog korijena}
+
+Jednostavna heuristika koja se koristi u ovom radu je sljedeća:
+\begin{equation}
+{k}={\mathbf {\sqrt{|\textit{D}| \over 2}}},
+\end{equation}
+gdje je $D$ zbirka dokumenata. Ovakva heuristika ne dovodi nužno do optimalnog rješenja (tj. do egzaktnog broja grupa), no služi kao relativno dobra aproksimacija, što je u ovome kontekstu često puta sasvim dovoljno. Primjerice, za zbirku dokumenata u kojoj na početku imamo dvije jasno odvojene kategorije, npr. engleski nogomet i srednjevjekovno mačevanje, zanimljivo je promotriti parametar \textit{k} ovisi o broju dokumenata u pojedinoj kategoriji.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Engleski nogomet (br. dok.) & Srednjevjekovno mačevanje (br. dok.) & \textit{k} \\
+\hline
+3 & 4 & 1.87 \\
+5 & 5 & 2.24 \\
+11 & 17 & 3.74 \\
+42 & 53 & 6.87 \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Ovisnost parametra \textit{k} o broju dokumenata pojedine kategorije}
+\label{table:kmeans}
+\end{table}
+
+Iz tablice \ref{table:kmeans}, zanimljivo je uočiti kako porast broja dokumenata u kategorijama dovodi do (vrlo) pogrešne aproksimacije broja kategorija. Naime, očito je (prilikom konstrukcije gornjeg izraza) empirijski ustanovljeno kako svaka od kategorija u prosjeku nema prevelik broj dokumenata, zbog čega aproksimacija za velik broj dokumenata; u ovom konkretnom primjeru, za približno 10-ak dokumenata po kategoriji, pogreška aproksimacije parametra \textit{k} doseže čak 100\%! Ovaj podatak govori o problematici heuristika: često puta daju dovoljno dobru aproksimaciju, no ponekad mogu i poprilično pogriješiti.
 
 \chapter{Zaključak}
 Zaključak.

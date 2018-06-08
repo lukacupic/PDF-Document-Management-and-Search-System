@@ -34,8 +34,8 @@ import java.util.List;
  */
 public class GUI extends JFrame {
 
-	private static final int WIDTH = 1000;
-	private static final int HEIGHT = 800;
+	private static final int WIDTH = 600;
+	private static final int HEIGHT = 600;
 
 	private static RankingFunction function;
 

@@ -29,15 +29,14 @@ public class GraphViewer {
 
 	private static Color[] colors = new Color[]{
 			new Color(78, 122, 190),
-			new Color(42, 161, 33),
+			new Color(61, 161, 67),
 			new Color(158, 18, 22),
-			new Color(214, 156, 43),
-			new Color(215, 128, 196),
+			new Color(214, 108, 0),
+			new Color(215, 70, 191),
 			new Color(30, 215, 211),
-			new Color(179, 39, 215),
-			new Color(212, 215, 56),
 			new Color(11, 1, 215),
-			new Color(14, 10, 78),
+			new Color(2, 98, 0),
+			new Color(212, 215, 56)
 	};
 
 	private static double threshold = 0.07;
@@ -45,7 +44,7 @@ public class GraphViewer {
 	public static VisualizationViewer createViewer(int width, int height) {
 		List<Document> documents = new ArrayList<>(RankingFunction.datasetInfo.documents.values());
 
-		DirectedSparseGraph<Document, Edge> g = new DirectedSparseGraph<>();
+		DirectedSparseGraph<Document, String> g = new DirectedSparseGraph<>();
 		documents.forEach(g::addVertex);
 
 		RankingFunction.DatasetInfo.DocumentPair pair = new RankingFunction.DatasetInfo.DocumentPair();
@@ -60,12 +59,12 @@ public class GraphViewer {
 				double sim = RankingFunction.datasetInfo.similarities.get(pair);
 
 				if (sim > threshold) {
-					g.addEdge(new Edge(sim), d1, d2);
+					g.addEdge(d1.hashCode() + " " + d2.hashCode(), d1, d2);
 				}
 			}
 		}
 
-		FRLayout<Document, Edge> layout = new FRLayout<>(g);
+		FRLayout<Document, String> layout = new FRLayout<>(g);
 		layout.setSize(new Dimension(width, height));
 		layout.initialize();
 
@@ -78,12 +77,13 @@ public class GraphViewer {
 		List<DocumentLocation> clusterInput = new ArrayList<>();
 		documents.forEach(document -> clusterInput.add(new DocumentLocation(document, layout)));
 
-		int k = (int) Math.sqrt(documents.size() / (double) 2);
+		//int k = (int) Math.sqrt(documents.size() / (double) 2);
+		int k = 7;
 		performClustering(documents, layout, k);
 
 		// -- visualize --
 
-		VisualizationViewer<Document, Edge> vv = new VisualizationViewer<>(layout);
+		VisualizationViewer<Document, String> vv = new VisualizationViewer<>(layout);
 
 		vv.getRenderContext().setEdgeDrawPaintTransformer(input -> new Color(163, 163, 163));
 		vv.getRenderContext().setEdgeArrowPredicate(input -> false);
@@ -123,7 +123,7 @@ public class GraphViewer {
 		return vv;
 	}
 
-	private static void performClustering(List<Document> documents, AbstractLayout<Document, Edge> layout, int k) {
+	private static void performClustering(List<Document> documents, AbstractLayout<Document, String> layout, int k) {
 		List<DocumentLocation> clusterInput = new ArrayList<>();
 		documents.forEach(document -> clusterInput.add(new DocumentLocation(document, layout)));
 
@@ -138,21 +138,13 @@ public class GraphViewer {
 		}
 	}
 
-	private static class Edge {
-		double weight;
-
-		public Edge(double weight) {
-			this.weight = weight;
-		}
-	}
-
 	// wrapper class
 	private static class DocumentLocation implements Clusterable {
 
 		private double[] points;
 		private Document document;
 
-		public DocumentLocation(Document document, AbstractLayout<Document, Edge> layout) {
+		public DocumentLocation(Document document, AbstractLayout<Document, String> layout) {
 			this.document = document;
 			points = new double[2];
 			points[0] = layout.getX(document);
