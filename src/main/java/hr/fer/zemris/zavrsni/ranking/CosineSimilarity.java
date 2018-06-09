@@ -46,7 +46,7 @@ public class CosineSimilarity extends RankingFunction {
 		// get the results
 		List<Result> results = new ArrayList<>();
 		for (Document d : datasetInfo.documents.values()) {
-			results.add(new Result(inputDoc.sim(d), d));
+			results.add(new Result(inputDoc.sim(d) / d.sim(d), d));
 		}
 		results.sort(Comparator.reverseOrder());
 		return filterResults(results);

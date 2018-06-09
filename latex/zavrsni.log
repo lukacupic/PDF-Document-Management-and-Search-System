@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.4.20)  8 JUN 2018 22:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.4.20)  9 JUN 2018 16:49
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -659,23 +659,27 @@ Package: listings 2015/06/04 1.6 (Carsten Heinz)
 
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
-) (./zavrsni.aux)
+) (./zavrsni.aux
+
+LaTeX Warning: Label `img:diagram' multiply defined.
+
+)
 \openout1 = `zavrsni.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 31.
-LaTeX Font Info:    ... okay on input line 31.
-LaTeX Font Info:    Try loading font information for T1+ptm on input line 31.
-(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 36.
+ (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
 *geometry* driver: auto-detecting
@@ -762,32 +766,32 @@ Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
 \c@lstlisting=\count127
-LaTeX Font Info:    Try loading font information for T1+phv on input line 42.
+LaTeX Font Info:    Try loading font information for T1+phv on input line 47.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 42.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 47.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 42.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 47.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <24.88> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 42.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 47.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <24.88> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 42.
-LaTeX Font Info:    Try loading font information for U+msa on input line 42.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 47.
+LaTeX Font Info:    Try loading font information for U+msa on input line 47.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 42.
+LaTeX Font Info:    Try loading font information for U+msb on input line 47.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 45.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 50.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
@@ -812,96 +816,238 @@ Poglavlje 2.
 ]
 Poglavlje 3.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <17.28> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 62.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 67.
 [3
 
 ] [4] [5] [6]
 
 Package amsmath Warning: Foreign command \over;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 126.
+(amsmath)                 on input line 131.
 
 <./images/vectors.png, id=49, 714.67pt x 200.75pt>
 File: ./images/vectors.png Graphic file (type png)
 <use ./images/vectors.png>
-Package pdftex.def Info: ./images/vectors.png  used on input line 132. on input
- line 132.
+Package pdftex.def Info: ./images/vectors.png  used on input line 137. on input
+ line 137.
 Package pdftex.def Info: Requested size: 412.56497pt x 115.88982pt on input lin
-e 132.
+e 137.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 133.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 138.
 [7 <./images/vectors.png>] [8]
 Poglavlje 4.
+<./images/fdgd_example.png, id=63, 1003.75pt x 1003.75pt>
+File: ./images/fdgd_example.png Graphic file (type png)
+<use ./images/fdgd_example.png>
+Package pdftex.def Info: ./images/fdgd_example.png  used on input line 165. on 
+input line 165.
+Package pdftex.def Info: Requested size: 412.56497pt x 412.56633pt on input lin
+e 165.
 [9
 
-]
-<./images/clustering.png, id=66, 584.1825pt x 220.57407pt>
-File: ./images/clustering.png Graphic file (type png)
-<use ./images/clustering.png>
-Package pdftex.def Info: ./images/clustering.png  used on input line 175. on in
-put line 175.
+] [10 <./images/fdgd_example.png (PNG copy)>] (./images/clustering.pdf_tex
+<./images/clustering.pdf, id=70, page=1, pagebox=cropbox, 433.62pt x 289.08pt>
+File: ./images/clustering.pdf Graphic file (type pdf)
+<use ./images/clustering.pdf, page 1>
+Package pdftex.def Info: ./images/clustering.pdf , page1 used on input line 52.
+ on input line 52.
+Package pdftex.def Info: Requested size: 412.56497pt x 275.0567pt on input line
+ 52.
+)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<./images/clustering_alg.png, id=71, 584.1825pt x 220.57407pt>
+File: ./images/clustering_alg.png Graphic file (type png)
+<use ./images/clustering_alg.png>
+Package pdftex.def Info: ./images/clustering_alg.png  used on input line 202. o
+n input line 202.
 Package pdftex.def Info: Requested size: 412.56497pt x 155.78072pt on input lin
-e 175.
- [10] [11 <./images/clustering.png (PNG copy)>]
+e 202.
+[11] [12 <./images/clustering.pdf> <./images/clustering_alg.png (PNG copy)>]
+<./images/join2.png, id=382, 1228.59pt x 1222.5675pt>
+File: ./images/join2.png Graphic file (type png)
+<use ./images/join2.png>
+Package pdftex.def Info: ./images/join2.png  used on input line 214. on input l
+ine 214.
+Package pdftex.def Info: Requested size: 412.56497pt x 410.53737pt on input lin
+e 214.
+
+[13] [14 <./images/join2.png>]
 Poglavlje 5.
-[12
+[15
 
 ]
 Poglavlje 6.
+[16
 
-Underfull \hbox (badness 10000) in paragraph at lines 196--198
+] (./images/diagram.pdf_tex
+<./images/diagram.pdf, id=397, page=1, pagebox=cropbox, 350.81062pt x 175.40532
+pt>
+File: ./images/diagram.pdf Graphic file (type pdf)
+<use ./images/diagram.pdf, page 1>
+Package pdftex.def Info: ./images/diagram.pdf , page1 used on input line 52. on
+ input line 52.
+Package pdftex.def Info: Requested size: 412.56497pt x 206.29665pt on input lin
+e 52.
+<./images/diagram.pdf, id=398, page=2, pagebox=cropbox, 350.81062pt x 175.40532
+pt>
+File: ./images/diagram.pdf Graphic file (type pdf)
+<use ./images/diagram.pdf, page 2>
+Package pdftex.def Info: ./images/diagram.pdf , page2 used on input line 55. on
+ input line 55.
+Package pdftex.def Info: Requested size: 412.56497pt x 206.29665pt on input lin
+e 55.
+<./images/diagram.pdf, id=399, page=3, pagebox=cropbox, 350.81062pt x 175.40532
+pt>
+File: ./images/diagram.pdf Graphic file (type pdf)
+<use ./images/diagram.pdf, page 3>
+Package pdftex.def Info: ./images/diagram.pdf , page3 used on input line 57. on
+ input line 57.
+Package pdftex.def Info: Requested size: 412.56497pt x 206.29665pt on input lin
+e 57.
+<./images/diagram.pdf, id=400, page=4, pagebox=cropbox, 350.81062pt x 175.40532
+pt>
+File: ./images/diagram.pdf Graphic file (type pdf)
+<use ./images/diagram.pdf, page 4>
+Package pdftex.def Info: ./images/diagram.pdf , page4 used on input line 60. on
+ input line 60.
+Package pdftex.def Info: Requested size: 412.56497pt x 206.29665pt on input lin
+e 60.
+)
 
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+<./images/query_search.png, id=401, 560.8453pt x 578.16pt>
+File: ./images/query_search.png Graphic file (type png)
+<use ./images/query_search.png>
+Package pdftex.def Info: ./images/query_search.png  used on input line 249. on 
+input line 249.
+Package pdftex.def Info: Requested size: 412.56497pt x 425.29979pt on input lin
+e 249.
+[17]
+<./images/document_search.png, id=405, 560.8453pt x 578.16pt>
+File: ./images/document_search.png Graphic file (type png)
+<use ./images/document_search.png>
+Package pdftex.def Info: ./images/document_search.png  used on input line 257. 
+on input line 257.
+Package pdftex.def Info: Requested size: 412.56497pt x 425.29979pt on input lin
+e 257.
+ [18 <./images/diagram.pdf> <./images/diagram.pdf
+
+pdfTeX warning: pdflatex (file ./images/diagram.pdf): PDF inclusion: multiple p
+dfs with page group included in a single page
+> <./images/diagram.pdf
+
+pdfTeX warning: pdflatex (file ./images/diagram.pdf): PDF inclusion: multiple p
+dfs with page group included in a single page
+> <./images/diagram.pdf
+
+pdfTeX warning: pdflatex (file ./images/diagram.pdf): PDF inclusion: multiple p
+dfs with page group included in a single page
+>] [19 <./images/query_search.png>]
+Overfull \hbox (28.57237pt too wide) in paragraph at lines 262--262
+[]\T1/ptm/b/n/17.28 Usporedba ko-ris-ni£-kog unosa s do-ku-men-tima iz zbirke 
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 196--198
-
- []
-
-[13
-
-] [14] [15] [16]
+[20 <./images/document_search.png>] [21] [22] [23]
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <17.28> not available
-(Font)              Font shape `T1/ptm/b/it' tried instead on input line 286.
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 339.
 
-Overfull \hbox (8.04369pt too wide) in paragraph at lines 286--286
+Overfull \hbox (8.04369pt too wide) in paragraph at lines 339--339
 []\T1/ptm/b/n/17.28 Optimizacija hi-per-pa-ra-me-tra \T1/ptm/b/it/17.28 k \T1/p
 tm/b/n/17.28 al-go-ritma k-sredina 
  []
 
-[17]
+(./images/diagram.pdf_tex
+File: ./images/diagram.pdf Graphic file (type pdf)
+<use ./images/diagram.pdf, page 1>
+Package pdftex.def Info: ./images/diagram.pdf , page1 used on input line 52. on
+ input line 52.
+Package pdftex.def Info: Requested size: 412.56497pt x 206.29665pt on input lin
+e 52.
+File: ./images/diagram.pdf Graphic file (type pdf)
+<use ./images/diagram.pdf, page 2>
+Package pdftex.def Info: ./images/diagram.pdf , page2 used on input line 55. on
+ input line 55.
+Package pdftex.def Info: Requested size: 412.56497pt x 206.29665pt on input lin
+e 55.
+File: ./images/diagram.pdf Graphic file (type pdf)
+<use ./images/diagram.pdf, page 3>
+Package pdftex.def Info: ./images/diagram.pdf , page3 used on input line 57. on
+ input line 57.
+Package pdftex.def Info: Requested size: 412.56497pt x 206.29665pt on input lin
+e 57.
+File: ./images/diagram.pdf Graphic file (type pdf)
+<use ./images/diagram.pdf, page 4>
+Package pdftex.def Info: ./images/diagram.pdf , page4 used on input line 60. on
+ input line 60.
+Package pdftex.def Info: Requested size: 412.56497pt x 206.29665pt on input lin
+e 60.
+)
 
-LaTeX Warning: Reference `img:elbow' on page 18 undefined on input line 292.
+LaTeX Warning: `h' float specifier changed to `ht'.
 
-[18]
-Overfull \hbox (5.40025pt too wide) in paragraph at lines 296--297
-[]\T1/ptm/m/n/12 Po²to se iz-vo-že-nje same me-tode ko-ljena di-rek-tno na-do-v
-e-zuje na al-go-ri-tam k-sredina,
- []
+(./images/elbow.pdf_tex
+<./images/elbow.pdf, id=577, page=1, pagebox=cropbox, 355.18019pt x 279.72382pt
+>
+File: ./images/elbow.pdf Graphic file (type pdf)
+<use ./images/elbow.pdf, page 1>
+Package pdftex.def Info: ./images/elbow.pdf , page1 used on input line 52. on i
+nput line 52.
+Package pdftex.def Info: Requested size: 412.56497pt x 324.93652pt on input lin
+e 52.
+<./images/elbow.pdf, id=578, page=2, pagebox=cropbox, 355.18019pt x 279.72382pt
+>
+File: ./images/elbow.pdf Graphic file (type pdf)
+<use ./images/elbow.pdf, page 2>
+Package pdftex.def Info: ./images/elbow.pdf , page2 used on input line 54. on i
+nput line 54.
+Package pdftex.def Info: Requested size: 412.56497pt x 324.93652pt on input lin
+e 54.
+<./images/elbow.pdf, id=579, page=3, pagebox=cropbox, 355.18019pt x 279.72382pt
+>
+File: ./images/elbow.pdf Graphic file (type pdf)
+<use ./images/elbow.pdf, page 3>
+Package pdftex.def Info: ./images/elbow.pdf , page3 used on input line 56. on i
+nput line 56.
+Package pdftex.def Info: Requested size: 412.56497pt x 324.93652pt on input lin
+e 56.
+) [24]
 
-[19]
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[25] [26 <./images/elbow.pdf> <./images/elbow.pdf
+
+pdfTeX warning: pdflatex (file ./images/elbow.pdf): PDF inclusion: multiple pdf
+s with page group included in a single page
+> <./images/elbow.pdf
+
+pdfTeX warning: pdflatex (file ./images/elbow.pdf): PDF inclusion: multiple pdf
+s with page group included in a single page
+>] [27]
 Poglavlje 7.
-(./zavrsni.bbl [20
+(./zavrsni.bbl [28
 
 ]
 
 Package natbib Warning: Empty `thebibliography' environment on input line 8.
 
-) [21
+) [29
 
-] [22] (./zavrsni.aux)
+] [30] (./zavrsni.aux)
 
-LaTeX Warning: There were undefined references.
+LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 8943 strings out of 492990
- 125761 string characters out of 6135005
- 257157 words of memory out of 5000000
- 12294 multiletter control sequences out of 15000+600000
- 81293 words of font info for 100 fonts, out of 8000000 for 9000
+ 9024 strings out of 492990
+ 127896 string characters out of 6135005
+ 260157 words of memory out of 5000000
+ 12357 multiletter control sequences out of 15000+600000
+ 81914 words of font info for 102 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 48i,9n,42p,2157b,1649s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 48i,9n,42p,2157b,1152s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
 e/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist
@@ -919,10 +1065,10 @@ imes/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pf
 b></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-di
 st/fonts/type1/urw/times/utmri8a.pfb>
-Output written on zavrsni.pdf (27 pages, 290438 bytes).
+Output written on zavrsni.pdf (35 pages, 914439 bytes).
 PDF statistics:
- 169 PDF objects out of 1000 (max. 8388607)
- 117 compressed objects within 2 object streams
+ 664 PDF objects out of 1000 (max. 8388607)
+ 435 compressed objects within 5 object streams
  0 named destinations out of 1000 (max. 500000)
- 11 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 71 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -8,18 +8,20 @@
 \contentsline {subsection}{\numberline {3.2.2}Metoda Okapi BM25}{8}
 \contentsline {chapter}{\numberline {4}Prikaz dokumenata u 2D koordinatnom sustavu}{9}
 \contentsline {section}{\numberline {4.1}Silom usmjereno crtanje grafova}{9}
-\contentsline {section}{\numberline {4.2}Grupiranje dokumenata}{10}
-\contentsline {subsection}{\numberline {4.2.1}Grupiranje k-sredina}{10}
-\contentsline {section}{\numberline {4.3}Primjena na prikaz dokumenata}{11}
-\contentsline {chapter}{\numberline {5}Isprobavanje metoda...}{12}
-\contentsline {chapter}{\numberline {6}Implementacija i rezultati}{13}
-\contentsline {section}{\numberline {6.1}Procesiranje i obrada korisni\IeC {\v c}kog unosa}{14}
-\contentsline {section}{\numberline {6.2}Pronalazak sli\IeC {\v c}nih dokumenata}{14}
-\contentsline {section}{\numberline {6.3}Vizualizacija dokumenata}{15}
-\contentsline {section}{\numberline {6.4}Provjera integriteta zbirke dokumenata}{16}
-\contentsline {section}{\numberline {6.5}Optimizacija izvo\IeC {\dj }enja programa}{17}
-\contentsline {section}{\numberline {6.6}Optimizacija hiperparametra \textit {k} algoritma k-sredina}{17}
-\contentsline {subsection}{\numberline {6.6.1}Metoda koljena}{18}
-\contentsline {subsection}{\numberline {6.6.2}Metoda polovi\IeC {\v c}nog korijena}{19}
-\contentsline {chapter}{\numberline {7}Zaklju\IeC {\v c}ak}{20}
-\contentsline {chapter}{Literatura}{21}
+\contentsline {section}{\numberline {4.2}Grupiranje dokumenata}{11}
+\contentsline {subsection}{\numberline {4.2.1}Grupiranje k-sredina}{11}
+\contentsline {section}{\numberline {4.3}Primjena na prikaz dokumenata}{12}
+\contentsline {chapter}{\numberline {5}Isprobavanje metoda...}{15}
+\contentsline {chapter}{\numberline {6}Implementacija i rezultati}{16}
+\contentsline {section}{\numberline {6.1}\IeC {\v C}itanje i obrada rije\IeC {\v c}i}{17}
+\contentsline {section}{\numberline {6.2}Obrada korisni\IeC {\v c}kog upita}{18}
+\contentsline {section}{\numberline {6.3}Obrada dokumenata}{18}
+\contentsline {section}{\numberline {6.4}Usporedba korisni\IeC {\v c}kog unosa s dokumentima iz zbirke}{20}
+\contentsline {section}{\numberline {6.5}Vizualizacija dokumenata}{21}
+\contentsline {section}{\numberline {6.6}Provjera integriteta zbirke dokumenata}{22}
+\contentsline {section}{\numberline {6.7}Optimizacija izvo\IeC {\dj }enja programa}{23}
+\contentsline {section}{\numberline {6.8}Optimizacija hiperparametra \textit {k} algoritma k-sredina}{24}
+\contentsline {subsection}{\numberline {6.8.1}Metoda koljena}{24}
+\contentsline {subsection}{\numberline {6.8.2}Metoda polovi\IeC {\v c}nog korijena}{26}
+\contentsline {chapter}{\numberline {7}Zaklju\IeC {\v c}ak}{28}
+\contentsline {chapter}{Literatura}{29}

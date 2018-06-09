@@ -12,13 +12,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 /**
- * This class represent a CLI document search engine. It uses
- * the TF-IDF vector representation of documents, which are then
- * used for matching the user's input and finding the best results.
- * The program expects a single argument: the path to the folder
- * containing the documents which will be searched (and by which the
- * vocabulary will be created).
- *
  * @author Luka Cupic
  */
 public class Initializer {
@@ -46,11 +39,6 @@ public class Initializer {
 	public static String datasetInfoFilename;
 
 	public static String md5Filename;
-
-	/**
-	 * The function to perform the ranking of the documents.
-	 */
-	private static RankingFunction function;
 
 	/**
 	 * Initializes the dataset information.
