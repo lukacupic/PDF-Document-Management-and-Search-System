@@ -59,43 +59,42 @@ Područje analize i pretraživanja teksta neizbježno je u današnjem svijetu te
 Kratki osvrt na ove te mnoge druge primjene ukazuju na nepobitnu činjenicu da je pretraživanje teksta...
 
 \chapter{Pregled područja}
-Korištenje računala za povrat informacija (engl. \textit{information retrieval}) datira sve do četrdesetih godina dvadesetog stoljeća, daleko prije komercijalizacije računala, odnosno njihovog korištenja u osobne svrhe. Pogledamo li samo neke od relevantnih problema poput digitalizacije knjižnica i automatizacije knjižničnih poslova, statističku analizu tekstualnih podataka u svrhe X, procesiranje korisničkih upita kako bi se pronašli relevantni dokumenti, ... Očito je da je područje analize i pretraživanja teksta vrlo zastupljeno u današnjem digitalnom svijetu u kojem se količina informacija povećava za X posto svake godine (referenca na paper), očito je da je domena primjene vrlo široka te da su analiza i pretraživanje teksta praktički zastupljeni u svakom većem području koje iziskuje nekakvu vrstu analize i pretraživanja teksta odnosno povrata informacija.
+Korištenje računala za povrat informacija (engl. \textit{information retrieval}) datira sve do četrdesetih godina dvadesetog stoljeća, daleko prije komercijalizacije računala, odnosno njihovog korištenja u osobne svrhe. Pogledamo li samo neke od relevantnih problema poput digitalizacije knjižnica i automatizacije knjižničnih poslova, statističku analizu tekstualnih podataka u brojne svrhe, procesiranje korisničkih upita kako bi se pronašli relevantni dokumenti itd., očito je da je područje analize i pretraživanja teksta vrlo zastupljeno u današnjem digitalnom svijetu u kojem se količina informacija povećava za X posto svake godine (referenca na paper), očito je da je domena primjene vrlo široka te da su analiza i pretraživanje teksta zastupljeni u praktički svakom području koje iziskuje nekakvu vrstu analize i pretraživanja teksta odnosno povrata informacija.
 
 \chapter{Model dokumenata}
 \label{docmodel}
 
 \section{Prikaz dokumenata}
 \label{subchap:docmodel_docview}
-Prije svega, valja definirati što u kontekstu analize i pretraživanja teksta predstavlja dokument. Dokument neformalno možemo definirati kao kolekciju riječi. Ovakva kolekcija ne mora nužno biti skup, pošto dokument može imati više ponavljanja istih riječi, stoga na dokument možemo gledati upravo kao na poredanu kolekciju riječi u kojoj može biti ponavljanja. Ovakva definicija dokumenta bit će bitna u nastavku gdje se opisuje semantička sličnost dokumenata. Primjerice, neki dokument koji sadrži više pojavljivanja riječi "računalo", "algoritam" te "memorija" očito će biti relevantan u kontekstu dokumenata vezanih za računarsku znanost. Postavlja se pitanje kako tako definirane dokumente prikazati u računalu. Jedan (smisleni) pokušaj bio bi predstaviti riječi kao vektore, gdje bi svaki znak te riječi predstavljao jednu komponentu vektora. Ovakav model naziva se \textit{Word2Vec} te služi za predstavljanje riječi iz nekog vokabulara na način da svaka riječ dobije odgovarajući položaj u više-dimenzijskom prostoru. Tako definiran model ima za posljedicu to da će semantički sličnije riječi biti bliže (odnosno da pripadajući im vektori međusobno zatvarati manji kut) i obrnuto. Ovakav se model često koristi u kontekstu semantičke analize riječi, primjerice u pronalaženju sličnih riječi, sinonima, antonima itd. No ipak, u kontekstu ovog rada fokus će imati semantička sličnost \textit{dokumenata}, stoga će za predstavljanje dokumenata biti korišten tzv. model vreće riječi (engl. \textit{bag of words model}). U modelu vreće riječi, tekst dokumenta predstavljen je multiskupom riječi. Multiskup jest proširenje klasičnog skupa u smislu da dozvoljava više pojavljivanja elemenata, odnosno u ovom kontekstu, riječi. Kod modela vreće riječi dakle nije bitna semantika samih dokumenata, pa čak niti poredak riječi, već je bitno samo koje se riječi pojavljuju u određenom dokumentu, odnosno koja je učestalost njihovog pojavljivanja. Primjer modela vreće riječi prikazan je u nastavku:
-Neka su zadani dokumenti $d_{1}$ = "Marko jako voli domaćice. Domaćice su dobre." te $d_{2}$ = "Marko voli domaćice i programiranje." Za ovako zadane dokumente, prikazane su dobivene dobivene vreće riječi u JSON formatu:
-\begin{equation}
-{{BoW_{1}}=\{\text{{"Marko":1, "jako":1, "voli":1, "domaćice":2, "su":1, "dobre":1}}}\},
-\end{equation}
-\begin{equation}
+Prije svega, valja definirati što u kontekstu analize i pretraživanja teksta predstavlja dokument. Dokument se neformalno može definirati kao kolekcija riječi. Ovakva kolekcija ne mora nužno biti skup, pošto dokument može imati više ponavljanja istih riječi, stoga se na dokument može gledati kao na poredanu kolekciju riječi u kojoj može biti ponavljanja  (ovakva kolekcija naziva se mnogoskup (engl. \textit{multiset}) o kojoj će više riječi biti u nastavku paragrafa). Ovakva definicija dokumenta biti će bitna u nastavku gdje se opisuje semantička sličnost dokumenata. Primjerice, neki dokument u kojemu se često pojavljuju riječi "računalo", "algoritam" te "memorija" očito će biti relevantan u kontekstu dokumenata vezanih za računarsku znanost. Postavlja se pitanje kako tako definirane dokumente prikazati u računalu. Jedan (smisleni) pokušaj bio bi predstaviti riječi kao vektore, gdje bi svako slovo te riječi predstavljalo jednu komponentu vektora. Ovakav model naziva se \textit{Word2Vec} te služi za predstavljanje riječi iz nekog vokabulara na način da svaka riječ dobije odgovarajući položaj u više-dimenzijskom prostoru. Tako definiran model ima za posljedicu to da će semantički sličnije riječi biti bliže (odnosno da će pripadajući im vektori međusobno zatvarati manji kut) i obrnuto. Ovakav se model često koristi u kontekstu semantičke analize riječi, primjerice u pronalaženju sličnih riječi, sinonima, antonima itd. No ipak, u kontekstu ovog rada fokus će imati semantička sličnost \textit{dokumenata}, stoga će za predstavljanje istih biti korišten tzv. model vreće riječi (engl. \textit{bag of words model}). U modelu vreće riječi, tekst dokumenta predstavljen je multiskupom riječi. Multiskup jest proširenje klasičnog skupa u smislu da dozvoljava više pojavljivanja elemenata, odnosno u ovom kontekstu, riječi. Kod modela vreće riječi dakle nije bitna semantika samih dokumenata, pa čak niti poredak riječi, već je bitno samo koje se riječi pojavljuju u određenom dokumentu, odnosno koja je učestalost njihovog pojavljivanja. Primjer modela vreće riječi prikazan je u nastavku:
+Neka su zadani dokumenti $d_{1}$ = "Marko jako voli domaćice. Domaćice su ukusne." te $d_{2}$ = "Marko voli domaćice i programiranje." Za ovako zadane dokumente, prikazane su dobivene vreće riječi u JSON formatu:
+\begin{align*}
+{{BoW_{1}}=\{\text{{"Marko":1, "jako":1, "voli":1, "domaćice":2, "su":1, "ukusne":1}}}\},
+\end{align*}
+\begin{align*}
 {{BoW_{2}}=\{\text{{"Marko":1, "voli":1, "domaćice":2, "i":1, "programiranje":1}}}\},
-\end{equation}
-
+\end{align*}
 Kako bi se uopće moglo započeti sa semantičkom analizom dokumenata, potrebno je imati kolekciju dokumenata koji će se međusobno uspoređivati
 Korištenje modela vreće riječi zamišljeno je tako da se na početku iz svih dokumenata iz kolekcije dokumenata (u daljnjem tekstu: zbirka) izvade sve riječi te potom uklone nebitne riječi (o kojima će više riječi biti u poglavlju \ref{chap:impl}) a od preostalih se riječi izgradi vektor koji će \textit{de-facto} predstavljati dokument. Ovakav prethodno opisani model često je korišten u području procesiranja prirodnog jezika te povrata informacija kako iz dokumenata tako iz drugih tekstualnih izvora.
 
 U prethodnom primjeru prikazana je konstrukcija vreće riječi dvaju dokumenata. U tom primjeru, kao riječi koje se pojavljuju u vrećama uzete su sve riječi iz ulaznih dokumenata, što u praksi neće uvijek biti slučaj. Naime, u dokumentima se često znaju pronaći riječi koje nemaju nikakvo značenje za sam dokument. Takve su riječi primjerice zamjenice, pomoćni glagoli, veznici itd. Ovakve riječi nazivaju se zaustavne riječi (engl. \textit{stop words}) te su to riječi koje su učestale u nekom jeziku te su stoga nebitne za sam postupak analize teksta, pošto na nikakav način ne doprinose sadržaju dokumenta. Zaustavne se riječi stoga izbacuju iz vreća riječi te se zadržavaju samo riječi "bitne" za semantiku dokumenata. Empirijski je pokazano da uklanjanje zaustavnih riječi ima pozitivan utjecaj na daljnju obradu dokumenata. Primjeri nekih zaustavnih riječi u hrvatskom jeziku su: \textit{aha}, \textit{nešto}, \textit{okolo} te \textit{zaboga}.
-Kako bi se dokumenti mogli predstaviti u obliku vreća riječi, potrebno je odrediti vokabular—skup svih riječi koje se nalaze u svim dokumentima promatrane zbirke. Poznavanje vokabulara ključno je za semantičku sličnost dokumenata, što će i biti pokazano kasnije. Iz dobivenog vokabulara potrebno je na početku obrade ukloniti zaustavne riječi iz već opisanih razloga. Osim zaustavnih riječi, dodatna obrada teksta može se obaviti tzv. \textit{stemanjem} (engl. \textit{stemming}). Ova metoda ima zadaću svesti riječi na njihov kanonski oblik, kako bi riječi istog korijena bile svedene na istu riječ. Svođenje na kanonski oblik ne znači nužno i svođenje na morfološki korijen riječi. Primjerice, riječi "mačka", "mačkama" te "mačke" bile bi svedene na "mačk". Nebitno je dakle je li riječ napisana u jednini ili množini ili pak u kojem je padežu već je bitan samo njezin kanonski oblik.
+Kako bi se dokumenti mogli predstaviti u obliku vreća riječi, potrebno je odrediti vokabular — skup svih riječi koje se nalaze u svim dokumentima promatrane zbirke. Poznavanje vokabulara ključno je za semantičku sličnost dokumenata, što će i biti pokazano kasnije. Iz dobivenog vokabulara potrebno je na početku obrade ukloniti zaustavne riječi iz već opisanih razloga. Osim zaustavnih riječi, dodatna obrada teksta može se obaviti tzv. \textit{stemanjem} (engl. \textit{stemming}). Ova metoda ima zadaću svesti riječi na njihov kanonski oblik, kako bi riječi istog korijena bile svedene na istu riječ. Svođenje na kanonski oblik ne znači nužno i svođenje na morfološki korijen riječi. Primjerice, riječi "mačka", "mačkama" te "mačke" bile bi svedene na "mačk". Nebitno je dakle je li riječ napisana u jednini ili množini ili pak u kojem je padežu već je bitan samo njezin kanonski oblik.
 Nakon stvaranja vokabulara te predobrade dokumenata (izbacivanje zaustavnih riječi, stemanje) sljedeći korak jest predstavljanje dokumenata. Radi praktičnosti, najčešća metoda predstavljanja dokumenata je uz pomoć vektora.
-Najjednostavnija metoda vektorskog predstavljanja dokumenata jest binarna: za svaku riječ iz vokabulara naprosto se provjeri nalazi li se u danom dokumentu te ukoliko se nalazi, odgovarajuća komponenta vektora (indeks riječi u vokabularu) biti će 1, a u suprotnom 0. Primjerice, za prethodno definirane dokumente $d_{1}$ i $d_{2}$, vokabular će nakon uklanjanja svih nebitnih znakova i stop riječi biti: V = \{"Marko", "jako", "voli", "domaćice", "dobre", "programiranje"\}. Valja primijetiti kako su riječi "i" i "su" izbačene iz vokabulara. Koristeći binarnu metodu reprezentacije dokumenata, odgovarajući vektori će iznositi
-\begin{equation}
+Najjednostavnija metoda vektorskog predstavljanja dokumenata jest binarna: za svaku riječ iz vokabulara naprosto se provjeri nalazi li se u danom dokumentu te ukoliko se nalazi, odgovarajuća komponenta vektora (indeks riječi u vokabularu) biti će 1, a u suprotnom 0. Primjerice, za prethodno definirane dokumente $d_{1}$ i $d_{2}$, vokabular će nakon uklanjanja svih nebitnih znakova i stop riječi biti: V = \{"Marko", "jako", "voli", "domaćice", "ukusne", "programiranje"\}. Valja primijetiti kako su riječi "i" i "su" izbačene iz vokabulara. Koristeći binarnu metodu reprezentacije dokumenata, odgovarajući vektori će iznositi
+\begin{align*}
 {{d_{1}}=[1, 1, 1, 1, 1, 0]},
-\end{equation}
-\begin{equation}
+\end{align*}
+\begin{align*}
 {{d_{2}}=[1, 0, 1, 1, 0, 1]}
-\end{equation}
-zbog toga što prvi dokument ne sadrži riječ "programiranje" (zadnja komponenta) dok drugi dokument ne sadrži riječi "jako" (druga komponenta) te "dobre" (predzadnja komponenta).
+\end{align*}
+zbog toga što prvi dokument ne sadrži riječ "programiranje" (zadnja komponenta) dok drugi dokument ne sadrži riječi "jako" (druga komponenta) te "ukusne" (predzadnja komponenta).
 Nadograđujući se na prethodnu metodu, dolazi se do frekvencijskog prikaza vektora. Umjesto obične binarne reprezentacije u kojoj se pamti samo nalazi li se riječ u dokumentu ili ne, u frekvencijskom prikazu pamti se i koliko se puta određena riječ pojavljuje u dokumentu; komponente vektora zapravo su frekvencija (tj. broj) pojavljivanja određene riječi u dokumentu. Gledajući isti vokabular i dokumente kao u prethodnom primjeru, novi vektori će u ovom slučaju iznositi:
-\begin{equation}
+\begin{align*}
 {{d_{1}}=[1, 1, 1, 2, 1, 0]}
-\end{equation}
-\begin{equation}
+\end{align*}
+\begin{align*}
 {{d_{2}}=[1, 0, 1, 1, 0, 1]}
-\end{equation}
+\end{align*}
 Jedina razlika u odnosu na prethodni primjer jest četvrta komponenta prvog vektora koja ukazuje na to da se riječ "domaćica" u prvom dokumentu pojavljuje dvaput.
 Naposlijetku dolazimo i do najčešće metode vektorskog prikaza dokumenata u kontekstu analize i pretraživanja teksta — TF-IDF (engl. \textit{term frequency–inverse document frequency}). Ova metoda zasniva se na dvije intuitivne pretpostavke:
 \begin{itemize}
@@ -109,13 +108,14 @@ Za riječ \textit{w} i dokument \textit{d}, TF i IDF komponene računaju se na s
 \end{equation}
 \begin{equation}
 {\displaystyle \mathrm {idf} (t,D)=\log {\frac {N}{|\{d\in D:t\in d\}|}}}
+\label{eq:idf}
 \end{equation}
 
-Izraz za TF komponentu je intuitivan i trivijalan dok izraz za IDF komponentu zahtjeva kratki osvrt: riječ će biti bitnija za neki dokument što se rijeđe pojavljuje u ostalim dokumentima zbirke, odnosno drugim riječima: riječ će biti manje bitna za neki dokument što se češće pojavljuje u drugim dokumentima. Ovo ima smisla zato što neke riječi mogu biti česte u dokumentima čisto zbog same prirode jezika (kao što je ranije pokazano u slučaju zamjenica, veznika itd.) pa stoga ima smisla takve riječi manje uzimati u obzir prilikom računanja relevantnosti riječi. Dakle: što je riječ češća u ostalim dokumentima, IDF vrijednost se smanjuje te riječ postaje manje bitna za neki dokument. Naposlijetku, cijeli se omjer logaritamski skalira kako bi se u smanjio utjecaj velikog i/ili malog broja dokumenata koji sadrže određenu riječ. U nastavku je prikazan primjer izračuna TF-IDF vektora za prethodno prikazane dokumente ${d_1}$ i ${d_2}$: (Je li ovo bitno ?!)
+Izraz za TF komponentu je intuitivan i trivijalan dok izraz za IDF komponentu zahtjeva kratki osvrt: riječ će biti bitnija za neki dokument što se rijeđe pojavljuje u ostalim dokumentima zbirke, odnosno drugim riječima: riječ će biti manje bitna za neki dokument što se češće pojavljuje u drugim dokumentima. Ovo ima smisla zato što neke riječi mogu biti česte u dokumentima čisto zbog same prirode jezika (kao što je ranije pokazano u slučaju zamjenica, veznika itd.) pa stoga ima smisla takve riječi manje uzimati u obzir prilikom računanja relevantnosti riječi. Dakle: što je riječ češća u ostalim dokumentima, IDF vrijednost se smanjuje te riječ postaje manje bitna za neki dokument. Naposlijetku, cijeli se omjer logaritamski skalira kako bi se u smanjio negativan utjecaj malog broja dokumenata koji sadrže određenu riječ. U nastavku je prikazan primjer izračuna TF-IDF vektora za prethodno prikazane dokumente ${d_1}$ i ${d_2}$: (Je li ovo nužno ?!)
 
 \section{Semantička sličnost dokumenata}
 \label{subchap:similarity}
-Nakon izgrađene vektorske reprezentacije svih dokumenata zbirke, sljedeći korak jest samo uspoređivanje dokumenata. U sklopu ovog završnog rada, uspoređivanja dokumenata ostvaruje se na dva semantički različita načina: uspoređivanje korisničkog upita (engl. \textit{user input}, \textit{query}) sa zbirkom dokumenata odnosno uspoređivanje pojedinog dokumenta sa zbirkom dokumenata.
+Nakon izgrađene vektorske reprezentacije svih dokumenata zbirke, sljedeći korak jest samo uspoređivanje dokumenata. U sklopu ovog završnog rada, uspoređivanja dokumenata ostvaruje se na dva semantički različita načina: uspoređivanje korisničkog upita (engl. \textit{query}) sa zbirkom dokumenata odnosno uspoređivanje pojedinog dokumenta sa zbirkom dokumenata.
 Ova dva, naizgled različita problema, zapravo se svode na jedan: uspoređivanje kolekcije riječi sa zbirkom dokumenata. Ideja je dakle sljedeća: gleda se koliko riječi (bilo iz korisničkog upita, bilo iz dokumenta, u daljnjem tekstu: ulazni vektor) iz ulaznog vektora odgovara riječima iz vokabulara, tj. koliko riječi iz ulaznog vektora odgovaraju riječima iz pojedinih dokumenata u zbirci. Što je veća korespondencija određenog ulaznog vektora s vektorom pojedinog dokumenta (tj. što više riječi dijele zajedno), to kažemo da su ta dva dokumenta sličnija. Primjerice, ukoliko se u zbirci nalazi dokument o Zvjezdanim ratovima, a kao ulazni vektor dovedemo frazu poput "May the Force be with you", taj ulazni vektor i taj dokument imati će relativno visoku mjeru sličnosti. Ovo dovodi do sljedeće definicije:
 \newline
 Mjeru sličnosti dokumenata (engl. \textit{document similarity}) definiramo kao vrijednost na skupu pozitivnih \footnote{Postoji i definicija koja mjeru sličnosti definira nad cijelim skupom realnih brojeva, no u kontekstu ovog rada definicija nad pozitivnim brojevima biti će sasvim dostatna} realnih brojeva, koja ukazuje na to koliko su dva dokumenta slična — što je brojka veća, dokumenti su sličniji.
@@ -151,18 +151,26 @@ Za dokument $Q$, koji sadrži riječi $q_{1}$,...,$q_{n}$, BM25 mjera sličnosti
 \begin{equation}
 {\displaystyle {\text{score}}(D,Q)=\sum _{i=1}^{n}{\text{IDF}}(q_{i})\cdot {\frac {f(q_{i},D)\cdot (k_{1}+1)}{f(q_{i},D)+k_{1}\cdot \left(((1-b+b\cdot {\frac {|D|}{\text{avgdl}}}\right)}},}
 \end{equation}
-gdje je ${\displaystyle f(q_{i},D)}$	 frekvencija od ${\displaystyle q_{i}}$ u dokumentu D, ${\displaystyle |D|}$ je broj riječi u dokumentu D, a avgdl je prosječan broj riječi u dokumentima iz zbirke. ${\displaystyle k_{1}}$ i $b$ slobodni su parametri koji se uglavnom uzimaju kao ${\displaystyle k_{1}\in [1.2,2.0]}$ te ${\displaystyle b=0.75}.{\displaystyle {\text{ IDF}}(q_{i})}$ je IDF vrijednost komponente ${\displaystyle q_{i}}$.
-Analizirajući prethodnu formulu, može se zaključiti kako metoda BM25 nema zatvoreni interval sličnosti, u odnosu na metodu kosinusne sličnosti za koju se sličnost definira na intervalu [0, 1]. Naime, koristeći metodu BM25 jedino što se može zaključiti o odnosu ulaznog vektora i pojedinog dokumenta zbirke jest kakva je mjera njihove sličnosti u odnosu da mjeru sličnosti istog ulaznog vektora i nekog drugog dokumenta iz zbirke. Dakle, pošto metoda BM25 nema ograničeni interval za mjeru sličnosti, jedina njezina svrha u ovom kontekstu jest rangiranje dokumenata po sličnosti. Ovaj će nedostatak metode BM25 doći do izražaja u poglavlju \ref{chap:impl}.
+gdje je ${\displaystyle f(q_{i},D)}$	 frekvencija od ${\displaystyle q_{i}}$ u dokumentu D, ${\displaystyle |D|}$ je broj riječi u dokumentu D, a avgdl je prosječan broj riječi u dokumentima iz zbirke. ${\displaystyle k_{1}}$ i $b$ slobodni su parametri koji se uglavnom uzimaju kao ${\displaystyle k_{1}\in [1.2,2.0]}$ te ${\displaystyle b=0.75}.{\displaystyle {\text{ IDF}}(q_{i})}$ je IDF vrijednost komponente ${\displaystyle q_{i}}$ koja se može računati na nekoliko načina:
+Najjednostavniji IDF izraz jest \ref{eq:idf}: dokument će imati to veću mjeru sličnosti s korisničkim unosom što je određena riječ iz unosa manje pristutna u ostalim dokumentima zbirke, i obrnuto. Ovakav način računanja IDF vrijednosti jest bazičan, stoga se ponekad koristi i sljedeći izraz:
+\begin{equation}
+\text{IDF}(q_i) = \log \frac{N - n(q_i) + 0.5}{n(q_i) + 0.5},
+\label{idf2}
+\end{equation}
+Prethodni izraz opisuje alternativu osnovnom IDF izrazu koja se ponaša pomalo čudnovato: Ukoliko se riječ pojavljuje u više od polovice dokumenata zbirke, tada ovakav model dodijeljuje negativnu vrijednost. Ovakvo ponašanje moglo bi uzrokovati to da dokument koji je relevantan nekom upitu te sadrži konkretnu riječ iz korisničkog unosa, za razliku od sličnog dokumenta koji pak ne sadrži konkretnu riječ, dobije veću mjeru sličnosti. IDF model dakle kažnjava dokumente koji sadrže riječi koje se pojavljuju u većini zbirke, što može biti poprilično nepoželjno. Iz tog se razloga prethodno opisani IDF model može modificirati na način da se postavi donja granica na vrijednost IDF-a (korištenjem \textit{floor} funkcije) ili se cijeli model može u potpunosti zamijeniti nekim sličnim koji uvijek vraća nenegativnu vrijednost.
+
+Analizirajući pak prethodni izraz, može se zaključiti kako metoda BM25 nema zatvoreni interval sličnosti, u odnosu na metodu kosinusne sličnosti za koju se sličnost definira na intervalu [0, 1]. Naime, koristeći metodu BM25 jedino što se može zaključiti o odnosu ulaznog vektora i pojedinog dokumenta zbirke jest kakva je mjera njihove sličnosti u odnosu da mjeru sličnosti istog ulaznog vektora i nekog drugog dokumenta iz zbirke. Dakle, pošto metoda BM25 nema ograničeni interval za mjeru sličnosti, jedina njezina svrha u ovom kontekstu jest rangiranje dokumenata po sličnosti. Ovaj će nedostatak metode BM25 doći do izražaja u poglavlju \ref{chap:impl}.
 
 \chapter{Prikaz dokumenata u 2D koordinatnom sustavu}
-Kako prethodno navedene metode ispituju sličnost različitih dokumenata, sljedeći prirodan korak bio bi vizualizacija  sličnosti dobivene među dokumentima. Ovdje međutim, nastaje jedan problem. Naime, dokumenti čija se međusobna sličnost želi prikazati grafički, predstavljeni su vektorima sačinjenim od onoliko komponenata kolika je veličina vokabulara. Uzmemo li kao primjer prosječnu duljinu znanstvenog rada koja je po PAPER tipično između 3.000 i 10.000 riječi, to bi značilo da se i veličina vokabulara takve zbirke dokumenata također mjeri u tisućama riječi. Pošto je magnituda svakog od vektora (tj. broj komponenata) upravo veličina vokabulara, to bi značilo da svaki vektor ima tisuće komponenata koje je nemoguće prikazati u 2D ili 3D koordinatnom sustavu u svrhu vizualizacije sličnosti dokumenata. Tom se problemu u sklopu ovog rada doskače silom usmjerenim crtanjem grafova (engl. \textit{Force-directed graph drawing}).
+\label{chap:docsin2d}
+Kako prethodno navedene metode ispituju sličnost različitih dokumenata, sljedeći prirodan korak bio bi uvid u tu sličnost, odnosno vizualizacija  sličnosti dobivene među dokumentima. Ovdje međutim, nastaje jedan problem. Naime, dokumenti čija se međusobna sličnost želi prikazati grafički, predstavljeni su vektorima sačinjenim od onoliko komponenata kolika je veličina vokabulara. Uzmemo li kao primjer prosječnu duljinu znanstvenog rada koja je po PAPER tipično između 3.000 i 10.000 riječi, to bi značilo da se i veličina vokabulara takve zbirke dokumenata također mjeri u tisućama riječi. Pošto je magnituda svakog od vektora (tj. broj komponenata) upravo veličina vokabulara, to bi značilo da svaki vektor ima tisuće komponenata koje je nemoguće prikazati u 2D ili 3D koordinatnom sustavu u svrhu vizualizacije sličnosti dokumenata. Tom se problemu može doskočiti na nekoliko različitih načina. Jedna često korištena metoda jest analiza glavnih komponenata (engl. \textit{Principal Component Analysis, PCA}), koja funkcionira tako da od \textit{n} komponenti vektora (odnosno skupa vektora) pronađe one komponente koje najviše utječu na raznolikost podataka. Na taj se način višedimenzijski vektor može svesti na vektor proizvoljne dimenzije — u svrhe prikaz dokumenata u 2D koordinatnom sustavu, vektori bi bili svedeni na dvodimenzijske vektore kako bi bili prikazivi \textit{x} i \textit{y} koordinatama. Pa ipak, u sklopu ovog rada ne koristi se metoda PCA već metoda koja se pokazala puno efikasnijom u smislu vremena izvođenja — metoda silom usmjerenog crtanja grafova (engl. \textit{Force-directed graph drawing}).
 
 \section{Silom usmjereno crtanje grafova}
 \label{subchap:forcedir}
-Silom usmjereno crtanje grafova jedna je od metoda crtanja grafova koja se oslanja na simuliranje fizikalne pojave privlačnih i odbojnih sila među česticama. Naime, čvorovi grafa predstavljeni su metalnim prstenovima dok su bridovi predstavljeni oprugama. Opruge koja spajaju prstenove imaju ulogu privlačne elastične sile (Hookeov zakon), dok je odbojna sila zapravo električna sila između prstenova. Algoritam funkcionira tako da se u svakom koraku za svaki čvor odredi rezultantna sila prema svim ostalim čvorovima te se čvor pomiče u tom smjeru za određeni korak. Ovaj se postupak iterativno ponavlja te je cilj algoritma minimizirati ukupnu energiju sustava što će se dogoditi kada se privlačne i odbojne sile svih čvorova izjednače, odnosno kada algoritam odradi maksimalan broj koraka (koji se zadaje kao parametar algoritma).
+Silom usmjereno crtanje grafova jest jedna od metoda za dobijanje grafa iz skupa podataka. Algoritam se oslanja na simuliranje fizikalne pojave privlačnih i odbojnih sila među česticama. Naime, čvorovi grafa predstavljeni su metalnim prstenovima dok su bridovi predstavljeni oprugama. Opruge koja spajaju prstenove imaju ulogu privlačne elastične sile (Hookeov zakon), dok je odbojna sila zapravo električna sila između prstenova. Algoritam funkcionira tako da se u svakom koraku za svaki čvor odredi rezultantna sila prema svim ostalim čvorovima te se čvor pomiče u tom smjeru za određeni korak. Ovaj se postupak iterativno ponavlja te je cilj algoritma minimizirati ukupnu energiju sustava što će se dogoditi kada se privlačne i odbojne sile svih čvorova izjednače, odnosno kada algoritam odradi maksimalan broj koraka (koji se zadaje kao parametar algoritma). Dobiveni graf može se prikazati u dvodimenzijskom ili trodimenzijskom prostoru, a rezultat algoritma biti će estetski zadovoljavajuć raspored grafa, obzirom da se izgled grafa dobija kao rezultat simulacije, a ne matematičke analize, koja ne mora nužno rezultirati estetski privlačnim grafom. Slika \ref{img:fdgd_example} prikazuje raspored grafa dobiven silom usmjerenim crtanjem grafova.
 
 \begin{figure}
-\makebox[\textwidth]{\includegraphics[width=\textwidth]{fdgd_example.png}}
+\makebox[\textwidth]{\includegraphics[width=0.85\textwidth]{fdgd_example.png}}
 \caption{Primjer grafa dobivenog silom usmjerenim crtanjem grafova}
 \label{img:fdgd_example}
 \end{figure}
@@ -172,7 +180,7 @@ Jedna od često korištenih metoda u kontekstu analize i pretraživanja teksta j
 
 \subsection{Grupiranje k-sredina}
 \label{k_means_clustering}
-Grupiranje k-sredina je metoda koja spada u nenadzirano učenje (engl. \textit{unsupervised learning}) a koja se koristi kada podaci nisu označeni—u kontekstu grupiranja dokumenata to bi značilo da za dokumente nisu unaprijed poznate grupe kojima ti dokumenti pripadaju. Cilj algoritma grupiranja k-sredina jest napraviti upravo to: odvojiti postojeće podatke u \textit{k} grupa (odnosno pronaći iste), po čemu je algoritam i dobio naziv. Algoritam iterativno svakoj točki dodjeljuje grupu ovisno o sličnostima u odnosu na sve ostale točke (u kontekstu grupiranja dokumenata, ta sličnost je upravo mjera sličnosti dokumenata).
+Grupiranje k-sredina je metoda koja spada u nenadzirano učenje (engl. \textit{unsupervised learning}) a koja se koristi kada podaci nisu označeni — u kontekstu grupiranja dokumenata to bi značilo da za dokumente nisu unaprijed poznate grupe kojima ti dokumenti pripadaju. Cilj algoritma grupiranja k-sredina jest napraviti upravo to: odvojiti postojeće podatke u \textit{k} grupa (odnosno pronaći iste), po čemu je algoritam i dobio naziv. Algoritam iterativno svakoj točki dodjeljuje grupu ovisno o sličnostima u odnosu na sve ostale točke (u kontekstu grupiranja dokumenata, ta sličnost je upravo mjera sličnosti dokumenata).
 Ulaz u algoritam jesu podaci (engl. \textit{dataset}) te parametar \textit{k}.
 Na početku se slučajnim mehanizmom odabere \textit{k} grupa nakon čega slijedi ponavljanje sljedeća dva koraka:
 
@@ -185,12 +193,12 @@ Na početku se slučajnim mehanizmom odabere \textit{k} grupa nakon čega slijed
 \end{figure}
 
 \begin{enumerate}
-\item \textbf{Dodjela grupa podacima.} U svakom koraku, za svaki podatak odredi se kvadratna euklidska udaljenost do najbliže grupe (centroida). Formalno, potrebno je dakle pronaći grupu $c_{i}$ takvu da vrijedi:
+\item \textbf{Dodjela grupa podacima.} U svakom koraku, za svaki podatak odredi se kvadratna euklidska udaljenost do najbliže grupe (tj. njezinog centroida). Formalno, potrebno je pronaći grupu $c_{i}$ takvu da vrijedi:
 \begin{equation}
 {\displaystyle {\underset{{c_i}\,\in\,C}{\operatorname {arg\,min}}}\,\,dist({c_i},\,x)^2}
 \end{equation}
 gdje je $dist(c_i, x)$ već spomenuta euklidska udaljenost točke $x$ do centroida $c_i$.
-\item \textbf{Ažuriranje centroida.} Za svaki od centroida, izračuna se aritmetička sredina svih točaka koje su u prethodnom koraku bile dodijeljene tom centroidu.
+\item \textbf{Ažuriranje centroida.} Za svaku od grupa, radi se ažuriranje centroida na način da se izračuna aritmetička sredina svih točaka koje su dodijeljene dotičnoj grupi.
 \begin{equation}
 {\displaystyle {c_i}}=\frac{1}{|S_i|} \sum_{x_i\in\,S_i}^{} x_i
 \end{equation}
@@ -203,23 +211,6 @@ Algoritam dakle iterira kroz opisane korake dok nijedna točka ne promijeni grup
 \caption{Demonstracija algoritma grupiranja k-sredina}
 \label{img:clustering_alg}
 \end{figure}
-
-\section{Primjena na prikaz dokumenata}
-\label{sec:docdisplay}
-Prethodno definirane metode (silom usmjereno crtanje grafova te grupiranje k-sredina) mogu se iskoristiti upravo za prikaz i grupiranje dokumenata, odnosno njihovih međusobnih sličnosti u 2D koordinatnom sustavu. Prije početka ijednog od algoritama, svi dokumenti i pripadajući im vektori moraju biti učitani, odnosno inicijalizirani. Nadalje, za svaki par dokumenata $d_{i}$ i $d_{j}$, $i \neq j$, izračuna se njihova sličnost (koristeći neku od metoda prikazanih u potpoglavlju \ref{subchap:similarity}) te se čvorovi (dokumenti) i bridovi (sličnosti) predaju algoritmu koji odsimulira postupak opisan u potpoglavlju \ref{subchap:forcedir}. Nakon što je algoritam završio sa simulacijom, postupak prestaje i prikazuje se nacrtani graf.
-Nad tako nacrtanim grafom dalje se može primijeniti algoritam grupiranja k-sredina koji prvo procjenjuje hiperparametar \textit{k} uz pomoć već opisane heuristike te nakon toga provodi postupak grupiranja dokumenata. Nakon što se oba algoritma izvrše, dobiveni rezultat jest upravo prikaz dokumenata u 2D koordinatnom sustavu s naznačenim grupama koje predstavljaju aproksimaciju (broja) kategorija dokumenata iz zbirke. \par
-Primjena algoritma k-sredina na grupiranje dokumenata jest sljedeća: grupirati dokumente u \textit{k} grupa na način da se svakom dokumentu—točki u 2D prostoru koja ga predstavlja—dodijeli grupa do čijeg je centra ta točka najbliža. Algoritam započinje tako da slučajnim mehanizmom odabere \textit{k} grupa te dodijeli dokumente u najbliže im grupe. Nakon inicijalne dodjele u grupe, računa se novih \textit{k} grupa te se postupak iterativno ponavlja do konvergencije. Nakon završenog algoritma, svaki će se dokument nalaziti u najbližoj mu grupi, zajedno s ostalim dokumentima koji su mu najsličniji.
-Nažalost, grupiranje dokumenta u ovome kontekstu nije izravno moguće zbog toga što algoritam apriorno (lat. \textit{a priori}) nema informaciju o broju grupa dokumenata iz zbirke. Razlog tome jest sama priroda problema koji se rješava, a to je da su na početku nepoznate grupe dokumenata (kao i njihov broj), odnosno jedini podaci dostupni programu su sami dokumenti. No ipak, broj grupa zbirke, \textit{k}, ipak se može procijeniti određenim heuristikama kao što će biti pokazano u potpoglavlju \ref{kmeans_optimization}.
-\begin{figure}
-\makebox[\textwidth]{\includegraphics[width=\textwidth]{join2.png}}
-\caption{Rezultat algoritma grupiranja k-sredina za \textit{k=2} (gore lijevo), \textit{k=6} (gore desno), \textit{k=10} (dolje lijevo), \textit{k=20} (dolje desno)}
-\label{img:graph_kmeans}
-\end{figure}
-
-\chapter{Isprobavanje metoda...}
-Jedan od ciljeva ovog rada jest istražiti već ranije spomenute metode analize i pretraživanja teksta.
-
-Prilikom istraživanja različitih metoda rangiranja za potrebe ovog rada, metode koje su se pokazale najzanimljivijima (a koje su svejedno poprilično bazične, u smislu da ne iziskuju kompleksnije alate poput strojnog učenja) su metoda kosinusne sličnosti te metoda Okapi BM25.
 
 \chapter{Implementacija i rezultati}
 \label{chap:impl}
@@ -235,62 +226,81 @@ Korisnički se upit procesira kao što je već ranije spomenuto u poglavlju \ref
 
 Za procesiranje korisničkog upita (odnosno bilo kakvog unosa od strane korisnika, kao što će biti pokazano u iduća dva potpoglavlja) koristi se razred \textit{InputProcessor} iz paketa \textit{hr.fer.zemris.zavrsni.input}. Ovaj razred koristi se kad god treba pročitati tekst zadan od strane korisnika: bilo to kroz korisnički upit, bilo kroz učitavanje dokumenata s diska. Naime, on sadrži popis zaustavnih riječi te reference na primjerke razreda koji implementiraju sučelje \textit{DocumentReader} (kojemu se delegira posao samog čitanja riječi) i \text{Stemmer} (kojemu se delegira posao stemanja riječi). Razred \textit{Stemmer} predstavlja implementaciju tzv. \textit{Porter stemming algorithm} koja je u Javi javno dostupna na Internetskoj stranici samog algoritma.
 Pozivatelj (glavni program) na početku kroz statičku metodu razreda postavlja objekt tipa \textit{DocumentReader} koji "zna" kako odraditi čitanje. Razred \textit{InputProcessor} će na početku pozvati metodu \textit{readDocument} objekta \textit{DocumentReader} koji će pročitati sve riječi iz odgovarajućeg izvora riječi. Nakon toga \textit{InputProcessor} koristi \textit{Stemmer} kako bi svim riječima uklonio sufikse te ih sveo na kanonski oblik. Ovako obrađene riječi \textit{InputProcessor} vraća pozivatelju.
-\begin{figure}[h]
-\centering    
-\def\svgwidth{\columnwidth}
-\input{images/diagram.pdf_tex}
+\begin{figure}
+\makebox[\textwidth]{\includegraphics[width=\textwidth]{diagram.png}}
 \caption{Dijagram razreda zaduženih za čitanje riječi (paket \textit{hr.fer.zemris.zavrsni.input})}
 \label{img:diagram}
 \end{figure}
 
-\section{Obrada korisničkog upita}
+\subsection{Obrada korisničkog upita}
 Za obradu korisničkog upita zadužen je razred \textit{QueryReader} koji implementira sučelje \textit{DocumentReader} koje predstavlja apstakciju najviše razine za objekte koji obavljaju akciju čitanja. Kada korisnik unese upit u znakovno polje (engl. \textit{text field}), primjerak razreda \textit{QueryReader} sprema zadani unos u privatnu člansku varijablu. Pozivatelj (glavni program) tada postavlja taj primjerak kao \textit{DocumentReader} razreda \textit{InputProcessor} koji tada koristi objekt kako bi dohvatio upit korisnika. Dohvaćeni tekst se nakon toga procesira (uklanjanje zaustavnih riječi, steming) te je spreman za daljnju obradu (vektorizacija i sama usporedba s dokumentima).
 \begin{figure}
-\makebox[\textwidth]{\includegraphics[width=\textwidth]{query_search.png}}
+\makebox[\textwidth]{\includegraphics[width=0.85\textwidth]{query_search.png}}
 \caption{Prikaz dijela programa za unos korisničkog upita}
 \label{img:query_search}
 \end{figure}
 
-\section{Obrada dokumenata}
-Osim pretraživanja zbirke dokumenata prema korisničkom upitu, program nudi mogućnost pronalaska sličnih dokumenata proizvoljno odabranom dokumentu koji se ne nalazi u zbirci. Nakon pokretanja programa i odabira putanje do zbirke dokumenata, korisnik može odabrati proizvoljan dokument s diska kako bi pronašao njemu slične dokumente iz zbirke. Za učitavanje dokumenata s diska (kao i za obradu korisničkog upita), koristi se razred \textit{InputProcessor} koji ne koristi više \textit{QueryReader} kao što to radi prilikom obrade korisničkog upita, već koristi primjerke razreda izvedenih iz apstraktnog razreda \textit{FileReader}—\textit{TextReader} te \textit{PDFReader}. \textit{TextReader} ostvaruje funkcionalnost čitanja riječi iz obične tekstualne datoteke (nastavak \textit{.txt}). Ovaj razred ne koristi se u finalnoj verziji programske implementacije, no bio je vrlo značajan za potrebe testiranja u implementacijskoj fazi izrade programske potpore. Za čitanje PDF dokumenata koristi se \textit{PDFReader} koji pak posao parsiranja samih PDF dokumenata delegira vanjskoj biblioteci \textit{Apache PDFBox}. Tako dohvaćeni tekst se, kao i kod obrade korisničkog upita, nakon toga procesira te je spreman za daljnju obradu.
+\subsection{Obrada dokumenata}
+Osim pretraživanja zbirke dokumenata prema korisničkom upitu, program nudi mogućnost pronalaska sličnih dokumenata proizvoljno odabranom dokumentu koji se ne nalazi u zbirci. Nakon pokretanja programa i odabira putanje do zbirke dokumenata, korisnik može odabrati proizvoljan dokument s diska kako bi pronašao njemu slične dokumente iz zbirke. Za učitavanje dokumenata s diska (kao i za obradu korisničkog upita), koristi se razred \textit{InputProcessor} koji ne koristi više \textit{QueryReader} kao što to radi prilikom obrade korisničkog upita, već koristi primjerke razreda izvedenih iz apstraktnog razreda \textit{FileReader} — \textit{TextReader} te \textit{PDFReader}. \textit{TextReader} ostvaruje funkcionalnost čitanja riječi iz obične tekstualne datoteke (nastavak \textit{.txt}). Ovaj razred ne koristi se u finalnoj verziji programske implementacije, no bio je vrlo značajan za potrebe testiranja u implementacijskoj fazi izrade programske potpore. Za čitanje PDF dokumenata koristi se \textit{PDFReader} koji pak posao parsiranja samih PDF dokumenata delegira vanjskoj biblioteci \textit{Apache PDFBox}. Tako dohvaćeni tekst se, kao i kod obrade korisničkog upita, nakon toga procesira te je spreman za daljnju obradu.
 \begin{figure}
-\makebox[\textwidth]{\includegraphics[width=\textwidth]{document_search.png}}
+\makebox[\textwidth]{\includegraphics[width=0.85\textwidth]{document_search.png}}
 \caption{Prikaz dijela programa za odabir proizvoljnog dokumenta}
 \label{img:doc_search}
 \end{figure}
 
-\section{Usporedba korisničkog unosa s dokumentima iz zbirke}
-Nakaon što pozivatelj dobije kolekciju riječi od razreda \textit{InputProcessor} (bilo dobivenih iz korisničkog upita ili pročitanih iz dokumenata), stvara njihovu TF-IDF vektorsku reprezentaciju koju modelira razred \textit{Vector} iz paketa \textit{hr.fer.zemris.zavrsni.model}. Tako stvoreni vektor potom se preda javnom konstuktoru razreda \textit{Document} iz istog paketa koji modelira virtualni dokument. \textit{Virtualni} u ovom kontekstu znači da primjerak tog razreda ne predstavlja doslovno dokument koji se nalazi na disku korisnika, već enkapsulira izgrađeni vektor te omogućuje pristup ostalim razredima kroz prikladno definirano sučelje.
+\section{Međusobna usporedba dokumenata}
+Nakaon što pozivatelj dobije kolekciju riječi od razreda \textit{InputProcessor} (bilo dobivenih iz korisničkog upita ili pročitanih iz dokumenata), stvara njihovu TF-IDF vektorsku reprezentaciju koju modelira razred \textit{Vector} iz paketa \textit{hr.fer.zemris.zavrsni.model}. Tako stvoreni vektor potom se preda javnom konstuktoru razreda \textit{Document} iz istog paketa koji modelira virtualni dokument. \textit{Virtualni} u ovom kontekstu znači da primjerak tog razreda ne predstavlja doslovno dokument koji se nalazi na disku korisnika, već enkapsulira izgrađeni vektor te omogućuje pristup ostalim razredima kroz prikladno definirano sučelje. S druge strane, razred \textit{Document} može predstavljati dokument s diska, kao što je to slučaj s dokumentima iz zbirke. Razred \textit{Document} jest dakle apstrakcija koja predstavlja kolekciju riječi, bez obzira na to odakle dolazi — bilo iz korisničkog upita, bilo iz dokumenta s diska. Ovakvo strukturirano rješenje ima jednu vrlo elegantnu posljedicu: svaka usporedba dokumenta, bez obzira na njegov izvor nastanka u programskom se kodu ostvaruje samo na jednom mjestu. Drugim riječima, nije potrebno raditi razliku između usporedbe različitih "tipova" dokumenata već se svaka usporedba svodi na jednu.
 
-\begin{lstlisting}[caption={Isječak programskog koda za generičku usporedbu dokumenata},captionpos=b]
-private void calculateSimilarities() {
-    Map<DocumentPair, Double> similiarities = new HashMap<>();
-    List<Document> documents = new ArrayList<>(documentsMap.values());
-    for (int i = 0; i < documents.size(); i++) {
-        for (int j = 0; j < documents.size(); j++) {
-            if (i >= j) continue;
+\section{Funkcije rangiranja}
+Kao što je već spomenuto u poglavlju \ref{docmodel}, metode istražene u sklopu ovog rada su metoda kosinusne sličnosti te metoda BM25.
+Nad objema metodama napravljen je niz ispitivanja: kroz korisničke upite, ali i s proizvoljnim dokumentima. BM25, često smatran \textit{state-of-the-art} tehnikom rangiranja dokumenata se zapravo, kao što je već aludirano u poglavlju \ref{docmodel}, koristi primarno za rangiranje dokumenata. Naime, BM25 po svojoj definiciji ne definira apsolutnu već relativnu mjeru sličnosti
 
-            Document d1 = documents.get(i);
-            Document d2 = documents.get(j);
+Ovom problemu moglo bi se doskočiti normaliziranjem mjere sličnosti na način da se mjera sličnosti između dokumenata $d_1$ i $d_2$ umjesto na klasičan način — \text{similarity}($d_1, d_2$) — računa tako da se dobiveni rezultat podijeli mjerom sličnosti dokumenta $d_1$ (ili $d_2$) sa samim sobom. Ovakav način računanja mjere sličnosti prikazan je izrazom \ref{eq:docsim}.
+\begin{equation}
+\text{similarity}(d_i, d_j) = \frac{\text{similarity}(d_i, d_j)}{\text{similarity}(d_j, d_j)},
+\label{eq:docsim}
+\end{equation}
+Na ovaj način, za svaki par dokumenata dobila bi se vrijednost u intervalu [0, 1] što odgovara intervalu kosinusne metode te je poželjno svojstvo u svrhe rangiranja, odnosno pronalaska sličnih dokumenata. \par
+No ipak, korištenje ovakve tehnike zaobilazi izvornu svrhu metode Okapi BM25, a to je relativno rangiranje dokumenata po sličnosti. Kako u samoj implementaciji ne bi bilo nedefiniranog, odnosno neočekivanog ponašanja u postupku proračuna sličnosti dokumenata, za potrebe ovog rada odabrana je metode kosinusne sličnosti, koja se bez obzira na svoju naizgled bazičnu, odnosno bazičnu strukturu, pokazala vrlo uspješnom ne samo u svrhe pronalaska međusobne sličnosti dokumenata, već i u slučaju apsolutnog rangiranja dokumenata, što je ključan faktor za ispravnu vizualizaciju dokumenata, o čemu će više riječi biti u sljedećem potpoglavlju.
 
-            double sim = d1.sim(d2) / d1.sim(d1);
-            similiarities.put(new DocumentPair(d1, d2), sim);
-        }
-    }
-    datasetInfo.similarities = similiarities;
-}
-\end{lstlisting}
+Implementacijski, metode kosinusne sličnosti te BM25, predstavljene su razredima \textit{CosineSimilarity} te \textit{OkapiBM25}. Ovi razredi izvedeni su iz apstraktnog razreda \textit{RankingFunction} koji se, zajedno s konkretnim implementacijama, nalazi u paketu \textit{hr.fer.zemris.zavrsni.ranking}. Kao što je to spomenuto u prethodnom potpoglavlju, sve usporedbe bilo kakvih tipova dokumenata u programskom se kodu događaju na jednom mjestu, odnosno, kroz jedno sučelje. Naime, razred \textit{RankingFunction} sadrži javnu metodu \textit{sim(Document, Document)} koja prima dva generička dokumenta. Konkretne implementacije tog razreda implementiraju svaka svoj način usporedbe dokumenata, ovisno o njihovoj definiciji.
 
 \section{Vizualizacija dokumenata}
-Kao što je već ranije spomenuto u potpoglavlju \ref{sec:docdisplay}, dokumenti zbirke mogu se grafički prikazati u 2D koordinatnom sustavu tako da se uzme u obzir njihova međusobna sličnost.
+\label{sec:docdisplay}
+Metode definirane u poglavlju \ref{chap:docsin2d} (silom usmjereno crtanje grafova te grupiranje k-sredina) mogu se iskoristiti upravo za prikaz i grupiranje dokumenata, odnosno njihovih međusobnih sličnosti u 2D koordinatnom sustavu. Prije početka ijednog od algoritama, svi dokumenti i pripadajući im vektori moraju biti učitani, odnosno inicijalizirani. Nadalje, za svaki par dokumenata $d_{i}$ i $d_{j}$, $i \neq j$, izračuna se njihova sličnost (koristeći neku od metoda prikazanih u potpoglavlju \ref{subchap:similarity}) te se čvorovi (dokumenti) i bridovi (sličnosti) predaju algoritmu koji odsimulira postupak opisan u potpoglavlju \ref{subchap:forcedir}. Nakon što je algoritam završio sa simulacijom, postupak prestaje i prikazuje se nacrtani graf.
+\begin{figure}
+\makebox[\textwidth]{\includegraphics[width=0.85\textwidth]{graph_program.png}}
+\caption{Prikaz dijela programa za prikaz dokumenta zbirke}
+\label{img:graph_program}
+\end{figure}
+Nad tako nacrtanim grafom dalje se može primijeniti algoritam grupiranja k-sredina koji prvo procjenjuje hiperparametar \textit{k} uz pomoć već opisane heuristike te nakon toga provodi postupak grupiranja dokumenata. Nakon što se oba algoritma izvrše, dobiveni rezultat jest upravo prikaz dokumenata u 2D koordinatnom sustavu s naznačenim grupama koje predstavljaju aproksimaciju (broja) kategorija dokumenata iz zbirke. \par
+Primjena algoritma k-sredina na grupiranje dokumenata jest sljedeća: grupirati dokumente u \textit{k} grupa na način da se svakom dokumentu — točki u 2D prostoru koja ga predstavlja — dodijeli grupa do čijeg je centra ta točka najbliža. Algoritam započinje tako da slučajnim mehanizmom odabere \textit{k} grupa te dodijeli dokumente u najbliže im grupe. Nakon inicijalne dodjele u grupe, računa se novih \textit{k} grupa te se postupak iterativno ponavlja do konvergencije. Nakon završenog algoritma, svaki će se dokument nalaziti u najbližoj mu grupi, zajedno s ostalim dokumentima koji su mu najsličniji.
+Nažalost, grupiranje dokumenta u ovome kontekstu nije izravno moguće zbog toga što algoritam apriorno (lat. \textit{a priori}) nema informaciju o broju grupa dokumenata iz zbirke. Razlog tome jest sama priroda problema koji se rješava, a to je da su na početku nepoznate grupe dokumenata (kao i njihov broj), odnosno jedini podaci dostupni programu su sami dokumenti. No ipak, broj grupa zbirke, \textit{k}, ipak se može procijeniti određenim heuristikama kao što će biti pokazano u potpoglavlju \ref{kmeans_optimization}.
 
-Ulazni vektor (dobiven bilo iz korisničkog upita ili iz dokumenta učitanog s diska) može se iskoristiti kako bi se korisnički upit, odnosno učitani dokument mogli prikazati grafički. Naime, osim prikazanih dokumenata zbirke i njihovih međusobnih sličnosti, moguće je vidjeti i gdje pripada korisnički upit, odnosno učitani dokument.
+\section{Optimizacija izvođenja programa}
+Kako bi program bio što responzivniji na upite korisnika, nakon što se po prvom pokretanju programa izvrši čitav postupak inicijalizacije dokumenata (preprocesiranje dokumenata, stvaranje vokabulara, računanje sličnosti dokumenata itd.), dobiveni se podaci spremaju u \textit{cache} memoriju, odnosno bivaju serijalizirani (engl. \textit{serialization}) na disk. Svrha ovog postupka jest jednom dobivene i izračunate relevantne podatke zbirke dokumenata spremiti u perzistentnu memoriju računala kako bi se po svakom sljedećem pokretanju programa, umjesto ponovnog prikupljanja i izračuna svih relevantnih podataka, isti mogli efikasnije isčitati iz zapisane datoteke te deserijalizirati u odgovarajuće strukture podataka čime se uvelike dobija na brzini izvođenja programa. U tablici
+\ref{table:serialization} vidljivo je da se korištenjem serijalizacije postiže prosječno ubrzanje od čak 58 puta prilikom svakog (ne-inicijalnog) pokretanja programa.
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Br. dokumenata & Ponovno čitanje (sek) & Deserijalizacija (sek) \\
+\hline
+7 & 63.94 & 0.76 \\
+157 & 670.81 & 21.05 \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Usporedba trajanja ponovnog čitanja dokumenata i deserijalizacije}
+\label{table:serialization}
+\end{table}
 
 \section{Provjera integriteta zbirke dokumenata}
-Kako bi program bio u mogućnosti detektirati promjene nad zbirkom dokumenata (primjerice, ako je novi dokument dodan, ako je neki dokument uklonjen itd.), koristi se tehnika provjere kontrolne sume (engl. \textit{checksum}) dokumenata. Naime, nakon što korisnik odabere direktorij na disku koji predstavlja zbirku dokumenata, nad njim se provede rekurzivan postupak izračuna MD5 \textit{hash} (engl. \textit{hash}) vrijednosti svakog od dokumenata u tom direktoriju. Dobivene \textit{hash} vrijednosti se tada usporede s postojećim \textit{hash} vrijednostima koje su spremljene u posebnoj datoteci. Ukoliko se vrijednosti poklapaju, nad zbirkom nije bilo nikakvih promjena od zadnjeg pokretanja te program učitava serijalizirane podatke o zbirci dokumenata i postaje spreman za korištenje. Ako je međutim uočena razlika između postojeće i izračunate \textit{hash} vrijednosti, očito je da je zbirka promijenjena te se nanovo računaju sve relevantne informacije.
+Kako bi program bio u mogućnosti autonomno detektirati promjene nad zbirkom dokumenata (primjerice, ako je novi dokument dodan, ako je neki dokument uklonjen itd.), koristi se tehnika provjere kontrolne sume (engl. \textit{checksum}) dokumenata. Naime, nakon što korisnik odabere direktorij na disku koji predstavlja zbirku dokumenata, nad njim se provede rekurzivan postupak izračuna MD5 \textit{hash} vrijednosti svakog od dokumenata u tom direktoriju. Dobivene \textit{hash} vrijednosti se tada usporede s postojećim \textit{hash} vrijednostima koje su spremljene u posebnoj \textit{cache} datoteci. Ukoliko se vrijednosti poklapaju, program zaključuje kako nad zbirkom nije bilo nikakvih promjena od zadnjeg pokretanja te učitava prethodno serijalizirane podatke o zbirci dokumenata i uskoro postaje spreman za korištenje. Ako je međutim uočena razlika između postojeće i izračunate \textit{hash} vrijednosti (ili ako ona prethodno uopće ne postoji), očito je da je zbirka promijenjena (ili prethodno niti nije bila serijalizirana) te se nanovo računaju sve relevantne informacije koje se potom serijaliziraju u odgovarajuću \textit{cache} datoteku.
 
 \begin{code}[caption={Isječak programskog koda za provjeru ispravnosti zbirke},captionpos=b]
-private static boolean isDatasetCorrect(Path dataset) throws IOException {
+private static boolean isDatasetCorrect(Path dataset) {
     String md5 = new MD5Visitor(dataset).getMd5();
     String md5Real;
 
@@ -317,39 +327,14 @@ private static boolean isDatasetCorrect(Path dataset) throws IOException {
 }
 \end{code}
 
-\section{Optimizacija izvođenja programa}
-Kako bi upiti korisnika bili što optimiraniji, nakon što se prvi put izvrši čitav gore opisan postupak (preprocesiranje dokumenata, stvaranje vokabulara, računanje sličnosti dokumenata itd.), dobiveni se podaci spremaju u keš (engl. \textit{cache}) memoriju, odnosno bivaju serijalizirani (engl. \textit{serialization}) na disk. Svrha ovog postupka jest jednom dobivene i izračunate relevantne podatke zbirke dokumenata spremiti u perzistentnu memoriju računala kako bi se po svakom sljedećem pokretanju programa, umjesto ponovnog prikupljanja i izračuna svih relevantnih podataka, isti mogli efikasnije isčitati iz zapisane datoteke te deserijalizirati u odgovarajuće strukture podataka čime se uvelike dobija na brzini izvođenja programa, kao što se može vidjeti u Tablici
-\ref{table:serialization} u kojoj je vidljivo da se korištenjem serijalizacije postiže prosječno ubrzanje od čak 58 puta prilikom svakog (ne-inicijalnog) pokretanja programa.
-
-\begin{table}
-\begin{center}
-\begin{tabular}{|c|c|c|}
-\hline
-Br. dokumenata & Ponovno čitanje (sek) & Deserijalizacija (sek) \\
-\hline
-7 & 63.94 & 0.76 \\
-157 & 670.81 & 21.05 \\
-\hline
-\end{tabular}
-\end{center}
-\caption{Usporedba trajanja ponovnog čitanja dokumenata i deserijalizacije}
-\label{table:serialization}
-\end{table}
-
 \section{Optimizacija hiperparametra \textit{k} algoritma k-sredina}
 \label{kmeans_optimization}
 Kao što je već spomenuto u potpoglavlju \ref{k_means_clustering}, određivanje hiperparametra \textit{k} nije izravno moguće iz razloga što algoritmu grupiranja k-means (štoviše, niti cijelome programu) nije dostupna informacija o broju grupa. Ovaj podatak inherentno je nepoznat cijelome programu iz razloga što prije početka izvođenja programa nije poznato koliko se grupa nalazi u zbirci dokumenata. Štoviše, jedan od ciljeva implementacije ovog rada jest i automatsko grupiranje dokumenata koje pak ne mora nužno biti egzaktno, u smislu da točno odredi koji dokumenti spadaju u koju kategoriju dokumenata. Naime, ako bi takva kategorizacija bila relevantna, tada nastaje problem definicije kategorije dokumenata. Budući da, je sličnost dokumenata po definiciji kontinuirana vrijednost, nije moguće odrediti "granicu" koja će odrediti kada neki dokument prestaje pripadati jednoj, a počinje pripadati drugoj kategoriji. Zbog ovog razloga, a i zbog inherentnog nepoznavanja broja kategorija od strane korisnika na početku izvođenja programa, parametar \textit{k} nije moguće odrediti sa sigurnošću.
-\begin{figure}[h]
-\centering    
-\def\svgwidth{\columnwidth}
-\input{images/diagram.pdf_tex}
-\caption{Dijagram razreda zaduženih za čitanje riječi (paket \textit{hr.fer.zemris.zavrsni.input})}
-\label{img:diagram}
+\begin{figure}
+\makebox[\textwidth]{\includegraphics[width=0.85\textwidth]{join.jpg}}
+\caption{Rezultat algoritma grupiranja k-sredina za proizvoljno odabrane vrijednosti parametra \textit{k}: \textit{k=2}, \textit{k=6}, \textit{k=10} te \textit{k=20}}
+\label{img:graph_kmeans}
 \end{figure}
-Kako bi se riješio problem određivanja parametra \textit{k}, moguće je iskoristiti određene heuristike koje procijenjuju parametar na temelju empirijskih podataka. Jedna relativno dobra heuristika za optimiranje parametra \textit{k} jest metoda koljena (engl. \textit{elbow method}).
-
-\subsection{Metoda koljena}
-Metoda koljena je jedna od metoda za određivanje broja grupa. Ideja metode je jednostavna: algoritam k-sredina iterativno se izvede za vrijednosti \textit{k} u nekom rasponu (npr. [1, 10]) te se u svakoj iteraciji izračuna suma srednjih kvadratnih pogrešaka (engl. \textit{residual sum of squares, RSS}) udaljenosti svake od točaka do centroida dodijeljene joj grupe. Nakon izvršenog postuka, biti će izračunate sume kvadratnih pogrešaka za svaku od iteracija koje su se izvršile, odnosno za svaku vrijednost parametra \textit{k} iz prethodno zadanog raspona. Nakon izvršenog postupka, za svaku od vrijednosti parametra \textit{k} nacrta se pripadajuća suma kvadratnih pogrešaka te se promotri u kojoj točki (tj. za koji \textit{k}) se nalazi "koljeno", u smislu najveći pad vrijednosti sume pogreške. Jedan takav primjer prikazan je na slici \ref{img:elbow} na kojoj se jasno vidi veliko smanjenje pogreške između \textit{k=1} i \textit{k=2} što znači da će se kao vrijednost parametra \textit{k} uzeti vrijednost 2 zbog toga što je upravo za tu vrijednost pronađena najveći pad pogreške, što ukazuje na to da je algoritam pronašao optimalan broj grupa. Čitatelj bi se mogao zapitati zbog čega se kao broj grupa onda ne uzme neka veća vrijednost, primjerice onu za koju je pogreška najmanja (nula). No odgovor na ovo je jednostavan: kada bi suma pogrešaka bila nula, to znači da bi broj grupa bio upravo jednak broju dokumenata. No ovo nema smisla, pošto u kontekstu ovog problema želimo grupirati više dokumenata u grupe. Zaključak je dakle da treba odabrati takvu vrijednost parametra \textit{k} za kojeg postoji najveći pad pogreške. Ovakav odabir skoro uvijek biti će optimalan. \newline
 \begin{figure}[h]
 \centering    
 \def\svgwidth{\columnwidth}
@@ -357,7 +342,12 @@ Metoda koljena je jedna od metoda za određivanje broja grupa. Ideja metode je j
 \caption{Ovisnost vrijednosti pogreške o parametru \textit{k}}
 \label{img:elbow}
 \end{figure}
-Metoda koljena bila bi idealna za optimizaciju parametra \textit{k} kada bi postojala jednostavna metoda određivanja već spomenutog "koljena". No ovdje nastaje novi problem programskog određivanja točke najvećeg pada pogreške. Tome problemu moglo bi se doskočiti novim heuristikama (koje bi s obzirom na početni problem zapravo bile metaheuristike), no u tom slučaju je rješenje problema postalo novi problem kojeg treba riješiti te razina apstrakcije time značajno raste. Ovakav pokušaj nema previše smisla za automatizirano računanja, stoga ova metoda nažalost nije dovoljno dobra u kontekstu ovog rada. U sljedećem potpoglavlju biti će pokazana još jedna heuristika koja se može iskoristiti za problem određivanja parametra \textit{k}.
+
+Kako bi se riješio problem određivanja parametra \textit{k}, moguće je iskoristiti određene heuristike koje procijenjuju parametar na temelju empirijskih podataka. Jedna relativno dobra heuristika za optimiranje parametra \textit{k} jest metoda koljena.
+
+\subsection{Metoda koljena}
+Metoda koljena (engl. \textit{elbow method}) je jedna od metoda za određivanje broja grupa. Ideja metode je jednostavna: algoritam k-sredina iterativno se izvede za vrijednosti \textit{k} u nekom rasponu (npr. [1, 10]) te se u svakoj iteraciji izračuna suma srednjih kvadratnih pogrešaka (engl. \textit{residual sum of squares, RSS}) udaljenosti svake od točaka do centroida dodijeljene joj grupe. Nakon izvršenog postuka, biti će izračunate sume kvadratnih pogrešaka za svaku od iteracija koje su se izvršile, odnosno za svaku vrijednost parametra \textit{k} iz prethodno zadanog raspona. Nakon izvršenog postupka, za svaku od vrijednosti parametra \textit{k} nacrta se pripadajuća suma kvadratnih pogrešaka te se promotri u kojoj točki (tj. za koji \textit{k}) se nalazi "koljeno", u smislu najveći pad vrijednosti sume pogreške. Jedan takav primjer prikazan je na slici \ref{img:elbow} na kojoj se jasno vidi veliko smanjenje pogreške između \textit{k=1} i \textit{k=2} što znači da će se kao vrijednost parametra \textit{k} uzeti vrijednost 2 zbog toga što je upravo za tu vrijednost pronađena najveći pad pogreške, što ukazuje na to da je algoritam pronašao optimalan broj grupa. Čitatelj bi se mogao zapitati zbog čega se kao broj grupa onda ne uzme neka veća vrijednost, primjerice onu za koju je pogreška najmanja (nula). No odgovor na ovo je jednostavan: kada bi suma pogrešaka bila nula, to znači da bi broj grupa bio upravo jednak broju dokumenata. No ovo nema smisla, pošto u kontekstu ovog problema želimo grupirati više dokumenata u grupe. Zaključak je dakle da treba odabrati takvu vrijednost parametra \textit{k} za kojeg je pad pogreške najveći. Ovakav odabir skoro uvijek biti će optimalan.
+Metoda koljena bila bi idealna za optimizaciju parametra \textit{k} kada bi postojala jednostavna metoda određivanja samog koljena. No ovdje nastaje problem programskog određivanja točke najvećeg pada pogreške. Tome problemu moguće je doskočiti novim heuristikama koje bi bile zadužene za pronalazak koljena, no u tom slučaju je rješenje problema postalo novi problem kojeg treba riješiti te razina apstrakcije time značajno raste. Ovakav pokušaj nema previše smisla za automatizirano računanja, stoga ova metoda nažalost nije dovoljno dobra u kontekstu ovog rada. U sljedećem potpoglavlju biti će pokazana još jedna heuristika koja se može iskoristiti za problem određivanja parametra \textit{k}.
 
 % mozda dodati ovo?
 %Pošto se izvođenje same metode koljena direktno nadovezuje na algoritam k-sredina, u %smislu da je metodu potrebno izvršiti nad podacima dobivenim od samog algoritma %k-sredina te pošto je određivanje
@@ -373,13 +363,13 @@ Jednostavna heuristika koja se koristi u ovom radu je sljedeća:
 \begin{equation}
 {k}={\mathbf {\sqrt{|\textit{D}| \over 2}}},
 \end{equation}
-gdje je $D$ zbirka dokumenata. Ovakva heuristika ne dovodi nužno do optimalnog rješenja (tj. do egzaktnog broja grupa), no služi kao relativno dobra aproksimacija, što je u ovome kontekstu često puta sasvim dovoljno. Primjerice, za zbirku dokumenata u kojoj na početku imamo dvije jasno odvojene kategorije, npr. engleski nogomet i srednjevjekovno mačevanje, zanimljivo je promotriti parametar \textit{k} ovisi o broju dokumenata u pojedinoj kategoriji.
+gdje je $D$ zbirka dokumenata. Ovakva heuristika ne dovodi nužno do optimalnog rješenja (tj. do egzaktnog broja grupa), no služi kao relativno dobra aproksimacija, što je u ovome kontekstu često puta sasvim dovoljno. Primjerice, za zbirku dokumenata u kojoj na početku imamo dvije jasno odvojene kategorije, npr. engleski nogomet i srednjevjekovno mačevanje, zanimljivo je promotriti kako parametar \textit{k} ovisi o broju dokumenata u pojedinoj kategoriji.
 
 \begin{table}
 \begin{center}
 \begin{tabular}{|c|c|c|}
 \hline
-Engleski nogomet (br. dok.) & Srednjevjekovno mačevanje (br. dok.) & \textit{k} \\
+Kategorija I. (br. dok.) & Kategorija II. (br. dok.) & \textit{k} \\
 \hline
 3 & 4 & 1.87 \\
 5 & 5 & 2.24 \\
@@ -392,7 +382,8 @@ Engleski nogomet (br. dok.) & Srednjevjekovno mačevanje (br. dok.) & \textit{k}
 \label{table:kmeans}
 \end{table}
 
-Iz tablice \ref{table:kmeans}, zanimljivo je uočiti kako porast broja dokumenata u kategorijama dovodi do (vrlo) pogrešne aproksimacije broja kategorija. Naime, očito je (prilikom konstrukcije gornjeg izraza) empirijski ustanovljeno kako svaka od kategorija u prosjeku nema prevelik broj dokumenata, zbog čega aproksimacija za velik broj dokumenata; u ovom konkretnom primjeru, za približno 10-ak dokumenata po kategoriji, pogreška aproksimacije parametra \textit{k} doseže čak 100\%! Ovaj podatak govori o problematici heuristika: često puta daju dovoljno dobru aproksimaciju, no ponekad mogu i poprilično pogriješiti.
+U tablici \ref{table:kmeans}, zanimljivo je uočiti kako porast broja dokumenata zbirke dovodi do pogrešne aproksimacije broja kategorija. Naime, očito je (prilikom konstrukcije gornjeg izraza) empirijski ustanovljeno kako svaka od kategorija u prosjeku nema prevelik broj dokumenata, zbog čega aproksimacija za velik broj dokumenata nažalost daje (vrlo) pogrešne rezultate — u ovom konkretnom primjeru, za približno 10-ak dokumenata po kategoriji, pogreška aproksimacije parametra \textit{k} doseže čak 100\%! Ovaj podatak govori o problematici heuristika: često puta daju dovoljno dobru aproksimaciju, no ponekad mogu i poprilično pogriješiti.
+No ipak, zaključak isprobavanja različitih metoda u svrhu ovog rada jest da je metoda polovičnog donijela najbolju aproksimaciju broja kategorija zbirke dokumenata te se iz tog razloga koristi u konačnoj verziji implementacije programske potpore.
 
 \chapter{Zaključak}
 Zaključak.

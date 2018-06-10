@@ -28,15 +28,28 @@ import java.util.List;
 public class GraphViewer {
 
 	private static Color[] colors = new Color[]{
-			new Color(78, 122, 190),
-			new Color(61, 161, 67),
-			new Color(158, 18, 22),
-			new Color(214, 108, 0),
+			new Color(82, 129, 190),
+			new Color(37, 161, 48),
+			new Color(191, 0, 4),
+			new Color(229, 116, 0),
 			new Color(215, 70, 191),
 			new Color(30, 215, 211),
 			new Color(11, 1, 215),
-			new Color(2, 98, 0),
-			new Color(212, 215, 56)
+			new Color(2, 86, 0),
+			new Color(212, 215, 17),
+			new Color(112, 215, 123),
+			new Color(0, 8, 106),
+			new Color(109, 0, 2),
+			new Color(137, 41, 197),
+			new Color(105, 79, 54),
+			new Color(168, 164, 168),
+			new Color(96, 91, 95),
+			new Color(214, 148, 103),
+			new Color(123, 119, 0),
+			new Color(30, 120, 120),
+			new Color(94, 0, 80),
+			new Color(170, 113, 95),
+
 	};
 
 	private static double threshold = 0.07;
@@ -77,8 +90,7 @@ public class GraphViewer {
 		List<DocumentLocation> clusterInput = new ArrayList<>();
 		documents.forEach(document -> clusterInput.add(new DocumentLocation(document, layout)));
 
-		//int k = (int) Math.sqrt(documents.size() / (double) 2);
-		int k = 7;
+		int k = (int) Math.sqrt(documents.size() / (double) 2);
 		performClustering(documents, layout, k);
 
 		// -- visualize --

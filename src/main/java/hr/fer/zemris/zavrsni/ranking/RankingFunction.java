@@ -252,9 +252,9 @@ public abstract class RankingFunction {
 	}
 
 	/**
-	 * Retrieve the function ranking function.
+	 * Retrieve the current ranking function.
 	 *
-	 * @return function ranking function
+	 * @return current ranking function
 	 */
 	public static RankingFunction getCurrent() {
 		return function;

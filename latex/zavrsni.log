@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.4.20)  9 JUN 2018 16:49
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.4.20)  11 JUN 2018 00:57
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -659,11 +659,7 @@ Package: listings 2015/06/04 1.6 (Carsten Heinz)
 
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2015/06/04 1.6 listings language file
-) (./zavrsni.aux
-
-LaTeX Warning: Label `img:diagram' multiply defined.
-
-)
+) (./zavrsni.aux)
 \openout1 = `zavrsni.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 36.
@@ -679,7 +675,7 @@ LaTeX Font Info:    ... okay on input line 36.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 36.
 LaTeX Font Info:    ... okay on input line 36.
 LaTeX Font Info:    Try loading font information for T1+ptm on input line 36.
- (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
+(/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
 *geometry* driver: auto-detecting
@@ -834,19 +830,20 @@ Package pdftex.def Info: Requested size: 412.56497pt x 115.88982pt on input lin
 e 137.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
 (Font)              Font shape `T1/ptm/b/n' tried instead on input line 138.
-[7 <./images/vectors.png>] [8]
+[7 <./images/vectors.png>] [8] [9]
 Poglavlje 4.
-<./images/fdgd_example.png, id=63, 1003.75pt x 1003.75pt>
+[10
+
+]
+<./images/fdgd_example.png, id=69, 1003.75pt x 1003.75pt>
 File: ./images/fdgd_example.png Graphic file (type png)
 <use ./images/fdgd_example.png>
-Package pdftex.def Info: ./images/fdgd_example.png  used on input line 165. on 
-input line 165.
-Package pdftex.def Info: Requested size: 412.56497pt x 412.56633pt on input lin
-e 165.
-[9
-
-] [10 <./images/fdgd_example.png (PNG copy)>] (./images/clustering.pdf_tex
-<./images/clustering.pdf, id=70, page=1, pagebox=cropbox, 433.62pt x 289.08pt>
+Package pdftex.def Info: ./images/fdgd_example.png  used on input line 173. on 
+input line 173.
+Package pdftex.def Info: Requested size: 350.68274pt x 350.6898pt on input line
+ 173.
+ [11 <./images/fdgd_example.png (PNG copy)>] (./images/clustering.pdf_tex
+<./images/clustering.pdf, id=73, page=1, pagebox=cropbox, 433.62pt x 289.08pt>
 File: ./images/clustering.pdf Graphic file (type pdf)
 <use ./images/clustering.pdf, page 1>
 Package pdftex.def Info: ./images/clustering.pdf , page1 used on input line 52.
@@ -857,139 +854,67 @@ Package pdftex.def Info: Requested size: 412.56497pt x 275.0567pt on input line
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<./images/clustering_alg.png, id=71, 584.1825pt x 220.57407pt>
+<./images/clustering_alg.png, id=74, 584.1825pt x 220.57407pt>
 File: ./images/clustering_alg.png Graphic file (type png)
 <use ./images/clustering_alg.png>
-Package pdftex.def Info: ./images/clustering_alg.png  used on input line 202. o
-n input line 202.
+Package pdftex.def Info: ./images/clustering_alg.png  used on input line 210. o
+n input line 210.
 Package pdftex.def Info: Requested size: 412.56497pt x 155.78072pt on input lin
-e 202.
-[11] [12 <./images/clustering.pdf> <./images/clustering_alg.png (PNG copy)>]
-<./images/join2.png, id=382, 1228.59pt x 1222.5675pt>
-File: ./images/join2.png Graphic file (type png)
-<use ./images/join2.png>
-Package pdftex.def Info: ./images/join2.png  used on input line 214. on input l
-ine 214.
-Package pdftex.def Info: Requested size: 412.56497pt x 410.53737pt on input lin
-e 214.
-
-[13] [14 <./images/join2.png>]
+e 210.
+[12] [13 <./images/clustering.pdf> <./images/clustering_alg.png (PNG copy)>]
 Poglavlje 5.
-[15
+[14
 
 ]
-Poglavlje 6.
-[16
-
-] (./images/diagram.pdf_tex
-<./images/diagram.pdf, id=397, page=1, pagebox=cropbox, 350.81062pt x 175.40532
-pt>
-File: ./images/diagram.pdf Graphic file (type pdf)
-<use ./images/diagram.pdf, page 1>
-Package pdftex.def Info: ./images/diagram.pdf , page1 used on input line 52. on
- input line 52.
-Package pdftex.def Info: Requested size: 412.56497pt x 206.29665pt on input lin
-e 52.
-<./images/diagram.pdf, id=398, page=2, pagebox=cropbox, 350.81062pt x 175.40532
-pt>
-File: ./images/diagram.pdf Graphic file (type pdf)
-<use ./images/diagram.pdf, page 2>
-Package pdftex.def Info: ./images/diagram.pdf , page2 used on input line 55. on
- input line 55.
-Package pdftex.def Info: Requested size: 412.56497pt x 206.29665pt on input lin
-e 55.
-<./images/diagram.pdf, id=399, page=3, pagebox=cropbox, 350.81062pt x 175.40532
-pt>
-File: ./images/diagram.pdf Graphic file (type pdf)
-<use ./images/diagram.pdf, page 3>
-Package pdftex.def Info: ./images/diagram.pdf , page3 used on input line 57. on
- input line 57.
-Package pdftex.def Info: Requested size: 412.56497pt x 206.29665pt on input lin
-e 57.
-<./images/diagram.pdf, id=400, page=4, pagebox=cropbox, 350.81062pt x 175.40532
-pt>
-File: ./images/diagram.pdf Graphic file (type pdf)
-<use ./images/diagram.pdf, page 4>
-Package pdftex.def Info: ./images/diagram.pdf , page4 used on input line 60. on
- input line 60.
-Package pdftex.def Info: Requested size: 412.56497pt x 206.29665pt on input lin
-e 60.
-)
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
-<./images/query_search.png, id=401, 560.8453pt x 578.16pt>
+<./images/diagram.png, id=389, 467.7475pt x 233.87375pt>
+File: ./images/diagram.png Graphic file (type png)
+<use ./images/diagram.png>
+Package pdftex.def Info: ./images/diagram.png  used on input line 230. on input
+ line 230.
+Package pdftex.def Info: Requested size: 412.56497pt x 206.29128pt on input lin
+e 230.
+<./images/query_search.png, id=390, 560.8453pt x 578.16pt>
 File: ./images/query_search.png Graphic file (type png)
 <use ./images/query_search.png>
-Package pdftex.def Info: ./images/query_search.png  used on input line 249. on 
-input line 249.
-Package pdftex.def Info: Requested size: 412.56497pt x 425.29979pt on input lin
-e 249.
-[17]
-<./images/document_search.png, id=405, 560.8453pt x 578.16pt>
+Package pdftex.def Info: ./images/query_search.png  used on input line 238. on 
+input line 238.
+Package pdftex.def Info: Requested size: 350.68274pt x 361.5079pt on input line
+ 238.
+ [15]
+<./images/document_search.png, id=394, 560.8453pt x 578.16pt>
 File: ./images/document_search.png Graphic file (type png)
 <use ./images/document_search.png>
-Package pdftex.def Info: ./images/document_search.png  used on input line 257. 
-on input line 257.
-Package pdftex.def Info: Requested size: 412.56497pt x 425.29979pt on input lin
-e 257.
- [18 <./images/diagram.pdf> <./images/diagram.pdf
-
-pdfTeX warning: pdflatex (file ./images/diagram.pdf): PDF inclusion: multiple p
-dfs with page group included in a single page
-> <./images/diagram.pdf
-
-pdfTeX warning: pdflatex (file ./images/diagram.pdf): PDF inclusion: multiple p
-dfs with page group included in a single page
-> <./images/diagram.pdf
-
-pdfTeX warning: pdflatex (file ./images/diagram.pdf): PDF inclusion: multiple p
-dfs with page group included in a single page
->] [19 <./images/query_search.png>]
-Overfull \hbox (28.57237pt too wide) in paragraph at lines 262--262
-[]\T1/ptm/b/n/17.28 Usporedba ko-ris-ni£-kog unosa s do-ku-men-tima iz zbirke 
- []
-
-[20 <./images/document_search.png>] [21] [22] [23]
+Package pdftex.def Info: ./images/document_search.png  used on input line 246. 
+on input line 246.
+Package pdftex.def Info: Requested size: 350.68274pt x 361.5079pt on input line
+ 246.
+ [16 <./images/diagram.png (PNG copy)>] [17 <./images/query_search.png>] [18 <.
+/images/document_search.png>] [19]
+<./images/graph_program.png, id=409, 560.8453pt x 578.16pt>
+File: ./images/graph_program.png Graphic file (type png)
+<use ./images/graph_program.png>
+Package pdftex.def Info: ./images/graph_program.png  used on input line 272. on
+ input line 272.
+Package pdftex.def Info: Requested size: 350.68274pt x 361.5079pt on input line
+ 272.
+ [20] [21 <./images/graph_program.png>] [22] [23]
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <17.28> not available
-(Font)              Font shape `T1/ptm/b/it' tried instead on input line 339.
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 330.
 
-Overfull \hbox (8.04369pt too wide) in paragraph at lines 339--339
+Overfull \hbox (8.04369pt too wide) in paragraph at lines 330--330
 []\T1/ptm/b/n/17.28 Optimizacija hi-per-pa-ra-me-tra \T1/ptm/b/it/17.28 k \T1/p
 tm/b/n/17.28 al-go-ritma k-sredina 
  []
 
-(./images/diagram.pdf_tex
-File: ./images/diagram.pdf Graphic file (type pdf)
-<use ./images/diagram.pdf, page 1>
-Package pdftex.def Info: ./images/diagram.pdf , page1 used on input line 52. on
- input line 52.
-Package pdftex.def Info: Requested size: 412.56497pt x 206.29665pt on input lin
-e 52.
-File: ./images/diagram.pdf Graphic file (type pdf)
-<use ./images/diagram.pdf, page 2>
-Package pdftex.def Info: ./images/diagram.pdf , page2 used on input line 55. on
- input line 55.
-Package pdftex.def Info: Requested size: 412.56497pt x 206.29665pt on input lin
-e 55.
-File: ./images/diagram.pdf Graphic file (type pdf)
-<use ./images/diagram.pdf, page 3>
-Package pdftex.def Info: ./images/diagram.pdf , page3 used on input line 57. on
- input line 57.
-Package pdftex.def Info: Requested size: 412.56497pt x 206.29665pt on input lin
-e 57.
-File: ./images/diagram.pdf Graphic file (type pdf)
-<use ./images/diagram.pdf, page 4>
-Package pdftex.def Info: ./images/diagram.pdf , page4 used on input line 60. on
- input line 60.
-Package pdftex.def Info: Requested size: 412.56497pt x 206.29665pt on input lin
-e 60.
-)
-
-LaTeX Warning: `h' float specifier changed to `ht'.
-
+<./images/join.jpg, id=424, 1003.75pt x 1003.75pt>
+File: ./images/join.jpg Graphic file (type jpg)
+<use ./images/join.jpg>
+Package pdftex.def Info: ./images/join.jpg  used on input line 334. on input li
+ne 334.
+Package pdftex.def Info: Requested size: 350.68274pt x 350.6898pt on input line
+ 334.
 (./images/elbow.pdf_tex
-<./images/elbow.pdf, id=577, page=1, pagebox=cropbox, 355.18019pt x 279.72382pt
+<./images/elbow.pdf, id=425, page=1, pagebox=cropbox, 355.18019pt x 279.72382pt
 >
 File: ./images/elbow.pdf Graphic file (type pdf)
 <use ./images/elbow.pdf, page 1>
@@ -997,7 +922,7 @@ Package pdftex.def Info: ./images/elbow.pdf , page1 used on input line 52. on i
 nput line 52.
 Package pdftex.def Info: Requested size: 412.56497pt x 324.93652pt on input lin
 e 52.
-<./images/elbow.pdf, id=578, page=2, pagebox=cropbox, 355.18019pt x 279.72382pt
+<./images/elbow.pdf, id=426, page=2, pagebox=cropbox, 355.18019pt x 279.72382pt
 >
 File: ./images/elbow.pdf Graphic file (type pdf)
 <use ./images/elbow.pdf, page 2>
@@ -1005,7 +930,7 @@ Package pdftex.def Info: ./images/elbow.pdf , page2 used on input line 54. on i
 nput line 54.
 Package pdftex.def Info: Requested size: 412.56497pt x 324.93652pt on input lin
 e 54.
-<./images/elbow.pdf, id=579, page=3, pagebox=cropbox, 355.18019pt x 279.72382pt
+<./images/elbow.pdf, id=427, page=3, pagebox=cropbox, 355.18019pt x 279.72382pt
 >
 File: ./images/elbow.pdf Graphic file (type pdf)
 <use ./images/elbow.pdf, page 3>
@@ -1017,7 +942,7 @@ e 56.
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-[25] [26 <./images/elbow.pdf> <./images/elbow.pdf
+[25 <./images/join.jpg>] [26 <./images/elbow.pdf> <./images/elbow.pdf
 
 pdfTeX warning: pdflatex (file ./images/elbow.pdf): PDF inclusion: multiple pdf
 s with page group included in a single page
@@ -1025,50 +950,46 @@ s with page group included in a single page
 
 pdfTeX warning: pdflatex (file ./images/elbow.pdf): PDF inclusion: multiple pdf
 s with page group included in a single page
->] [27]
-Poglavlje 7.
-(./zavrsni.bbl [28
+>] [27] [28]
+Poglavlje 6.
+(./zavrsni.bbl [29
 
 ]
 
 Package natbib Warning: Empty `thebibliography' environment on input line 8.
 
-) [29
+) [30
 
-] [30] (./zavrsni.aux)
-
-LaTeX Warning: There were multiply-defined labels.
-
- ) 
+] [31] (./zavrsni.aux) ) 
 Here is how much of TeX's memory you used:
- 9024 strings out of 492990
- 127896 string characters out of 6135005
+ 8992 strings out of 492990
+ 127232 string characters out of 6135005
  260157 words of memory out of 5000000
- 12357 multiletter control sequences out of 15000+600000
- 81914 words of font info for 102 fonts, out of 8000000 for 9000
+ 12328 multiletter control sequences out of 15000+600000
+ 81293 words of font info for 100 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 48i,9n,42p,2157b,1152s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texliv
-e/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/
-amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cms
-y10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb
-></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/
-texlive/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></usr/share/texlive/texm
-f-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texlive/texmf-dist/fonts
-/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/t
-imes/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmbi8a.pf
-b></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/t
-exlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/share/texlive/texmf-di
-st/fonts/type1/urw/times/utmri8a.pfb>
-Output written on zavrsni.pdf (35 pages, 914439 bytes).
+ 48i,11n,42p,2269b,1209s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.
+enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/sh
+are/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/font
+s/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/u
+crr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/courier/ucrro8a.pfb></
+usr/share/texlive/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texlive/texmf-
+dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/ut
+mr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
+Output written on zavrsni.pdf (36 pages, 988693 bytes).
 PDF statistics:
- 664 PDF objects out of 1000 (max. 8388607)
- 435 compressed objects within 5 object streams
+ 516 PDF objects out of 1000 (max. 8388607)
+ 340 compressed objects within 4 object streams
  0 named destinations out of 1000 (max. 500000)
- 71 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 61 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -78,8 +78,7 @@ public class Document implements Serializable {
 	 * @return the similarity between this and the provided document
 	 */
 	public double sim(Document other) {
-		RankingFunction f = RankingFunction.getCurrent();
-		return f.sim(this, other);
+		return RankingFunction.getCurrent().sim(this, other);
 	}
 
 	/**

@@ -44,6 +44,8 @@ public class GUI extends JFrame {
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		setVisible(true);
+		//setExtendedState(JFrame.MAXIMIZED_BOTH);
+		//setUndecorated(true);
 		setTitle("Sustav za upravljanje i pretraživanje baze PDF dokumenata");
 
 		initGUI();
