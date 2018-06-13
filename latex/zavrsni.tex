@@ -56,14 +56,16 @@
 \tableofcontents
 
 \chapter{Uvod}
-Područje analize i pretraživanja teksta neizbježno je u današnjem svijetu tehnologije. Od internetskih tražilica koje pretražuju ogromne količine podataka baziranih na zadanome upitu, osobnih asistenata na pametnim telefonima koji procesiraju izgovorene riječi pa sve do analize i prepoznavanja elektroničkih \textit{spam} poruka.
-Kratki osvrt na ove te mnoge druge primjene ukazuju na nepobitnu činjenicu da je pretraživanje teksta jedno od najzastupljenijih područja tehnologije u smislu domena primjene.
+Područje analize i pretraživanja teksta neizbježno je u današnjem svijetu tehnologije. Od internetskih tražilica koje pretražuju ogromne količine podataka baziranih na zadanome upitu, osobnih asistenata na pametnim telefonima koji procesiraju izgovorene riječi pa sve do analize i prepoznavanja neželjenih elektroničkih poruka.
+Kratki osvrt na ove i mnoge druge primjene ukazuju na nepobitnu činjenicu da je pretraživanje teksta danas jedno od najzastupljenijih područja tehnologije.
 
-U \ref{docmodel}. poglavlju opisan je prikaz dokumenata te dano nekoliko relevantnih primjera. Obrađen je model prikaza dokumenata u računalu te nekoliko metoda za rangiranje dokumenata, zajedno s matematičkom podlogom iza njih. Poglavlje \ref{chap:docsin2d} opisuje problematiku prikaza dokumenata u 2D koordinatnom sustavu te nudi nekoliko načina za rješavanje problema vizualizacije sličnosti dokumenata. U poglavlju \ref{chap:impl} opisana je implementacija programske potpore te su navedene korištene tehnologije i alati. Dan je pregled osnovnih funkcionalnosti programa te su opisani neki od prevladavajućih problema koji su se javili tijekom implementacije. Naposlijetku, u \ref{chap:results}. su poglavlju opisani dobiveni rezultati te je dana njihova interpretacija.
+Tema ovog rada biti će obraditi neke od metoda za računalni prikaz dokumenata nad kojima će potom biti provedena usporedba sličnosti. Tako uspoređene dokumente biti će moguće prikazati grafički kako bi se dobio uvid u sličnost dokumenata. Teoretska podloga rada biti će popraćena programskom implementacijom koja će korisniku omogućiti upravljanje i pretraživanje lokalne baze PDF dokumenata te vizualizaciju iste.
 
+U \ref{chap:overview}. poglavlju dan je kratak (povijesni) pregled područja te motivacija za ovaj rad. U \ref{docmodel}. poglavlju opisan je prikaz, odnosno model prikaza dokumenata. Obrađeno je nekoliko metoda za rangiranje dokumenata, zajedno s matematičkom podlogom iza istih. Poglavlje \ref{chap:docsin2d} opisuje problematiku prikaza dokumenata u 2D koordinatnom sustavu u svrhe vizualizacije sličnosti dokumenata te obrađuje korištene metode. U poglavlju \ref{chap:impl} opisana je implementacija programske potpore te su navedene korištene tehnologije i alati. Dan je pregled arhitekture programa te osnovnih funkcionalnosti. Naposlijetku, u \ref{chap:results}. su poglavlju opisani dobiveni rezultati te je dana njihova interpretacija. Kroz sljedeće 42 stranice \cite{adams1978hitchhikers} će se obraditi problematika modeliranja, prikaza i usporedbe dokumenata u svrhe izračuna i vizualizacije njihovih međusobnih sličnosti.
 
 \chapter{Pregled područja}
-Korištenje računala za povrat informacija (engl. \textit{information retrieval}) datira sve do četrdesetih godina dvadesetog stoljeća \cite{sanderson2012history}, daleko prije komercijalizacije računala, odnosno početka njihovog korištenja u osobne svrhe. Pogledaju li se samo neki od relevantnih problema poput digitalizacije knjižnica i automatizacije knjižničnih poslova, statističke analize tekstualnih podataka primjerice u svrhe pronalaska zastupljenosti određenih pojmova u određenom vremenskom razdoblju itd., očito je da je područje analize i pretraživanja teksta vrlo zastupljeno u današnjem digitalnom svijetu u kojem se količina informacija svake godine povećava eksponencijalno. Također je očito da je domena primjene vrlo široka te da su analiza i pretraživanje teksta zastupljeni u praktički svakom području koje iziskuje nekakvu vrstu obrade teksta odnosno povrata informacija iz teksta.
+\label{chap:overview}
+Korištenje računala za dohvat informacija (engl. \textit{information retrieval}) datira sve do četrdesetih godina dvadesetog stoljeća \cite{sanderson2012history}, daleko prije komercijalizacije računala, odnosno početka njihovog korištenja u osobne svrhe. Pogledaju li se samo neki od relevantnih problema poput digitalizacije knjižnica i automatizacije knjižničnih poslova, statističke analize tekstualnih podataka u svrhe pronalaska zastupljenosti određenih pojmova u nekom vremenskom razdoblju itd., očito je da je područje analize i pretraživanja teksta vrlo zastupljeno u današnjem digitalnom svijetu u kojem se količina informacija svake godine povećava eksponencijalno. Također je očito da je domena primjene vrlo široka te da su analiza i pretraživanje teksta zastupljeni u praktički svakom području koje iziskuje nekakvu vrstu obrade, odnosno dohvata informacija iz teksta.
 
 \chapter{Model dokumenata}
 \label{docmodel}
@@ -79,7 +81,7 @@ Neka su zadani dokumenti $d_{1}$ = "Marko jako voli domaćice. Domaćice su ukus
 {{BoW_{2}}=\{\text{{"Marko":1, "voli":1, "domaćice":1, "i":1, "programiranje":1}}}\},
 \end{align*}
 Iz dobivenih vreća riječi može se vidjeti koje se riječi nalaze u kojem dokumentu, odnosno koja je frekvencija njihovog pojavljivanja. \newline
-Kako bi se uopće moglo započeti sa semantičkom analizom dokumenata, potrebno je imati kolekciju dokumenata (engl. \textit{dataset}; u daljnjem tekstu: zbirka) koji će se međusobno uspoređivati. Nakon što se osigura postojanje zbirke, korištenje modela vreće riječi zamišljeno je tako da se na početku iz svih dokumenata zbirke izvade sve riječi te potom uklone nebitne riječi (o kojima će više riječi biti u poglavlju \ref{chap:impl}) a od preostalih se riječi izgradi vektor koji će \textit{de-facto} predstavljati dokument. Ovako opisani model često je korišten u području procesiranja prirodnog jezika te povrata informacija kako iz dokumenata tako iz drugih tekstualnih izvora.
+Kako bi se uopće moglo započeti sa semantičkom analizom dokumenata, potrebno je imati kolekciju dokumenata (engl. \textit{dataset}; u daljnjem tekstu: zbirka) koji će se međusobno uspoređivati. Nakon što se osigura postojanje zbirke, korištenje modela vreće riječi zamišljeno je tako da se na početku iz svih dokumenata zbirke izvade sve riječi te potom uklone nebitne riječi (o kojima će više riječi biti u poglavlju \ref{chap:impl}) a od preostalih se riječi izgradi vektor koji će \textit{de-facto} predstavljati dokument. Ovako opisani model često je korišten u području procesiranja prirodnog jezika te dohvata informacija kako iz dokumenata tako iz drugih tekstualnih izvora.
 
 U prethodnom primjeru prikazana je konstrukcija vreća riječi dvaju dokumenata. U tom primjeru, kao riječi koje se pojavljuju u vrećama uzete su sve riječi iz ulaznih dokumenata, što u praksi neće uvijek biti slučaj. Naime, u dokumentima se često znaju pronaći riječi koje nemaju nikakvo bitno značenje za sam dokument. Takve su riječi primjerice zamjenice, pomoćni glagoli, veznici itd. Ovakve riječi nazivaju se zaustavne riječi (engl. \textit{stop words}) te su to riječi koje su učestale u nekom jeziku te su stoga nebitne za sam postupak analize teksta, pošto na nikakav način ne doprinose sadržaju dokumenta \cite{allahyari2017}. Zaustavne se riječi stoga izbacuju iz vreća riječi te se zadržavaju samo riječi "bitne" za semantiku dokumenata — empirijski je pokazano da ovakvo uklanjanje zaustavnih riječi ima pozitivan utjecaj na daljnju obradu dokumenata. Primjeri nekih zaustavnih riječi u hrvatskom jeziku su: \textit{aha}, \textit{nešto}, \textit{okolo} te \textit{zaboga}.
 Kako bi se dokumenti mogli predstaviti u obliku vreća riječi, potrebno je odrediti vokabular — skup svih riječi koje se nalaze u svim dokumentima promatrane zbirke. Poznavanje vokabulara ključno je za semantičku sličnost dokumenata, što će i biti pokazano kasnije. Iz dobivenog vokabulara potrebno je na početku obrade ukloniti zaustavne riječi iz već opisanih razloga. Osim zaustavnih riječi, dodatna obrada teksta može se obaviti tzv. stemanjem (engl. \textit{stemming}). Ova metoda ima zadaću svesti riječi na njihov kanonski oblik, kako bi riječi istog korijena bile svedene na istu riječ. Svođenje na kanonski oblik ne znači nužno i svođenje na morfološki korijen riječi. Primjerice, riječi "mačka", "mačkama" te "mačke" bile bi svedene na "mačk". Nebitno je dakle je li riječ napisana u jednini ili množini ili pak u kojem je padežu već je bitan samo njezin kanonski oblik.
@@ -165,7 +167,7 @@ Analizirajući pak prethodni izraz, može se zaključiti kako metoda BM25 nema z
 
 \chapter{Prikaz dokumenata u 2D koordinatnom sustavu}
 \label{chap:docsin2d}
-Kako prethodno navedene metode ispituju sličnost različitih dokumenata, sljedeći prirodan korak bio bi uvid u tu sličnost, odnosno vizualizacija  sličnosti dobivene među dokumentima. Ovdje međutim, nastaje jedan problem. Naime, dokumenti čija se međusobna sličnost želi prikazati grafički, predstavljeni su vektorima sačinjenim od onoliko komponenata kolika je veličina vokabulara. Uzme li se kao primjer prosječna duljina znanstvenog rada koja je po PAPER tipično između 3.000 i 10.000 riječi \cite{bjork2009scientific}, to bi značilo da se i veličina vokabulara takve zbirke dokumenata također mjeri u tisućama riječi. Pošto je magnituda svakog od vektora (tj. broj komponenata) upravo veličina vokabulara, to bi značilo da svaki vektor ima tisuće komponenata koje je naprosto nemoguće prikazati u 2D ili 3D koordinatnom sustavu u svrhu vizualizacije sličnosti dokumenata. Tom se problemu može doskočiti na nekoliko različitih načina. Jedna često korištena metoda jest analiza glavnih komponenata (engl. \textit{Principal Component Analysis, PCA}), koja funkcionira tako da od \textit{n} komponenti vektora (odnosno skupa vektora) pronađe one komponente koje najviše utječu na raznolikost podataka. Na taj se način višedimenzijski vektor može svesti na vektor proizvoljne dimenzije — u svrhe prikaz dokumenata u 2D koordinatnom sustavu, vektori bi bili svedeni na dvodimenzijske vektore kako bi bili prikazivi \textit{x} i \textit{y} koordinatama. Pa ipak, u sklopu ovog rada ne koristi se metoda PCA već metoda koja se pokazala vremenski efikasnijom — metoda silom usmjerenog crtanja grafova (engl. \textit{Force-directed graph drawing}) \cite{FruchtermanReingold}.
+Kako prethodno navedene metode ispituju sličnost različitih dokumenata, sljedeći prirodan korak bio bi uvid u tu sličnost, odnosno vizualizacija  sličnosti dobivene među dokumentima. Ovdje međutim, nastaje jedan problem. Naime, dokumenti čija se međusobna sličnost želi prikazati grafički, predstavljeni su vektorima sačinjenim od onoliko komponenata kolika je veličina vokabulara. Uzme li se kao primjer prosječna duljina znanstvenog rada koja je tipično između 3.000 i 10.000 riječi \cite{bjork2009scientific}, to bi značilo da se i veličina vokabulara takve zbirke dokumenata također mjeri u tisućama riječi. Pošto je magnituda svakog od vektora (tj. broj komponenata) upravo veličina vokabulara, to bi značilo da svaki vektor ima tisuće komponenata koje je naprosto nemoguće prikazati u 2D ili 3D koordinatnom sustavu u svrhu vizualizacije sličnosti dokumenata. Tom se problemu može doskočiti na nekoliko različitih načina. Jedna često korištena metoda jest analiza glavnih komponenata (engl. \textit{Principal Component Analysis, PCA}) \cite{wold1987principal}, koja funkcionira tako da od \textit{n} komponenti vektora (odnosno skupa vektora) pronađe one komponente koje najviše utječu na raznolikost podataka. Na taj se način višedimenzijski vektor može svesti na vektor proizvoljne dimenzije — u svrhe prikaza dokumenata u 2D koordinatnom sustavu, vektori bi bili svedeni na dvodimenzijske vektore kako bi bili prikazivi \textit{x} i \textit{y} koordinatama. Pa ipak, u sklopu ovog rada ne koristi se metoda PCA već metoda koja se pokazala vremenski efikasnijom — metoda silom usmjerenog crtanja grafova (engl. \textit{Force-directed graph drawing}) \cite{FruchtermanReingold}.
 
 \section{Silom usmjereno crtanje grafova}
 \label{subchap:forcedir}
@@ -275,7 +277,7 @@ Metode definirane u poglavlju \ref{chap:docsin2d} (silom usmjereno crtanje grafo
 \caption{Prikaz dijela programa za prikaz dokumenta zbirke}
 \label{img:graph_program}
 \end{figure}
-Nad tako nacrtanim grafom dalje se može primijeniti algoritam grupiranja k-sredina koji prvo procjenjuje hiperparametar \textit{k} te nakon toga provodi postupak grupiranja dokumenata. Nakon što se oba algoritma izvrše, dobiveni rezultat jest upravo prikaz dokumenata u 2D koordinatnom sustavu s naznačenim grupama koje predstavljaju aproksimaciju (broja) kategorija dokumenata iz zbirke. \par
+Nad tako nacrtanim grafom dalje se može primijeniti algoritam grupiranja k-sredina koji prvo procjenjuje hiperparametar \textit{k} te nakon toga provodi postupak grupiranja dokumenata. Nakon što se oba algoritma izvrše, dobiveni rezultat jest upravo prikaz dokumenata u 2D koordinatnom sustavu s naznačenim grupama koje predstavljaju aproksimaciju (broja) grupa dokumenata iz zbirke. \par
 Primjena algoritma k-sredina na grupiranje dokumenata jest sljedeća: grupirati dokumente u \textit{k} grupa na način da se svakom dokumentu — točki u 2D prostoru koja ga predstavlja — dodijeli grupa do čijeg je centra ta točka najbliža. Algoritam započinje tako da slučajnim mehanizmom odabere \textit{k} grupa te dodijeli dokumente u najbliže im grupe. Nakon inicijalne dodjele u grupe, računa se novih \textit{k} grupa te se postupak iterativno ponavlja do konvergencije. Nakon završenog postupka, svaki će se dokument nalaziti u najbližoj mu grupi, zajedno s ostalim dokumentima koji su mu najsličniji.
 Nažalost, grupiranje dokumenta u ovome kontekstu nije izravno moguće zbog toga što algoritam apriorno (lat. \textit{a priori}) nema informaciju o broju grupa dokumenata iz zbirke. Razlog tome jest sama priroda problema koji se rješava, a to je da su na početku nepoznate grupe dokumenata (kao i njihov broj), odnosno jedini podaci dostupni programu su sami dokumenti. No ipak, broj grupa zbirke, \textit{k}, ipak se može procijeniti određenim heuristikama kao što će biti pokazano u potpoglavlju \ref{kmeans_optimization}.
 
@@ -331,7 +333,7 @@ private static boolean isDatasetCorrect(Path dataset) {
 
 \section{Optimizacija hiperparametra \textit{k} algoritma k-sredina}
 \label{kmeans_optimization}
-Kao što je već spomenuto u potpoglavlju \ref{k_means_clustering}, određivanje hiperparametra \textit{k} nije izravno moguće jer algoritmu grupiranja k-means (štoviše, niti cijelome programu) nije dostupna informacija o broju grupa. Ovaj podatak inherentno je nepoznat cijelome programu jer što prije početka izvođenja programa nije poznato koliko se grupa nalazi u zbirci dokumenata. Štoviše, jedan od ciljeva implementacije ovog rada jest i automatsko grupiranje dokumenata koje pak ne mora nužno biti egzaktno, u smislu da točno odredi koji dokumenti spadaju u koju kategoriju dokumenata. Naime, ako bi takva kategorizacija bila relevantna, tada nastaje problem definicije kategorije dokumenata. Budući da, je sličnost dokumenata po definiciji kontinuirana vrijednost, nije moguće odrediti "granicu" koja će odrediti kada neki dokument prestaje pripadati jednoj, a počinje pripadati drugoj kategoriji. Zbog ovog razloga, a i zbog inherentnog nepoznavanja broja kategorija od strane korisnika na početku izvođenja programa, parametar \textit{k} nije moguće odrediti sa sigurnošću.
+Kao što je već spomenuto u potpoglavlju \ref{k_means_clustering}, određivanje hiperparametra \textit{k} nije izravno moguće jer algoritmu grupiranja k-means (štoviše, niti cijelome programu) nije dostupna informacija o broju grupa. Ovaj podatak inherentno je nepoznat cijelome programu jer što prije početka izvođenja programa nije poznato koliko se grupa nalazi u zbirci dokumenata. Štoviše, jedan od ciljeva implementacije ovog rada jest i automatsko grupiranje dokumenata koje pak ne mora nužno biti egzaktno, u smislu da točno odredi koji dokumenti spadaju u koju grupu dokumenata. Naime, ako bi takvo grupiranje bilo relevantno, tada nastaje problem definicije grupe dokumenata. Budući da, je sličnost dokumenata po definiciji kontinuirana vrijednost, nije moguće odrediti "granicu" koja će odrediti kada neki dokument prestaje pripadati jednoj, a počinje pripadati drugoj grupi. Zbog ovog razloga, a i zbog inherentnog nepoznavanja broja grupa od strane korisnika na početku izvođenja programa, parametar \textit{k} nije moguće odrediti sa sigurnošću.
 \begin{figure}
 \makebox[\textwidth]{\includegraphics[width=\textwidth]{join.jpg}}
 \caption{Rezultat algoritma grupiranja k-sredina za proizvoljno odabrane vrijednosti parametra \textit{k}: \textit{k=2}, \textit{k=6}, \textit{k=10} te \textit{k=20}}
@@ -364,13 +366,13 @@ Metoda korijena jest jednostavna heuristika koja pokušava procijeniti parametar
 \begin{equation}
 {k}={\mathbf {\sqrt{|\textit{D}| \over 2}}},
 \end{equation}
-gdje je $D$ zbirka dokumenata. Ovakva heuristika ne dovodi nužno do optimalnog rješenja (tj. do egzaktnog broja grupa), no služi kao relativno dobra aproksimacija, što je u ovome kontekstu često puta sasvim dovoljno. Primjerice, za zbirku dokumenata u kojoj na početku postoje dvije jasno odvojene kategorije, npr. engleski nogomet i srednjevjekovno mačevanje, zanimljivo je promotriti kako parametar \textit{k} ovisi o broju dokumenata u pojedinoj kategoriji.
+gdje je $D$ zbirka dokumenata. Ovakva heuristika ne dovodi nužno do optimalnog rješenja (tj. do egzaktnog broja grupa), no služi kao relativno dobra aproksimacija, što je u ovome kontekstu često puta sasvim dovoljno. Primjerice, za zbirku dokumenata u kojoj na početku postoje dvije jasno odvojene grupe, npr. engleski nogomet i srednjevjekovno mačevanje, zanimljivo je promotriti kako parametar \textit{k} ovisi o broju dokumenata u pojedinoj grupi.
 
 \begin{table}
 \begin{center}
 \begin{tabular}{|c|c|c|}
 \hline
-Kategorija I. (br. dok.) & Kategorija II. (br. dok.) & \textit{k} \\
+Grupa I. (br. dok.) & Grupa II. (br. dok.) & \textit{k} \\
 \hline
 3 & 4 & 1.87 \\
 5 & 5 & 2.24 \\
@@ -379,16 +381,16 @@ Kategorija I. (br. dok.) & Kategorija II. (br. dok.) & \textit{k} \\
 \hline
 \end{tabular}
 \end{center}
-\caption{Ovisnost parametra \textit{k} o broju dokumenata pojedine kategorije}
+\caption{Ovisnost parametra \textit{k} o broju dokumenata pojedine grupe}
 \label{table:kmeans}
 \end{table}
 
-U tablici \ref{table:kmeans}, zanimljivo je uočiti kako porast broja dokumenata zbirke dovodi do pogrešne aproksimacije broja kategorija. Naime, očito je (prilikom konstrukcije gornjeg izraza) empirijski ustanovljeno kako svaka od kategorija u prosjeku nema prevelik broj dokumenata, zbog čega aproksimacija za velik broj dokumenata nažalost daje (vrlo) pogrešne rezultate — u ovom konkretnom primjeru, za približno 10-ak dokumenata po kategoriji, pogreška aproksimacije parametra \textit{k} doseže čak 100\%! Ovaj podatak govori o problematici heuristika: često puta daju dovoljno dobru aproksimaciju, no ponekad mogu i poprilično pogriješiti.
-No ipak, zaključak isprobavanja različitih metoda u svrhu ovog rada jest da je metoda korijena donijela najbolju aproksimaciju broja kategorija zbirke dokumenata te se iz tog razloga koristi u konačnoj verziji implementacije programske potpore.
+U tablici \ref{table:kmeans}, zanimljivo je uočiti kako porast broja dokumenata zbirke dovodi do pogrešne aproksimacije broja grupa. Naime, očito je (prilikom konstrukcije gornjeg izraza) empirijski ustanovljeno kako svaka od grupa u prosjeku nema prevelik broj dokumenata, zbog čega aproksimacija za velik broj dokumenata nažalost daje (vrlo) pogrešne rezultate — u ovom konkretnom primjeru, za približno 10-ak dokumenata po grupi, pogreška aproksimacije parametra \textit{k} doseže čak 100\%! Ovaj podatak govori o problematici heuristika: često puta daju dovoljno dobru aproksimaciju, no ponekad mogu i poprilično pogriješiti.
+No ipak, zaključak isprobavanja različitih metoda u svrhu ovog rada jest da je metoda korijena donijela najbolju aproksimaciju broja grupa zbirke dokumenata te se iz tog razloga koristi u konačnoj verziji implementacije programske potpore.
 
 \chapter{Diskusija rezultata}
 \label{chap:results}
-Za potrebe testiranja implementacije i analize dobivenih rezultata, koristila se unaprijed pripremljena zbirka dokumenata opisana u tablici \ref{table:datasetinfo}. Korištena zbirka sadrži 148 članaka i dokumenata iz brojnih raznovrsnih područja poput astronomije, filozofije, arhitekture itd. Ovakva struktura zbirka dokumenata za potrebe prototipiranja i testiranja programske implementacije odabrana je kako bi bila vidljiva:
+Za potrebe testiranja implementacije te kasnije analize dobivenih rezultata, u sklopu ovog rada koristila se unaprijed pripremljena zbirka dokumenata opisana u tablici \ref{table:datasetinfo}. Korištena zbirka sadrži 148 članaka i dokumenata iz sljedećih raznovrsnih područja: arhitektura, astronomija, biologija, filozofija, kemija te računarska znanost. Ovakva struktura zbirke dokumenata za potrebe prototipiranja i testiranja programske implementacije odabrana je kako bi bila vidljiva:
 \begin{itemize}
 \item[$\bullet$] sličnost dokumenata srodnih područja (npr. kemija i biologija),
 \item[$\bullet$] razlika dokumenata različitih područja (npr. kemija i arhitektura).
@@ -398,7 +400,7 @@ Za potrebe testiranja implementacije i analize dobivenih rezultata, koristila se
 \begin{center}
 \begin{tabular}{|c|c|c|}
 \hline
-Kategorija & Broj dokumenata \\
+Grupa & Broj dokumenata \\
 \hline
 Arhitektura & 17 \\
 Astronomija & 25 \\
@@ -411,11 +413,11 @@ $\sum$ & 148 \\
 \hline
 \end{tabular}
 \end{center}
-\caption{Prikaz broja dokumenata po kategorijama}
+\caption{Prikaz broja dokumenata po grupama}
 \label{table:datasetinfo}
 \end{table}
 
-Naime, uvid u prethodno opisane informacije (a posebice vizualizacija spomenutih sličnosti odnosno razlika dokumenata) mogao bi dati potencijalno vrlo zanimljive rezultate. Primjerice, za očekivati je da će srodni dokumenti međusobno veću mjeru sličnosti nego dokumenti nepovezanih područja. Tako bi recimo bilo sasvim prirodno vidjeti dokumente iz područja kemija i biologije kako su vizualno međusobno blizu, dok bi dokumenti iz kemije i arhitekture bili relativno razdvojeni. Rezultati međusobnih sličnosti dokumenata već spomenute zbirke prikazani su slikom \ref{img:turing} koja je direktan rezultat pokretanja programa nakon učitavanja iste zbirke. Na slici se može vidjeti 6 jasno istaknutih kategorija: tirkizna, tamno-zelena, crvena, ružičasta, svijetlo-zelena te narančasta. Tirkizna boja prikazuje dokumente iz područja biologije, crvena i svijetlo-zelena dokumente astronomije i arhitekture (tim redoslijedom) a narančasta prikazuje dokumente iz područja računarske znanosti. Tamno-zelena i ružičasta kategorija nisu navedene iz razloga što ne prikazuju isključivo jednu kategoriju dokumenata; tamno-zelena boja prikazuje dokumente iz područja biologije (vizualno gornja polovica) i područja filozofije (donja polovica), dok ružičasta boja također prikazuje dokumente iz biologije i filozofije, no prikazuje i jedan posebno zanimljiv dokument čiji se naziv na slici vidi u info-oblačiću (engl. \textit{tooltip}). Naime, znanstveni rad \textit{Computing Machinery and Intelligence} objavljen 1950. godine od strane Alana Turing, jednog od pionira računarstva i umjetne inteligencije, prikazan je veoma blizu dokumenata filozofije. Ovakav raspored na prvi pogled može se doimati čudnim; bilo bi prirodno pretpostaviti da će rad o umjetnoj inteligenciji biti dodijeljen kategoriji dokumenata o računarskoj znanosti. No budući da se rad velikim dijelom bavi pitanjima poput: "Mogu li računala razmišljati?" te budući da se rad bavi raznim misaonim pokusima, postaje očito da je rad zapravo vrlo filozofske naravi te da ima posve smisla što je postavljen upravo u kontekst dokumenata filozofije. Osim spomenutih, postoji još nekoliko kategorija (svijetlo-plava i tamno-plava) koje sadrže svega nekoliko dokumenata. Dokumenti prikazani u tim kategorijama nisu semantički pripali u nijednu drugu kategoriju te su dobili vlasitite kategorije. Očito je kako rezultat vizualizacije dokumenata neće uvijek biti optimalan, pa čak niti posve smislen.
+Uvid u prethodno opisane informacije (a posebice vizualizacija spomenutih sličnosti odnosno razlika dokumenata) mogao bi dati potencijalno vrlo zanimljive rezultate. Primjerice, za očekivati je da će srodni dokumenti međusobno imati veću mjeru sličnosti nego dokumenti nepovezanih područja. Tako bi recimo bilo sasvim prirodno vidjeti dokumente iz područja kemija i biologije kako su vizualno međusobno blizu, dok bi dokumenti iz kemije i arhitekture bili relativno razdvojeni. Rezultati međusobnih sličnosti dokumenata već spomenute zbirke prikazani su slikom \ref{img:turing} koja je direktan rezultat pokretanja programa nakon učitavanja zbirke.
 
 \begin{figure}
 \makebox[\textwidth]{\includegraphics[width=0.85\textwidth]{turing.png}}
@@ -423,13 +425,23 @@ Naime, uvid u prethodno opisane informacije (a posebice vizualizacija spomenutih
 \label{img:turing}
 \end{figure}
 
+Na slici se može vidjeti 6 jasno istaknutih grupa: tirkizna, tamno-zelena, crvena, ružičasta, svijetlo-zelena te narančasta. Tirkizna boja prikazuje dokumente iz područja biologije, crvena i svijetlo-zelena dokumente astronomije i arhitekture (tim redoslijedom) a narančasta prikazuje dokumente iz područja računarske znanosti. Tamno-zelena i ružičasta grupa nisu navedene iz razloga što ne prikazuju isključivo jednu grupu dokumenata; tamno-zelena boja prikazuje dokumente iz područja biologije (gornja polovica) i područja filozofije (donja polovica), dok ružičasta boja također prikazuje dokumente iz biologije i filozofije, no prikazuje i jedan posebno zanimljiv dokument čiji se naziv vidi u info-oblačiću (engl. \textit{tooltip}) na slici. Naime, znanstveni rad \textit{Computing Machinery and Intelligence} kojega je 1950. godine objavio Alan Turing, jedan od pionira računarstva i umjetne inteligencije, prikazan je veoma blizu dokumenata iz područja filozofije. Ovakav raspored na prvi pogled može se doimati čudnim; bilo bi prirodno pretpostaviti da će rad o umjetnoj inteligenciji biti dodijeljen grupi dokumenata o računarskoj znanosti. No budući da se rad velikim dijelom bavi pitanjima poput: "Mogu li računala razmišljati?" te budući da se rad bavi raznim misaonim pokusima, postaje očito da je rad zapravo vrlo filozofske naravi te da ima posve smisla što je postavljen upravo u kontekst filozofskih dokumenata. Osim spomenutih, postoji još nekoliko grupa (svijetlo-plava i tamno-plava) koje sadrže vrlo mali broj dokumenata. Dokumenti prikazani u tim grupama nisu semantički pripali u nijednu drugu grupu te su dobili vlasitite grupe. Očito je kako rezultat vizualizacije dokumenata neće uvijek biti optimalan, pa čak niti posve smislen.
+
+Još jedna zanimljivost koju valja uočiti sa slike \ref{img:turing} jest ta da su dokumenti iz područja računarske znanosti (narančasta boja) neobično udaljeni od svih ostalih grupa dokumenata; interpretacija se ostavlja čitatelju za vježbu.
+
+\section{Prikaz rezultata korisničkog upita}
+
 Osim grafičkog prikaza sličnosti dokumenata, valja promotriti i rezultate dobivene postavljanjem upita, odnosno učitavanjem proizvoljnih dokumenata koji će potom biti uspoređeni s dokumentima iz zbirke. Slika \ref{img:astronomy_query} prikazuje pretraživanje zbirke uz upit "Stars are made of hot plasma" \footnote{Pošto su dokumenti zbirke svi na engleskom jeziku, pretraživanje ima smisla samo koristeći upite na engleskom jeziku.}. Iz dobivenih rezultata, jasno je kako uneseni upit najveću sličnost ima upravo s dokumentima iz područja astronomije (10.7\% sličnosti s najsličnijim dokumentom).
+
+Jedan potencijalan nedostatak modela vreće riječi korištenog za prikaz dokumenata u jest taj da se njegovim korištenjem u potpunosti zanemaruje poredak riječi te se ne koristi nikakva sofisticiranija analiza poput npr. semantičke. Problem nastaje kada se primjerice zada upit od nekoliko riječi koje predstavljaju neki izraz (npr. akronim). Sustav baziran na modelu vreće riječi, na postavljeni upit neće gledati kao na to što zapravo jest (semantički smisleni izraz) već naprosto na neporedanu kolekciju riječi. Dakle, u kontekstu vreće riječi, postaje posve svejedno hoće li korisnik napisati upit "Plavo nebo i zelene doline" ili "Doline nebo i zelene plave" -- što naravno nema smisla. Ovakav pristup potencijalno bi mogao donijeti pogrešne rezultate ovisno o korisnikovoj namjeri prilikom unošenja upita, odnosno o izrazu po kojem pokušava pretraživati.
 
 \begin{figure}
 \makebox[\textwidth]{\includegraphics[width=0.85\textwidth]{astronomy_query.png}}
 \caption{Prikaz rezultata nad unesenim korisničkim upitom}
 \label{img:astronomy_query}
 \end{figure}
+
+\section{Prikaz rezultata učitanog dokumenta}
 
 Još preostaje pogledati rezultate dobivene usporedbom proizvoljno učitanog dokumenta s postojećom zbirkom -- kao primjer je ovdje korišten rad "Distributed Representations of Sentences and Documents". Iz rezultata sa slike \ref{img:document_query}, vide se slično očekivani rezultati kao i u prethodnom primjeru: znanstveni rad koji se bavi prikazom rečenica i dokumenata najsličniji je dokumentima iz područja računarske znanosti, što se i vidi po 2.48\% sličnosti s najsličnijim dokumentom.
 
@@ -440,31 +452,31 @@ Još preostaje pogledati rezultate dobivene usporedbom proizvoljno učitanog dok
 \end{figure}
 
 \chapter{Zaključak}
-U ovome radu iznesena je ideja usporedbe dokumenata po sličnosti u svrhe pronalaska semantički sličnih dokumenata te rangiranaja dokumenata prema korisničkom upitu (odnosno proizvoljno učitanom dokumentu). Napravljena je jednostavna implementacija koja korisniku omogućuje uspoređivanje te vizualizaciju dokumenata, kao i njihovo pretraživanje.
+U ovome radu iznesena je ideja usporedbe dokumenata po sličnosti u svrhe pronalaska semantički sličnih dokumenata te rangiranaja dokumenata prema korisničkom upitu (odnosno proizvoljno učitanom dokumentu). Napravljena je implementacija koja korisniku omogućuje upravljanje i pretraživanje lokalne baze PDF dokumenata.
 
-Kao metoda uspoređivanja dokumenata korištena je metoda kosinusne sličnosti, dok je za vizualiziranje sličnosti dokumenata korištena metoda silom usmjerenog crtanja grafova. Za grupiranje dokumenata koristi se metoda k-sredina, a za pronalazak nepoznatog broja grupa \textit{k} korištena je jednostavna heuristika -- metoda korijena.
+Kao metoda uspoređivanja dokumenata korištena je metoda kosinusne sličnosti, za vizualizaciju dokumenata korištena je metoda silom usmjerenog crtanja grafova, dok je za grupiranje dokumenata korištena metoda k-sredina.
 
-Pripremljeni dokumenti iz semantički sličnih kategorija generalno su grafički bili prikazani relativno blizu, dok nepovezani dokumenti nisu; ovakvo je ponašanje očekivano te je shodno tome programska implementacija dala zadovoljavaće rezultate.
+Pripremljeni dokumenti iz sadržajno sličnih grupa generalno su grafički bili prikazani relativno blizu, dok nepovezani dokumenti nisu; ovakvo je ponašanje očekivano te je shodno tome programska implementacija dala zadovoljavaće rezultate.
 
-Daljni smjer i razvoj programske potpore mogao bi biti u smjeru unaprjeđenja modela vreće riječi (koji ponekad zna imati vrlo naivno ponašanje) prema sofisticiranijim modelima koji uzimaju u obzir poredak riječi, međusobnu sličnost pojedinih riječi (pronalazak sinonima) itd.
+Daljni smjer i razvoj mogao bi biti u smjeru unaprijeđenja modela prikaza dokumenata; naime, model vreće riječi u nekim je situacijama vrlo naivan pristup problematici analize teksta u usporedbi sa sofisticiranijim modelima koji uzimaju u obzir poredak riječi, njihovu međusobnu sličnost (pronalazak sinonima) i sl.
 
-Analiza i pretraživanje dokumenata po sličnosti svakim je danom sveobuhvatnije te ima brojne primjene pa je stoga unaprjeđenje metoda analize teksta u svrhu preciznijeg i učinkovitijeg pretraživanja teksta neophodno za daljnji razvoj znanosti i tehnologije.
+Analiza i pretraživanje dokumenata po sličnosti svakim je danom sveobuhvatnije područje u svijetu tehnologije te ima brojne primjene pa je stoga unaprijeđenje metoda analize teksta u svrhu preciznijeg i učinkovitijeg pretraživanja teksta neophodno za daljnji razvoj područja, pa i znanosti i tehnologije uopće.
 
 \bibliography{literatura}
 \bibliographystyle{fer}
 
 \begin{sazetak}
-Sažetak na hrvatskom jeziku.
+Pretraživanje i uspoređivanje dokumenata vrlo je rašireno u današnjem svijetu. Sve više raznih područja iziskuju nekakvu vrstu pretraživanja odnosno dohvata informacija iz teksta. Da bi se to moglo ostvariti, potrebno je poznavati metodologiju usporedbe dokumenata po sličnosti. U okviru ovog rada istažene su neke od takvih metoda te je napravljena implementacija koja korisniku nudi mogućnost upravljanje lokalnom bazom PDF dokumenata. Bazu je moguće pretraživati koristeći tekstualni upit ili proizvoljni dokument. Dokumenti baze također se mogu se grafički prikazati pri čemu će biti vidljiva njihova međusobna sličnost. Programska implementacija ostvarena je u programskom jeziku Java.
 
-\kljucnerijeci{Ključne riječi, odvojene zarezima.}
+\kljucnerijeci{Sličnost dokumenata, TF-IDF, Vizualizacija dokumenata, Grupiranje k-sredina, Java}
 \end{sazetak}
 
 % TODO: Navedite naslov na engleskom jeziku.
-\engtitle{Title}
+\engtitle{PDF Document Management and Search System}
 \begin{abstract}
-Abstract.
+Searching and comparing documents is very widespread in today's world. Many different areas require some kind of information retrieval. In order to accomplish that, it is necessary to be familiar with the methodology of document comparison. This thesis explores some of these methods which are then used for an implementation which enables the user to manage a local database of PDF documents. The database can be searched by a textual query or an arbitrary document. The documents' similarities can also be shown graphically. The implementation was written in the Java programming language.
 
-\keywords{Keywords.}
+\keywords{Document similarity, TF-IDF, Document visualization, K-means clustering, Java}
 \end{abstract}
 
 \end{document}

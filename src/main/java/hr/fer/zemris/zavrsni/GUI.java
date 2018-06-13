@@ -182,7 +182,8 @@ public class GUI extends JFrame {
 				return;
 			}
 
-			label.setText(document.toString());
+			//label.setText(document.toString());
+			label.setText("/media/luka/Data/FER/6. semestar/Završni rad/Corpus/dataset");
 
 			List<Result> results = null;
 			try {
