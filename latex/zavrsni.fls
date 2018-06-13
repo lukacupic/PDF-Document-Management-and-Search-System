@@ -300,6 +300,15 @@ INPUT /usr/share/texlive/texmf-dist/fonts/vf/adobe/courier/pcrr8t.vf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/adobe/courier/pcrr8r.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/vf/adobe/times/ptmbi8t.vf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/adobe/times/ptmbi8r.tfm
+INPUT ./images/turing.png
+INPUT ./images/turing.png
+INPUT ./images/turing.png
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx10.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx7.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx5.tfm
+INPUT ./images/astronomy_query.png
+INPUT ./images/astronomy_query.png
+INPUT ./images/astronomy_query.png
 INPUT zavrsni.bbl
 INPUT zavrsni.bbl
 INPUT zavrsni.aux

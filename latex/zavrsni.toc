@@ -10,7 +10,7 @@
 \contentsline {section}{\numberline {4.1}Silom usmjereno crtanje grafova}{10}
 \contentsline {section}{\numberline {4.2}Grupiranje dokumenata}{12}
 \contentsline {subsection}{\numberline {4.2.1}Grupiranje k-sredina}{12}
-\contentsline {chapter}{\numberline {5}Implementacija i rezultati}{14}
+\contentsline {chapter}{\numberline {5}Programska implementacija}{14}
 \contentsline {section}{\numberline {5.1}\IeC {\v C}itanje i obrada rije\IeC {\v c}i}{15}
 \contentsline {subsection}{\numberline {5.1.1}Obrada korisni\IeC {\v c}kog upita}{15}
 \contentsline {subsection}{\numberline {5.1.2}Obrada dokumenata}{16}
@@ -22,5 +22,6 @@
 \contentsline {section}{\numberline {5.7}Optimizacija hiperparametra \textit {k} algoritma k-sredina}{24}
 \contentsline {subsection}{\numberline {5.7.1}Metoda koljena}{25}
 \contentsline {subsection}{\numberline {5.7.2}Metoda korijena}{27}
-\contentsline {chapter}{\numberline {6}Zaklju\IeC {\v c}ak}{29}
-\contentsline {chapter}{Literatura}{30}
+\contentsline {chapter}{\numberline {6}Diskusija rezultata}{29}
+\contentsline {chapter}{\numberline {7}Zaklju\IeC {\v c}ak}{33}
+\contentsline {chapter}{Literatura}{34}

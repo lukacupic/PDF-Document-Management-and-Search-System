@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.4.20)  11 JUN 2018 10:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.4.20)  13 JUN 2018 14:03
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -812,24 +812,24 @@ Poglavlje 2.
 ]
 Poglavlje 3.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <17.28> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 67.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 68.
 [3
 
 ] [4] [5] [6]
 
 Package amsmath Warning: Foreign command \over;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 131.
+(amsmath)                 on input line 132.
 
 <./images/vectors.png, id=49, 714.67pt x 200.75pt>
 File: ./images/vectors.png Graphic file (type png)
 <use ./images/vectors.png>
-Package pdftex.def Info: ./images/vectors.png  used on input line 136. on input
- line 136.
+Package pdftex.def Info: ./images/vectors.png  used on input line 137. on input
+ line 137.
 Package pdftex.def Info: Requested size: 412.56497pt x 115.88982pt on input lin
-e 136.
+e 137.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 137.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 138.
 [7 <./images/vectors.png>] [8] [9]
 Poglavlje 4.
 [10
@@ -838,10 +838,10 @@ Poglavlje 4.
 <./images/fdgd_example.png, id=69, 1003.75pt x 1003.75pt>
 File: ./images/fdgd_example.png Graphic file (type png)
 <use ./images/fdgd_example.png>
-Package pdftex.def Info: ./images/fdgd_example.png  used on input line 171. on 
-input line 171.
+Package pdftex.def Info: ./images/fdgd_example.png  used on input line 172. on 
+input line 172.
 Package pdftex.def Info: Requested size: 350.68274pt x 350.6898pt on input line
- 171.
+ 172.
  [11 <./images/fdgd_example.png (PNG copy)>] (./images/clustering.pdf_tex
 <./images/clustering.pdf, id=73, page=1, pagebox=cropbox, 433.62pt x 289.08pt>
 File: ./images/clustering.pdf Graphic file (type pdf)
@@ -857,10 +857,10 @@ LaTeX Warning: `h' float specifier changed to `ht'.
 <./images/clustering_alg.png, id=74, 584.1825pt x 220.57407pt>
 File: ./images/clustering_alg.png Graphic file (type png)
 <use ./images/clustering_alg.png>
-Package pdftex.def Info: ./images/clustering_alg.png  used on input line 208. o
-n input line 208.
+Package pdftex.def Info: ./images/clustering_alg.png  used on input line 209. o
+n input line 209.
 Package pdftex.def Info: Requested size: 412.56497pt x 155.78072pt on input lin
-e 208.
+e 209.
 [12] [13 <./images/clustering.pdf> <./images/clustering_alg.png (PNG copy)>]
 Poglavlje 5.
 [14
@@ -869,39 +869,39 @@ Poglavlje 5.
 <./images/diagram.png, id=389, 467.7475pt x 233.87375pt>
 File: ./images/diagram.png Graphic file (type png)
 <use ./images/diagram.png>
-Package pdftex.def Info: ./images/diagram.png  used on input line 228. on input
- line 228.
+Package pdftex.def Info: ./images/diagram.png  used on input line 229. on input
+ line 229.
 Package pdftex.def Info: Requested size: 350.68274pt x 175.35133pt on input lin
-e 228.
+e 229.
 <./images/query_search.png, id=390, 560.8453pt x 578.16pt>
 File: ./images/query_search.png Graphic file (type png)
 <use ./images/query_search.png>
-Package pdftex.def Info: ./images/query_search.png  used on input line 236. on 
-input line 236.
+Package pdftex.def Info: ./images/query_search.png  used on input line 237. on 
+input line 237.
 Package pdftex.def Info: Requested size: 350.68274pt x 361.5079pt on input line
- 236.
+ 237.
  [15]
 <./images/document_search.png, id=394, 560.8453pt x 578.16pt>
 File: ./images/document_search.png Graphic file (type png)
 <use ./images/document_search.png>
-Package pdftex.def Info: ./images/document_search.png  used on input line 244. 
-on input line 244.
+Package pdftex.def Info: ./images/document_search.png  used on input line 245. 
+on input line 245.
 Package pdftex.def Info: Requested size: 350.68274pt x 361.5079pt on input line
- 244.
+ 245.
  [16 <./images/diagram.png (PNG copy)>] [17 <./images/query_search.png>] [18 <.
 /images/document_search.png>] [19]
 <./images/graph_program.png, id=409, 560.8453pt x 578.16pt>
 File: ./images/graph_program.png Graphic file (type png)
 <use ./images/graph_program.png>
-Package pdftex.def Info: ./images/graph_program.png  used on input line 270. on
- input line 270.
+Package pdftex.def Info: ./images/graph_program.png  used on input line 271. on
+ input line 271.
 Package pdftex.def Info: Requested size: 350.68274pt x 361.5079pt on input line
- 270.
+ 271.
  [20] [21 <./images/graph_program.png>] [22] [23]
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <17.28> not available
-(Font)              Font shape `T1/ptm/b/it' tried instead on input line 328.
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 329.
 
-Overfull \hbox (8.04369pt too wide) in paragraph at lines 328--328
+Overfull \hbox (8.04369pt too wide) in paragraph at lines 329--329
 []\T1/ptm/b/n/17.28 Optimizacija hi-per-pa-ra-me-tra \T1/ptm/b/it/17.28 k \T1/p
 tm/b/n/17.28 al-go-ritma k-sredina 
  []
@@ -909,10 +909,10 @@ tm/b/n/17.28 al-go-ritma k-sredina
 <./images/join.jpg, id=424, 1003.75pt x 1003.75pt>
 File: ./images/join.jpg Graphic file (type jpg)
 <use ./images/join.jpg>
-Package pdftex.def Info: ./images/join.jpg  used on input line 332. on input li
-ne 332.
+Package pdftex.def Info: ./images/join.jpg  used on input line 333. on input li
+ne 333.
 Package pdftex.def Info: Requested size: 350.68274pt x 350.6898pt on input line
- 332.
+ 333.
 (./images/elbow.pdf_tex
 <./images/elbow.pdf, id=425, page=1, pagebox=cropbox, 355.18019pt x 279.72382pt
 >
@@ -952,23 +952,42 @@ pdfTeX warning: pdflatex (file ./images/elbow.pdf): PDF inclusion: multiple pdf
 s with page group included in a single page
 >] [27] [28]
 Poglavlje 6.
-(./zavrsni.bbl [29
+[29
+
+]
+<./images/turing.png, id=451, 737.75626pt x 585.68813pt>
+File: ./images/turing.png Graphic file (type png)
+<use ./images/turing.png>
+Package pdftex.def Info: ./images/turing.png  used on input line 417. on input 
+line 417.
+Package pdftex.def Info: Requested size: 412.56497pt x 327.52733pt on input lin
+e 417.
+<./images/astronomy_query.png, id=452, 633.11531pt x 478.78876pt>
+File: ./images/astronomy_query.png Graphic file (type png)
+<use ./images/astronomy_query.png>
+Package pdftex.def Info: ./images/astronomy_query.png  used on input line 425. 
+on input line 425.
+Package pdftex.def Info: Requested size: 412.56497pt x 312.00533pt on input lin
+e 425.
+ [30] [31 <./images/turing.png>] [32 <./images/astronomy_query.png>]
+Poglavlje 7.
+(./zavrsni.bbl [33
 
 ]
 
 Package natbib Warning: Empty `thebibliography' environment on input line 8.
 
-) [30
+) [34
 
-] [31] (./zavrsni.aux) ) 
+] [35] (./zavrsni.aux) ) 
 Here is how much of TeX's memory you used:
- 8992 strings out of 492990
- 127232 string characters out of 6135005
+ 9011 strings out of 492990
+ 127598 string characters out of 6135005
  260157 words of memory out of 5000000
- 12328 multiletter control sequences out of 15000+600000
- 81293 words of font info for 100 fonts, out of 8000000 for 9000
+ 12342 multiletter control sequences out of 15000+600000
+ 82220 words of font info for 103 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 48i,11n,42p,2269b,1209s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 48i,11n,42p,2592b,1209s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.
 enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></
 usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/sh
@@ -986,10 +1005,10 @@ dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/ut
 mr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on zavrsni.pdf (36 pages, 989379 bytes).
+Output written on zavrsni.pdf (40 pages, 1186150 bytes).
 PDF statistics:
- 516 PDF objects out of 1000 (max. 8388607)
- 340 compressed objects within 4 object streams
+ 535 PDF objects out of 1000 (max. 8388607)
+ 351 compressed objects within 4 object streams
  0 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 71 words of extra memory for PDF output out of 10000 (max. 10000000)
 

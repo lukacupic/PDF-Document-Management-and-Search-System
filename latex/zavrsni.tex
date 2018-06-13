@@ -57,6 +57,7 @@
 \chapter{Uvod}
 Područje analize i pretraživanja teksta neizbježno je u današnjem svijetu tehnologije. Od internetskih tražilica koje pretražuju enormne količine podataka baziranih na zadanom upitu, osobnih pomoćnika na pametnim mobitelima koji procesiraju izgovorene riječi pa sve do analize i prepoznavanja \textit{spam} elektroničkih poruka.
 Kratki osvrt na ove te mnoge druge primjene ukazuju na nepobitnu činjenicu da je pretraživanje teksta... TODO
+U iduće 42 stranice...
 
 \chapter{Pregled područja}
 Korištenje računala za povrat informacija (engl. \textit{information retrieval}) datira sve do četrdesetih godina dvadesetog stoljeća, daleko prije komercijalizacije računala, odnosno njihovog korištenja u osobne svrhe. Pogledaju li se samo neki od relevantnih problema poput digitalizacije knjižnica i automatizacije knjižničnih poslova, statističku analizu tekstualnih podataka u brojne svrhe, procesiranje korisničkih upita kako bi se pronašli relevantni dokumenti itd., očito je da je područje analize i pretraživanja teksta vrlo zastupljeno u današnjem digitalnom svijetu u kojem se količina informacija povećava za X posto svake godine (referenca na paper), očito je da je domena primjene vrlo široka te da su analiza i pretraživanje teksta zastupljeni u praktički svakom području koje iziskuje nekakvu vrstu analize i pretraživanja teksta odnosno povrata informacija... TODO
@@ -210,10 +211,10 @@ Algoritam dakle iterira kroz opisane korake dok nijedna točka ne promijeni grup
 \label{img:clustering_alg}
 \end{figure}
 
-\chapter{Implementacija i rezultati}
+\chapter{Programska implementacija}
 \label{chap:impl}
 Programska implementacija ovog završnog rada napisana je u programskom jeziku Java koji je zbog svoje objektne metodologije, nativne podrške apstraktnih kolekcija podataka te postojane podrške raznih vanjskih biblioteka idealan za implementaciju problema iz domene analize i pretraživanja teksta.
-Korištene biblioteke su \textit{Apache PDFBox} za parsiranje PDF dokumenata, \textit{Apache Commons Math} za proračun k-sredina, \textit{Apache Digest Utils} za izračun MD5 \textit{hash} vrijednosti te \textit{Jung} biblioteke za proračun te vizualizaciju grafova. \par
+Korištene biblioteke su \textit{Apache PDFBox} za parsiranje PDF dokumenata, \textit{Apache Commons Math} za proračun k-sredina, \textit{Apache Digest Utils} za izračun MD5 sažetka (engl. \textit{hash}) vrijednosti te \textit{Jung} biblioteke za proračun te vizualizaciju grafova. \par
 Kao što je već ranije spomenuto, pročitani dokumenti reprezentirani su vektorima obzirom da je to jedan od  najjednostavnijih i najefikasnijih način prikaza dokumenata. Naime, u memoriji se na taj način ne trebaju eksplicitno spremati riječi za svaki dokument već se mogu spremiti samo brojke koje govore koliko je dotična riječ relevantna za dokument. Kako se u sklopu ovog rada koristi TF-IDF reprezentacija dokumenata, to znači da se za svaki dokument treba izračunati njegova TF-IDF (vektorska) reprezentacija. Prije samog izračuna komponenata TF-IDF vektora, potrebno je pročitati PDF dokumente smještene na disku. Pošto su PDF dokumenti zapravo binarne datoteke, po svojoj strukturi nisu trivijalno parsabilni, što znači da ih nije moguće pročitati odnosno dekodirati na jednostavan način kao što je to moguće s primjerice tekstualnim datotekama. Zbog toga se za njihovo čitanje, odnosno parsiranje koristi vanjska biblioteka Apache PDFBox koja iz zadanog PDF dokumenta ekstrahira Unicode znakove koje može pročitati te ih vrati kao rezultat. Tako dobiveni tekst dodatno se obrađuje pri čemu se uklanjaju bilo kakvi interpunkcijski znakovi, dijakritici, brojke, odnosno svi znakovi koji nisu mala ili velika slova engleske abecede. Ovakav postupak nužan je kako bi se što više smanjio utjecaj nebitnih znakova na točnost uspoređivanja dokumenata.
 Jednom kada je tekst isfiltriran, nad njim se provodi daljnja predobrada koja: 1) uklanja iz teksta stop-riječi te 2) vrši stemanje nad dobivenim riječima dokumenata. Obje metode opisane su u potpoglavlju
 \ref{subchap:docmodel_docview}. Nakon završene predobrade teksta, stvaraju se vokabular, vektori (za reprezentaciju dokumenata) te nekoliko dodatnih pomoćnih struktura podataka. Nakon ovog koraka vrši se još i izračun sličnosti dokumenata kako bi jednom izračunati podaci bili spremljeni za ponovno korištenje bez da se moraju svaki puta iznova računati.
@@ -276,7 +277,7 @@ Primjena algoritma k-sredina na grupiranje dokumenata jest sljedeća: grupirati 
 Nažalost, grupiranje dokumenta u ovome kontekstu nije izravno moguće zbog toga što algoritam apriorno (lat. \textit{a priori}) nema informaciju o broju grupa dokumenata iz zbirke. Razlog tome jest sama priroda problema koji se rješava, a to je da su na početku nepoznate grupe dokumenata (kao i njihov broj), odnosno jedini podaci dostupni programu su sami dokumenti. No ipak, broj grupa zbirke, \textit{k}, ipak se može procijeniti određenim heuristikama kao što će biti pokazano u potpoglavlju \ref{kmeans_optimization}.
 
 \section{Optimizacija izvođenja programa}
-Kako bi program bio što responzivniji na upite korisnika, nakon što se po prvom pokretanju programa izvrši čitav postupak inicijalizacije dokumenata (preprocesiranje dokumenata, stvaranje vokabulara, računanje sličnosti dokumenata itd.), dobiveni se podaci spremaju u \textit{cache} memoriju, odnosno bivaju serijalizirani (engl. \textit{serialization}) na disk. Svrha ovog postupka jest jednom dobivene i izračunate relevantne podatke zbirke dokumenata spremiti u perzistentnu memoriju računala kako bi se po svakom sljedećem pokretanju programa, umjesto ponovnog prikupljanja i izračuna svih relevantnih podataka, isti mogli efikasnije isčitati iz zapisane datoteke te deserijalizirati u odgovarajuće strukture podataka čime se uvelike dobiva na brzini izvođenja programa. U tablici
+Kako bi program bio što responzivniji na upite korisnika, nakon što se po prvom pokretanju programa izvrši čitav postupak inicijalizacije dokumenata (preprocesiranje dokumenata, stvaranje vokabulara, računanje sličnosti dokumenata itd.), dobiveni se podaci spremaju u pričuvnu (engl. \textit{cache}) memoriju, odnosno bivaju serijalizirani (engl. \textit{serialization}) na disk. Svrha ovog postupka jest jednom dobivene i izračunate relevantne podatke zbirke dokumenata spremiti u perzistentnu memoriju računala kako bi se po svakom sljedećem pokretanju programa, umjesto ponovnog prikupljanja i izračuna svih relevantnih podataka, isti mogli efikasnije isčitati iz zapisane datoteke te deserijalizirati u odgovarajuće strukture podataka čime se uvelike dobiva na brzini izvođenja programa. U tablici
 \ref{table:serialization} vidljivo je da se korištenjem serijalizacije postiže prosječno ubrzanje od čak 58 puta prilikom svakog (ne-inicijalnog) pokretanja programa.
 
 \begin{table}
@@ -295,7 +296,7 @@ Br. dokumenata & Ponovno čitanje (sek) & Deserijalizacija (sek) \\
 \end{table}
 
 \section{Provjera integriteta zbirke dokumenata}
-Kako bi program bio u mogućnosti autonomno detektirati promjene nad zbirkom dokumenata (primjerice, ako je novi dokument dodan, ako je neki dokument uklonjen itd.), koristi se tehnika provjere kontrolne sume (engl. \textit{checksum}) dokumenata. Naime, nakon što korisnik odabere direktorij na disku koji predstavlja zbirku dokumenata, nad njim se provede rekurzivan postupak izračuna MD5 \textit{hash} vrijednosti svakog od dokumenata u tom direktoriju. Dobivene \textit{hash} vrijednosti se tada usporede s postojećim \textit{hash} vrijednostima koje su spremljene u posebnoj \textit{cache} datoteci. Ukoliko se vrijednosti poklapaju, program zaključuje kako nad zbirkom nije bilo nikakvih promjena od zadnjeg pokretanja te učitava prethodno serijalizirane podatke o zbirci dokumenata i uskoro postaje spreman za korištenje. Ako je međutim uočena razlika između postojeće i izračunate \textit{hash} vrijednosti (ili ako ona prethodno uopće ne postoji), očito je da je zbirka promijenjena (ili prethodno niti nije bila serijalizirana) te se nanovo računaju svi relevantni podaci koji se potom serijaliziraju u odgovarajuću \textit{cache} datoteku kako bi bili dostupni prilikom sljedećeg pokretanja.
+Kako bi program bio u mogućnosti autonomno detektirati promjene nad zbirkom dokumenata (primjerice, ako je novi dokument dodan, ako je neki dokument uklonjen itd.), koristi se tehnika provjere kontrolne sume (engl. \textit{checksum}) dokumenata. Naime, nakon što korisnik odabere direktorij na disku koji predstavlja zbirku dokumenata, nad njim se provede rekurzivan postupak izračuna MD5 sažetka svakog od dokumenata u tom direktoriju. Dobiveni sažetci se tada usporede s postojećim sažetcima koji su spremljene u posebnoj pričuvnoj datoteci. Ukoliko se vrijednosti poklapaju, program zaključuje kako nad zbirkom nije bilo nikakvih promjena od zadnjeg pokretanja te učitava prethodno serijalizirane podatke o zbirci dokumenata i uskoro postaje spreman za korištenje. Ako je međutim uočena razlika između postojećih i izračunatih sažetaka (ili ako oni prethodno uopće ne postoje), očito je da je zbirka promijenjena (ili prethodno niti nije bila serijalizirana) te se nanovo računaju svi relevantni podaci koji se potom serijaliziraju u odgovarajuću pričuvnu datoteku kako bi bili dostupni prilikom sljedećeg pokretanja.
 
 \begin{code}[caption={Isječak programskog koda za provjeru ispravnosti zbirke},captionpos=b]
 private static boolean isDatasetCorrect(Path dataset) {
@@ -381,6 +382,50 @@ Kategorija I. (br. dok.) & Kategorija II. (br. dok.) & \textit{k} \\
 
 U tablici \ref{table:kmeans}, zanimljivo je uočiti kako porast broja dokumenata zbirke dovodi do pogrešne aproksimacije broja kategorija. Naime, očito je (prilikom konstrukcije gornjeg izraza) empirijski ustanovljeno kako svaka od kategorija u prosjeku nema prevelik broj dokumenata, zbog čega aproksimacija za velik broj dokumenata nažalost daje (vrlo) pogrešne rezultate — u ovom konkretnom primjeru, za približno 10-ak dokumenata po kategoriji, pogreška aproksimacije parametra \textit{k} doseže čak 100\%! Ovaj podatak govori o problematici heuristika: često puta daju dovoljno dobru aproksimaciju, no ponekad mogu i poprilično pogriješiti.
 No ipak, zaključak isprobavanja različitih metoda u svrhu ovog rada jest da je metoda korijena donijela najbolju aproksimaciju broja kategorija zbirke dokumenata te se iz tog razloga koristi u konačnoj verziji implementacije programske potpore.
+
+\chapter{Diskusija rezultata}
+Za potrebe testiranja implementacije i analize dobivenih rezultata, koristila se unaprijed pripremljena zbirka dokumenata opisana u tablici \ref{table:datasetinfo}. Korištena zbirka sadrži 148 članaka i dokumenata iz brojnih raznovrsnih područja poput astronomije, filozofije, arhitekture itd. Ovakva struktura zbirka dokumenata za potrebe prototipiranja i testiranja programske implementacije odabrana je kako bi bila vidljiva:
+\begin{itemize}
+\item[$\bullet$] sličnost dokumenata srodnih područja (npr. kemija i biologija),
+\item[$\bullet$] razlika dokumenata različitih područja (npr. kemija i arhitektura).
+\end{itemize}
+
+\begin{table}
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+Kategorija & Broj dokumenata \\
+\hline
+Arhitektura & 17 \\
+Astronomija & 25 \\
+Biologija & 24 \\
+Filozofija & 19 \\
+Kemija & 20 \\
+Računarska znanost & 43 \\
+\hline
+$\sum$ & 148 \\
+\hline
+\end{tabular}
+\end{center}
+\caption{Prikaz broja dokumenata po kategorijama}
+\label{table:datasetinfo}
+\end{table}
+
+Naime, uvid u prethodno opisane informacije (a posebice vizualizacija spomenutih sličnosti odnosno razlika dokumenata) mogao bi dati potencijalno vrlo zanimljive rezultate. Primjerice, za očekivati je da će srodni dokumenti međusobno veću mjeru sličnosti nego dokumenti nepovezanih područja. Tako bi recimo bilo sasvim prirodno vidjeti dokumente iz područja kemija i biologije kako su vizualno međusobno blizu, dok bi dokumenti iz kemije i arhitekture bili relativno razdvojeni. Rezultati međusobnih sličnosti dokumenata već spomenute zbirke prikazani su slikom \ref{img:turing} koja je direktan rezultat pokretanja programa nakon učitavanja iste zbirke. Na slici se može vidjeti 6 jasno istaknutih kategorija: tirkizna, tamno-zelena, crvena, ružičasta, svijetlo-zelena te narančasta. Tirkizna boja prikazuje dokumente iz područja biologije, crvena i svijetlo-zelena dokumente astronomije i arhitekture (tim redoslijedom) a narančasta prikazuje dokumente iz područja računarske znanosti. Tamno-zelena i ružičasta kategorija nisu navedene iz razloga što ne prikazuju isključivo jednu kategoriju dokumenata; tamno-zelena boja prikazuje dokumente iz područja biologije (vizualno gornja polovica) i područja filozofije (donja polovica), dok ružičasta boja također prikazuje dokumente iz biologije i filozofije, no prikazuje i jedan posebno zanimljiv dokument čiji se naziv na slici vidi u info-oblačiću (engl. \textit{tooltip}). Naime, znanstveni rad \textit{Computing Machinery and Intelligence} objavljen 1950. godine od strane Alana Turing, jednog od pionira računarstva i umjetne inteligencije, prikazan je veoma blizu dokumenata filozofije. Ovakav raspored na prvi pogled može se doimati čudnim; bilo bi prirodno pretpostaviti da će rad o umjetnoj inteligenciji biti dodijeljen kategoriji dokumenata o računarskoj znanosti. No budući da se rad velikim dijelom bavi pitanjima poput: "Mogu li računala razmišljati?" te budući da se rad bavi raznim misaonim pokusima, postaje očito da je rad zapravo vrlo filozofske naravi te da ima posve smisla što je postavljen upravo u kontekst dokumenata filozofije. Osim spomenutih, postoji još nekoliko kategorija (svijetlo-plava i tamno-plava) koje sadrže svega nekoliko dokumenata. Dokumenti prikazani u tim kategorijama nisu semantički pripali u nijednu drugu kategoriju te su dobili vlasitite kategorije. Očito je kako rezultat vizualizacije dokumenata neće uvijek biti optimalan, pa čak niti posve smislen.
+
+\begin{figure}
+\makebox[\textwidth]{\includegraphics[width=\textwidth]{turing.png}}
+\caption{Grafički prikaz sličnosti dokumenata korištene zbirke}
+\label{img:turing}
+\end{figure}
+
+Osim grafičkog prikaza sličnosti dokumenata, valja promotriti i rezultate dobivene postavljanjem upita, odnosno učitavanjem proizvoljnih dokumenata koji će potom biti uspoređeni s dokumentima iz zbirke. Slika \ref{img:astronomy_query} prikazuje pretraživanje zbirke uz upit "Stars are made of hot plasma" \footnote{Pošto su dokumenti zbirke svi na engleskom jeziku, pretraživanje ima smisla samo koristeći upite na engleskom jeziku.};
+
+\begin{figure}
+\makebox[\textwidth]{\includegraphics[width=\textwidth]{astronomy_query.png}}
+\caption{Prikaz rezultata nad unesenim korisničkim upitom}
+\label{img:astronomy_query}
+\end{figure}
 
 \chapter{Zaključak}
 Zaključak.
