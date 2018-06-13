@@ -1,15 +1,15 @@
 # Fdb version 3
-["bibtex zavrsni"] 1528891431 "zavrsni.aux" "zavrsni.bbl" "zavrsni" 1528891434
+["bibtex zavrsni"] 1528903062 "zavrsni.aux" "zavrsni.bbl" "zavrsni" 1528903382
   "./fer.bst" 1284151297 26009 c9fe7ac62e814ee4c7bb7b0cdf6bf7a5 ""
-  "literatura.bib" 1528021011 898 5ccca45eb0bcd435d1b37ea84fd42fa8 ""
-  "zavrsni.aux" 1528891433 6720 baf4f8bef2002fa4afeaaa1a294c30b2 ""
+  "literatura.bib" 1528899354 3354 ea743834a602d67da5df923d69f71681 ""
+  "zavrsni.aux" 1528903381 7787 e0a6c650eab44c28709b347d3c345d14 ""
   "zavrsni.bcf" 0 -1 0 ""
   (generated)
   "zavrsni.bbl"
   "zavrsni.blg"
-["pdflatex"] 1528891431 "/media/chup0x/Data/FER/6. semestar/Završni rad/Projekt/latex/zavrsni.tex" "zavrsni.pdf" "zavrsni" 1528891434
+["pdflatex"] 1528903379 "/media/chup0x/Data/FER/6. semestar/Završni rad/Projekt/latex/zavrsni.tex" "zavrsni.pdf" "zavrsni" 1528903382
   "/etc/texmf/web2c/texmf.cnf" 1524232533 475 c0e671620eb5563b2130f56340a5fde8 ""
-  "/media/chup0x/Data/FER/6. semestar/Završni rad/Projekt/latex/zavrsni.tex" 1528891428 55044 0a4e4d597a86cb5113fc3f28ace7a32a ""
+  "/media/chup0x/Data/FER/6. semestar/Završni rad/Projekt/latex/zavrsni.tex" 1528903379 58489 8efac168f77e33c444fcfab2e3927a84 ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1480098666 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/share/texlive/texmf-dist/fonts/map/fontname/texfonts.map" 1480098670 3287 e6b82fe08f5336d4d5ebc73fb1152e87 ""
   "/usr/share/texlive/texmf-dist/fonts/tfm/adobe/courier/pcrr8r.tfm" 1480098688 1292 bd42be2f344128bff6d35d98474adfe3 ""
@@ -162,6 +162,7 @@
   "images/clustering.pdf_tex" 1528555065 1883 d887a670af1b84682320fbc033b16b72 ""
   "images/clustering_alg.png" 1527755733 40070 e4eb3231b716f5830e104ec83c0f654f ""
   "images/diagram.png" 1528538825 10039 676419fd82c3cf21dacb26a2552f54cd ""
+  "images/document_query.png" 1528892654 144409 3ee5d80874f9951414356e34d96dff2c ""
   "images/document_search.png" 1528555356 33214 e83ac629349af16bb4582bdebd18a15f ""
   "images/elbow.pdf" 1528553366 3226 848fac97f653af43d759fa92ce678022 ""
   "images/elbow.pdf_tex" 1528553366 2798 44f2772210912c6ff0aba232b8630c7c ""
@@ -171,12 +172,12 @@
   "images/query_search.png" 1528555737 31912 61ed9a39dbe58132231efee0b9b179bb ""
   "images/turing.png" 1528732967 147518 bbff963994cbe8b7f38134d39431b1f1 ""
   "images/vectors.png" 1379005180 36116 5be84646d4a8cb7179c88cc63fc4b0fe ""
-  "zavrsni.aux" 1528891433 6720 baf4f8bef2002fa4afeaaa1a294c30b2 ""
-  "zavrsni.bbl" 1528891431 275 de5ffaf5b665b622658d80bed97ba2a5 "bibtex zavrsni"
-  "zavrsni.tex" 1528891428 55044 0a4e4d597a86cb5113fc3f28ace7a32a ""
-  "zavrsni.toc" 1528891433 1945 31403d569d347f6fdd2f686d5c23ec3c ""
+  "zavrsni.aux" 1528903381 7787 e0a6c650eab44c28709b347d3c345d14 ""
+  "zavrsni.bbl" 1528903063 2545 0751605eef9bf44ab4621a65427bc954 "bibtex zavrsni"
+  "zavrsni.tex" 1528903379 58489 8efac168f77e33c444fcfab2e3927a84 ""
+  "zavrsni.toc" 1528903381 1945 31403d569d347f6fdd2f686d5c23ec3c ""
   (generated)
-  "zavrsni.pdf"
   "zavrsni.log"
   "zavrsni.aux"
+  "zavrsni.pdf"
   "zavrsni.toc"

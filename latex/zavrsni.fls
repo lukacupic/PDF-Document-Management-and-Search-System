@@ -309,8 +309,13 @@ INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/cm/cmbx5.tfm
 INPUT ./images/astronomy_query.png
 INPUT ./images/astronomy_query.png
 INPUT ./images/astronomy_query.png
+INPUT ./images/document_query.png
+INPUT ./images/document_query.png
+INPUT ./images/document_query.png
 INPUT zavrsni.bbl
 INPUT zavrsni.bbl
+INPUT /usr/share/texlive/texmf-dist/fonts/vf/adobe/courier/pcrr8t.vf
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/adobe/courier/pcrr8r.tfm
 INPUT zavrsni.aux
 INPUT /usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc
 INPUT /usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
