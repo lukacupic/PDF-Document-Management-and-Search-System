@@ -1,4 +1,4 @@
-\begin{thebibliography}{10}
+\begin{thebibliography}{12}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{\texttt{#1}}
 \expandafter\ifx\csname urlstyle\endcsname\relax
@@ -42,6 +42,12 @@ Fruchterman Thomas~M. J. i Reingold~Edward M.
 \newblock URL
   \url{https://onlinelibrary.wiley.com/doi/abs/10.1002/spe.4380211102}.
 
+\bibitem[Le i Mikolov(2014)]{le2014distributed}
+Quoc Le i Tomas Mikolov.
+\newblock Distributed representations of sentences and documents.
+\newblock U \emph{International Conference on Machine Learning}, stranice
+  1188--1196, 2014.
+
 \bibitem[Sanderson i Croft(2012)]{sanderson2012history}
 Mark Sanderson i W~Bruce Croft.
 \newblock The history of information retrieval research.
@@ -64,6 +70,11 @@ Dominik Stanojević.
 Michael Steinbach, George Karypis, i Vipin Kumar.
 \newblock A comparison of document clustering techniques.
 \newblock 2000.
+
+\bibitem[Turing(2009)]{turing2009computing}
+Alan~M Turing.
+\newblock Computing machinery and intelligence.
+\newblock U \emph{Parsing the Turing Test}, stranice 23--65. Springer, 2009.
 
 \bibitem[Wold et~al.(1987)Wold, Esbensen, i Geladi]{wold1987principal}
 Svante Wold, Kim Esbensen, i Paul Geladi.
