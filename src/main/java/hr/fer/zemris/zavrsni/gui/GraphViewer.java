@@ -145,7 +145,7 @@ public class GraphViewer {
 		for (int i = 0; i < clusterResults.size(); i++) {
 			CentroidCluster<DocumentLocation> cluster = clusterResults.get(i);
 			for (DocumentLocation docLoc : cluster.getPoints()) {
-				docLoc.getDocument().setCluster(i);
+				docLoc.document.setCluster(i);
 			}
 		}
 	}
@@ -153,22 +153,17 @@ public class GraphViewer {
 	// wrapper class
 	private static class DocumentLocation implements Clusterable {
 
-		private double[] points;
-		private Document document;
+		double[] point = new double[2];
+		Document document;
 
 		public DocumentLocation(Document document, AbstractLayout<Document, String> layout) {
 			this.document = document;
-			points = new double[2];
-			points[0] = layout.getX(document);
-			points[1] = layout.getY(document);
+			point[0] = layout.getX(document);
+			point[1] = layout.getY(document);
 		}
 
 		public double[] getPoint() {
-			return points;
-		}
-
-		public Document getDocument() {
-			return document;
+			return point;
 		}
 	}
 

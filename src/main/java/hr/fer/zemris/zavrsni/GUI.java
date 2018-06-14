@@ -7,6 +7,7 @@ import hr.fer.zemris.zavrsni.input.QueryReader;
 import hr.fer.zemris.zavrsni.model.Document;
 import hr.fer.zemris.zavrsni.model.Result;
 import hr.fer.zemris.zavrsni.ranking.RankingFunction;
+import hr.fer.zemris.zavrsni.utils.GUIUtils;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -26,7 +27,6 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -46,15 +46,20 @@ public class GUI extends JFrame {
 		setVisible(true);
 		//setExtendedState(JFrame.MAXIMIZED_BOTH);
 		//setUndecorated(true);
-		setTitle("Sustav za upravljanje i pretraživanje baze PDF dokumenata");
+		setTitle("PDF Document Management and Search System");
 
-		initGUI();
+		try {
+			initGUI();
+		} catch (IOException e) {
+			GUIUtils.showErrorMessage(this, "An error has occurred!");
+			System.exit(1);
+		}
 	}
 
 
 	// GUI initialization
 
-	private void initGUI() {
+	private void initGUI() throws IOException {
 		chooseDataset();
 
 		JTabbedPane tabbedPane = createTabbedPane();
@@ -63,29 +68,17 @@ public class GUI extends JFrame {
 		pack();
 	}
 
-	private static void chooseDataset() {
-		try {
-			function = Initializer.init(Paths.get("/media/chup0x/Data/FER/6. semestar/Završni rad/Corpus/dataset"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		/*
+	private static void chooseDataset() throws IOException {
 		JFileChooser chooser = new JFileChooser();
-		chooser.setCurrentDirectory(new File("/media/chup0x/Data/FER/6. semestar/Završni rad/Corpus/dataset"));
+		chooser.setCurrentDirectory(new File("."));
 		chooser.setDialogTitle("Choose Dataset Directory");
 		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		chooser.setAcceptAllFileFilterUsed(false);
 
-		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-			try {
-				function = Initializer.init(chooser.getSelectedFile().toPath());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} else {
+		if (chooser.showOpenDialog(null) != JFileChooser.APPROVE_OPTION) {
 			System.exit(1);
 		}
-		*/
+		function = Initializer.init(chooser.getSelectedFile().toPath());
 	}
 
 	private JTabbedPane createTabbedPane() {
@@ -159,7 +152,8 @@ public class GUI extends JFrame {
 			try {
 				results = processQuery(textField.getText());
 			} catch (IOException ex) {
-				ex.printStackTrace();
+				GUIUtils.showErrorMessage(null, "Could not process query!");
+				System.exit(1);
 			}
 
 			DefaultTableModel model = (DefaultTableModel) table.getModel();
@@ -175,21 +169,19 @@ public class GUI extends JFrame {
 			chooser.setCurrentDirectory(new File("."));
 			chooser.setDialogTitle("Choose Document");
 
-			Path document;
-			if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-				document = chooser.getSelectedFile().toPath();
-			} else {
+			if (chooser.showOpenDialog(null) != JFileChooser.APPROVE_OPTION) {
 				return;
 			}
 
-			//label.setText(document.toString());
-			label.setText("/media/luka/Data/FER/6. semestar/Završni rad/Corpus/dataset");
+			Path document = chooser.getSelectedFile().toPath();
+			label.setText(document.toString());
 
 			List<Result> results = null;
 			try {
 				results = processDocument(document);
 			} catch (IOException ex) {
-				ex.printStackTrace();
+				GUIUtils.showErrorMessage(null, "Could not process document!");
+				System.exit(1);
 			}
 
 			DefaultTableModel model = (DefaultTableModel) table.getModel();
