@@ -2,6 +2,8 @@
 
 \usepackage{booktabs}
 \usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
 \usepackage{svg}
 \graphicspath{{./images/}}
 
@@ -61,7 +63,9 @@ Kratki osvrt na ove i mnoge druge primjene ukazuju na nepobitnu činjenicu da je
 
 Tema ovog rada biti će obraditi neke od metoda za računalni prikaz dokumenata nad kojima će potom biti provedena usporedba sličnosti. Tako uspoređene dokumente biti će moguće prikazati grafički kako bi se dobio uvid u sličnost dokumenata. Teoretska podloga rada biti će popraćena programskom implementacijom koja će korisniku omogućiti upravljanje i pretraživanje lokalne baze PDF dokumenata te vizualizaciju iste.
 
-U \ref{chap:overview}. poglavlju dan je kratak (povijesni) pregled područja te motivacija za ovaj rad. U \ref{docmodel}. poglavlju opisan je prikaz, odnosno model prikaza dokumenata. Obrađeno je nekoliko metoda za rangiranje dokumenata, zajedno s matematičkom podlogom iza istih. Poglavlje \ref{chap:docsin2d} opisuje problematiku prikaza dokumenata u 2D koordinatnom sustavu u svrhe vizualizacije sličnosti dokumenata te obrađuje korištene metode. U poglavlju \ref{chap:impl} opisana je implementacija programske potpore te su navedene korištene tehnologije i alati. Dan je pregled arhitekture programa te osnovnih funkcionalnosti. Naposlijetku, u \ref{chap:results}. su poglavlju opisani dobiveni rezultati te je dana njihova interpretacija. Kroz sljedeće 42 stranice će se obraditi problematika modeliranja \cite{adams1978hitchhikers}, prikaza i usporedbe dokumenata u svrhe izračuna i vizualizacije njihovih međusobnih sličnosti.
+U \ref{chap:overview}. poglavlju dan je kratak (povijesni) pregled područja te motivacija za ovaj rad. U \ref{docmodel}. poglavlju opisan je prikaz, odnosno model prikaza dokumenata. Obrađeno je nekoliko metoda za rangiranje dokumenata, zajedno s matematičkom podlogom iza istih. Poglavlje \ref{chap:docsin2d} opisuje problematiku prikaza dokumenata u 2D koordinatnom sustavu u svrhe vizualizacije sličnosti dokumenata te obrađuje korištene metode. U poglavlju \ref{chap:impl} opisana je implementacija programske potpore te su navedene korištene tehnologije i alati. Dan je pregled arhitekture programa te osnovnih funkcionalnosti. Naposlijetku, u \ref{chap:results}. su poglavlju opisani dobiveni rezultati te je dana njihova interpretacija.
+
+Kroz sljedeće 42 stranice će se obraditi problematika modeliranja \cite{hitchhiker}, prikaza i usporedbe dokumenata u svrhe izračuna i vizualizacije njihovih međusobnih sličnosti.
 
 \chapter{Pregled područja}
 \label{chap:overview}
@@ -75,11 +79,10 @@ Korištenje računala za dohvat informacija (engl. \textit{information retrieval
 Prije svega, valja definirati što u kontekstu analize i pretraživanja teksta predstavlja dokument. Dokument se neformalno može definirati kao kolekcija riječi. Ovakva kolekcija ne mora nužno biti skup, pošto dokument može imati više ponavljanja istih riječi, stoga se na dokument može gledati kao na poredanu kolekciju riječi u kojoj može biti ponavljanja  (ovakva kolekcija naziva se mnogoskup (engl. \textit{multiset}) o kojoj će više riječi biti u nastavku paragrafa). Ovakva definicija dokumenta biti će bitna u nastavku gdje se opisuje semantička sličnost dokumenata \cite{Hausler2013}. Primjerice, neki dokument u kojemu se često pojavljuju riječi "računalo", "algoritam" te "memorija" očito će biti relevantan u kontekstu dokumenata vezanih za računarsku znanost. Postavlja se pitanje kako tako definirane dokumente prikazati u računalu. Jedan (smisleni) pokušaj bio bi predstaviti riječi kao vektore, gdje bi svako slovo te riječi predstavljalo jednu komponentu vektora. Ovakav model naziva se \textit{Word2Vec} te služi za predstavljanje riječi iz nekog vokabulara na način da svaka riječ dobije odgovarajući položaj u više-dimenzijskom prostoru. Tako definiran model ima za posljedicu to da će semantički sličnije riječi biti bliže (odnosno da će pripadajući im vektori međusobno zatvarati manji kut) i obrnuto. Ovakav se model često koristi u kontekstu semantičke analize riječi, primjerice u pronalaženju sličnih riječi, sinonima, antonima itd. No ipak, u kontekstu ovog rada fokus će imati semantička sličnost \textit{dokumenata}, stoga će za predstavljanje istih biti korišten tzv. model vreće riječi (engl. \textit{bag of words model}). U modelu vreće riječi, tekst dokumenta predstavljen je multiskupom riječi. Multiskup jest proširenje klasičnog skupa u smislu da dozvoljava više pojavljivanja elemenata, odnosno u ovom kontekstu, riječi. Kod modela vreće riječi dakle nije bitna semantika samih dokumenata, pa čak niti poredak riječi, već je bitno samo koje se riječi pojavljuju u određenom dokumentu, odnosno koja je učestalost njihovog pojavljivanja. Primjer modela vreće riječi prikazan je u nastavku:
 Neka su zadani dokumenti $d_{1}$ = "Marko jako voli domaćice. Domaćice su ukusne." te $d_{2}$ = "Marko voli domaćice i programiranje." Za ovako zadane dokumente, prikazane su dobivene vreće riječi u JSON formatu:
 \begin{align*}
-{{BoW_{1}}=\{\text{{"Marko":1, "jako":1, "voli":1, "domaćice":2, "su":1, "ukusne":1}}}\},
+BoW_{1} &= \text{\{"Marko":1, "jako":1, "voli":1, "domaćice":2, "su":1, "ukusne":1\}} \\
+BoW_{2} &= \text{\{"Marko":1, "voli":1, "domaćice":1, "i":1, "programiranje":1\}}
 \end{align*}
-\begin{align*}
-{{BoW_{2}}=\{\text{{"Marko":1, "voli":1, "domaćice":1, "i":1, "programiranje":1}}}\},
-\end{align*}
+
 Iz dobivenih vreća riječi može se vidjeti koje se riječi nalaze u kojem dokumentu, odnosno koja je frekvencija njihovog pojavljivanja. \newline
 Kako bi se uopće moglo započeti sa semantičkom analizom dokumenata, potrebno je imati kolekciju dokumenata (engl. \textit{dataset}; u daljnjem tekstu: zbirka) koji će se međusobno uspoređivati. Nakon što se osigura postojanje zbirke, korištenje modela vreće riječi zamišljeno je tako da se na početku iz svih dokumenata zbirke izvade sve riječi te potom uklone nebitne riječi (o kojima će više riječi biti u poglavlju \ref{chap:impl}) a od preostalih se riječi izgradi vektor koji će \textit{de-facto} predstavljati dokument. Ovako opisani model često je korišten u području procesiranja prirodnog jezika te dohvata informacija kako iz dokumenata tako iz drugih tekstualnih izvora.
 
@@ -136,12 +139,22 @@ dolazi se do mjere kosinusne sličnosti dvaju vektora (dokumenata):
 \begin{equation}
 {\text{similarity}}=\cos(\theta )={\mathbf {A} \cdot \mathbf {B}  \over \|\mathbf {A} \|\|\mathbf {B}\|}
 \end{equation}
-Naime, sličnost dvaju dokumenata u ovom kontekstu prikazuje se kao vrijednost kosinusa kuta između njihovih vektora. Što su dokumenti sličniji, kosinus kuta biti će bliži jedinici, odnosno što su dokumenti različitiji, kosinus kuta biti će bliži nuli. Intuicija ovoga je sljedeća: ako se radi jednostavnosti zamisli da vektori imaju samo dvije dimenzije, tada će sličnost dokumenata koje predstavljaju biti to veća što su oni "bliži" u 2D koordinatnom sustavu, tj. što je kosinus kuta među njima manji. Vrijedi i da će dokumenti biti manje slični što je kosinus kuta njihovih vektora veći. Grafička interpretacija prikazana je na slici \ref{fig:vectors}.
+Naime, sličnost dvaju dokumenata u ovom kontekstu prikazuje se kao vrijednost kosinusa kuta između njihovih vektora. Što su dokumenti sličniji, kosinus kuta biti će bliži jedinici, odnosno što su dokumenti različitiji, kosinus kuta biti će bliži nuli. Intuicija ovoga je sljedeća: ako se radi jednostavnosti zamisli da vektori imaju samo dvije dimenzije, tada će sličnost dokumenata koje predstavljaju biti to veća što su oni "bliži" u 2D koordinatnom sustavu, tj. što je kosinus kuta među njima manji. Vrijedi i da će dokumenti biti manje slični što je kosinus kuta njihovih vektora veći. Grafička interpretacija prikazana je na slici \ref{img:vectors}.
 
-\begin{figure}
-\makebox[\textwidth]{\includegraphics[width=\textwidth]{vectors.png}}
-\caption{Prikaz sličnosti dvaju vektora u 2D koordinatnom sustavu}
-\label{fig:vectors}
+\begin{figure}[!tbp]
+\begin{subfigure}[b]{0.4\textwidth}
+    \input{images/vectors1.pdf_tex}
+    \caption{Primjer sličnih vektora.}
+    \label{fig:f1}
+\end{subfigure}
+\hfill
+\begin{subfigure}[b]{0.4\textwidth}
+    \input{images/vectors2.pdf_tex}
+    \caption{Primjer različitih vektora.}
+    \label{fig:f2}
+\end{subfigure}
+\caption{Primjer sličnih i različitih vektora}
+\label{img:vectors}
 \end{figure}
 
 Ovo saznanje o kosinusnoj mjeri sličnosti dokumenata može se iskoristiti u izgradnji sljedećeg modela: Neka je $v_{d_i}$ vektorska reprezentacija (binarna, frekvencijska ili TF-IDF) dokumenta $d_{i}$. Tada se sličnost dvaju dokumenata mjeri kao:

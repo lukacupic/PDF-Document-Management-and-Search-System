@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.4.20)  13 JUN 2018 22:34
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017/Debian) (preloaded format=pdflatex 2018.4.20)  14 JUN 2018 11:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -569,6 +569,11 @@ Package: booktabs 2016/04/27 v1.618033 publication quality tables
 \@lastruleclass=\count110
 \@thisrulewidth=\dimen144
 )
+(/usr/share/texlive/texmf-dist/tex/latex/caption/subcaption.sty
+Package: subcaption 2016/05/22 v1.1-161 Sub-captions (AR)
+\c@subfigure=\count111
+\c@subtable=\count112
+)
 (/usr/share/texlive/texmf-dist/tex/latex/svg/svg.sty
 Package: svg 2017/05/23 v2.00b (include SVG pictures)
 
@@ -605,8 +610,8 @@ Package pdftexcmds Info: \pdfdraftmode found.
 Package: shellesc 2016/06/07 v0.02a unified shell escape interface for LaTeX
 Package shellesc Info: Restricted shell escape enabled on input line 69.
 )
-\c@svg@param@lastpage=\count111
-\c@svg@param@currpage=\count112
+\c@svg@param@lastpage=\count113
+\c@svg@param@currpage=\count114
 )
 (/usr/share/texlive/texmf-dist/tex/latex/xcolor/xcolor.sty
 Package: xcolor 2016/05/11 v2.12 LaTeX color extensions (UK)
@@ -633,23 +638,23 @@ Package: transparent 2016/05/16 v1.1 Transparency via pdfTeX's color stack (HO)
 Package: auxhook 2016/05/16 v1.4 Hooks for auxiliary files (HO)
 ))
 (/usr/share/texlive/texmf-dist/tex/latex/listings/listings.sty
-\lst@mode=\count113
+\lst@mode=\count115
 \lst@gtempboxa=\box29
 \lst@token=\toks25
-\lst@length=\count114
+\lst@length=\count116
 \lst@currlwidth=\dimen145
-\lst@column=\count115
-\lst@pos=\count116
+\lst@column=\count117
+\lst@pos=\count118
 \lst@lostspace=\dimen146
 \lst@width=\dimen147
-\lst@newlines=\count117
-\lst@lineno=\count118
+\lst@newlines=\count119
+\lst@lineno=\count120
 \lst@maxwidth=\dimen148
 
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstmisc.sty
 File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
-\c@lstnumber=\count119
-\lst@skipnumbers=\count120
+\c@lstnumber=\count121
+\lst@skipnumbers=\count122
 \lst@framebox=\box30
 )
 (/usr/share/texlive/texmf-dist/tex/latex/listings/listings.cfg
@@ -662,19 +667,19 @@ File: lstlang1.sty 2015/06/04 1.6 listings language file
 ) (./zavrsni.aux)
 \openout1 = `zavrsni.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Try loading font information for T1+ptm on input line 37.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 39.
+LaTeX Font Info:    ... okay on input line 39.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 39.
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
@@ -714,16 +719,16 @@ File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 
 (/usr/share/texlive/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count121
+\scratchcounter=\count123
 \scratchdimen=\dimen149
 \scratchbox=\box31
-\nofMPsegments=\count122
-\nofMParguments=\count123
+\nofMPsegments=\count124
+\nofMParguments=\count125
 \everyMPshowfont=\toks26
-\MPscratchCnt=\count124
+\MPscratchCnt=\count126
 \MPscratchDim=\dimen150
-\MPnumerator=\count125
-\makeMPintoPDFobject=\count126
+\MPnumerator=\count127
+\makeMPintoPDFobject=\count128
 \everyMPtoPDFconversion=\toks27
 ) (/usr/share/texlive/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
@@ -761,33 +766,33 @@ e
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-\c@lstlisting=\count127
-LaTeX Font Info:    Try loading font information for T1+phv on input line 48.
+\c@lstlisting=\count129
+LaTeX Font Info:    Try loading font information for T1+phv on input line 50.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 48.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 50.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 48.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 50.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <24.88> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 48.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 50.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <24.88> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 48.
-LaTeX Font Info:    Try loading font information for U+msa on input line 48.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 50.
+LaTeX Font Info:    Try loading font information for U+msa on input line 50.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 48.
+LaTeX Font Info:    Try loading font information for U+msb on input line 50.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [1
 
 {/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 51.
+LaTeX Font Info:    Try loading font information for T1+pcr on input line 53.
 
 (/usr/share/texlive/texmf-dist/tex/latex/psnfss/t1pcr.fd
 File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
@@ -812,38 +817,54 @@ Poglavlje 2.
 ]
 Poglavlje 3.
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <17.28> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 73.
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 77.
 [3
 
 ] [4] [5] [6]
 
 Package amsmath Warning: Foreign command \over;
 (amsmath)                \frac or \genfrac should be used instead
-(amsmath)                 on input line 137.
+(amsmath)                 on input line 140.
 
-<./images/vectors.png, id=49, 714.67pt x 200.75pt>
-File: ./images/vectors.png Graphic file (type png)
-<use ./images/vectors.png>
-Package pdftex.def Info: ./images/vectors.png  used on input line 142. on input
- line 142.
-Package pdftex.def Info: Requested size: 412.56497pt x 115.88982pt on input lin
-e 142.
+(./images/vectors1.pdf_tex
+<./images/vectors1.pdf, id=49, page=1, pagebox=cropbox, 156.35214pt x 156.35202
+pt>
+File: ./images/vectors1.pdf Graphic file (type pdf)
+<use ./images/vectors1.pdf, page 1>
+Package pdftex.def Info: ./images/vectors1.pdf , page1 used on input line 52. o
+n input line 52.
+Package pdftex.def Info: Requested size: 156.35213pt x 156.35878pt on input lin
+e 52.
+)
 LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10.95> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 143.
-[7 <./images/vectors.png>] [8] [9]
+(Font)              Font shape `T1/ptm/b/n' tried instead on input line 147.
+ (./images/vectors2.pdf_tex
+<./images/vectors2.pdf, id=50, page=1, pagebox=cropbox, 156.35214pt x 156.35202
+pt>
+File: ./images/vectors2.pdf Graphic file (type pdf)
+<use ./images/vectors2.pdf, page 1>
+Package pdftex.def Info: ./images/vectors2.pdf , page1 used on input line 52. o
+n input line 52.
+Package pdftex.def Info: Requested size: 156.35213pt x 156.35878pt on input lin
+e 52.
+) [7] [8 <./images/vectors1.pdf> <./images/vectors2.pdf
+
+pdfTeX warning: pdflatex (file ./images/vectors2.pdf): PDF inclusion: multiple 
+pdfs with page group included in a single page
+>] [9]
 Poglavlje 4.
 [10
 
 ]
-<./images/fdgd_example.png, id=69, 1003.75pt x 1003.75pt>
+<./images/fdgd_example.png, id=71, 651.43375pt x 659.46375pt>
 File: ./images/fdgd_example.png Graphic file (type png)
 <use ./images/fdgd_example.png>
-Package pdftex.def Info: ./images/fdgd_example.png  used on input line 177. on 
-input line 177.
-Package pdftex.def Info: Requested size: 350.68274pt x 350.6898pt on input line
- 177.
- [11 <./images/fdgd_example.png (PNG copy)>] (./images/clustering.pdf_tex
-<./images/clustering.pdf, id=73, page=1, pagebox=cropbox, 433.62pt x 289.08pt>
+Package pdftex.def Info: ./images/fdgd_example.png  used on input line 190. on 
+input line 190.
+Package pdftex.def Info: Requested size: 350.68274pt x 355.01836pt on input lin
+e 190.
+ [11 <./images/fdgd_example.png>] (./images/clustering.pdf_tex
+<./images/clustering.pdf, id=77, page=1, pagebox=cropbox, 433.62pt x 289.08pt>
 File: ./images/clustering.pdf Graphic file (type pdf)
 <use ./images/clustering.pdf, page 1>
 Package pdftex.def Info: ./images/clustering.pdf , page1 used on input line 52.
@@ -854,67 +875,67 @@ Package pdftex.def Info: Requested size: 412.56497pt x 275.0567pt on input line
 
 LaTeX Warning: `h' float specifier changed to `ht'.
 
-<./images/clustering_alg.png, id=74, 584.1825pt x 220.57407pt>
+<./images/clustering_alg.png, id=78, 584.1825pt x 220.57407pt>
 File: ./images/clustering_alg.png Graphic file (type png)
 <use ./images/clustering_alg.png>
-Package pdftex.def Info: ./images/clustering_alg.png  used on input line 214. o
-n input line 214.
+Package pdftex.def Info: ./images/clustering_alg.png  used on input line 227. o
+n input line 227.
 Package pdftex.def Info: Requested size: 412.56497pt x 155.78072pt on input lin
-e 214.
+e 227.
 [12] [13 <./images/clustering.pdf> <./images/clustering_alg.png (PNG copy)>]
 Poglavlje 5.
 [14
 
 ]
-<./images/diagram.png, id=389, 467.7475pt x 233.87375pt>
+<./images/diagram.png, id=393, 467.7475pt x 233.87375pt>
 File: ./images/diagram.png Graphic file (type png)
 <use ./images/diagram.png>
-Package pdftex.def Info: ./images/diagram.png  used on input line 234. on input
- line 234.
+Package pdftex.def Info: ./images/diagram.png  used on input line 247. on input
+ line 247.
 Package pdftex.def Info: Requested size: 350.68274pt x 175.35133pt on input lin
-e 234.
-<./images/query_search.png, id=390, 560.8453pt x 578.16pt>
+e 247.
+<./images/query_search.png, id=394, 560.8453pt x 578.16pt>
 File: ./images/query_search.png Graphic file (type png)
 <use ./images/query_search.png>
-Package pdftex.def Info: ./images/query_search.png  used on input line 242. on 
-input line 242.
+Package pdftex.def Info: ./images/query_search.png  used on input line 255. on 
+input line 255.
 Package pdftex.def Info: Requested size: 350.68274pt x 361.5079pt on input line
- 242.
+ 255.
  [15]
-<./images/document_search.png, id=394, 560.8453pt x 578.16pt>
+<./images/document_search.png, id=398, 560.8453pt x 578.16pt>
 File: ./images/document_search.png Graphic file (type png)
 <use ./images/document_search.png>
-Package pdftex.def Info: ./images/document_search.png  used on input line 250. 
-on input line 250.
+Package pdftex.def Info: ./images/document_search.png  used on input line 263. 
+on input line 263.
 Package pdftex.def Info: Requested size: 350.68274pt x 361.5079pt on input line
- 250.
+ 263.
  [16 <./images/diagram.png (PNG copy)>] [17 <./images/query_search.png>] [18 <.
 /images/document_search.png>] [19]
-<./images/graph_program.png, id=409, 560.8453pt x 578.16pt>
+<./images/graph_program.png, id=413, 560.8453pt x 578.16pt>
 File: ./images/graph_program.png Graphic file (type png)
 <use ./images/graph_program.png>
-Package pdftex.def Info: ./images/graph_program.png  used on input line 276. on
- input line 276.
+Package pdftex.def Info: ./images/graph_program.png  used on input line 289. on
+ input line 289.
 Package pdftex.def Info: Requested size: 350.68274pt x 361.5079pt on input line
- 276.
+ 289.
  [20] [21 <./images/graph_program.png>] [22] [23]
 LaTeX Font Info:    Font shape `T1/ptm/bx/it' in size <17.28> not available
-(Font)              Font shape `T1/ptm/b/it' tried instead on input line 334.
+(Font)              Font shape `T1/ptm/b/it' tried instead on input line 347.
 
-Overfull \hbox (8.04369pt too wide) in paragraph at lines 334--334
+Overfull \hbox (8.04369pt too wide) in paragraph at lines 347--347
 []\T1/ptm/b/n/17.28 Optimizacija hi-per-pa-ra-me-tra \T1/ptm/b/it/17.28 k \T1/p
 tm/b/n/17.28 al-go-ritma k-sredina 
  []
 
-<./images/join.jpg, id=424, 1003.75pt x 1003.75pt>
+<./images/join.jpg, id=428, 1003.75pt x 1003.75pt>
 File: ./images/join.jpg Graphic file (type jpg)
 <use ./images/join.jpg>
-Package pdftex.def Info: ./images/join.jpg  used on input line 338. on input li
-ne 338.
+Package pdftex.def Info: ./images/join.jpg  used on input line 351. on input li
+ne 351.
 Package pdftex.def Info: Requested size: 412.56497pt x 412.56633pt on input lin
-e 338.
+e 351.
 (./images/elbow.pdf_tex
-<./images/elbow.pdf, id=425, page=1, pagebox=cropbox, 355.18019pt x 279.72382pt
+<./images/elbow.pdf, id=429, page=1, pagebox=cropbox, 355.18019pt x 279.72382pt
 >
 File: ./images/elbow.pdf Graphic file (type pdf)
 <use ./images/elbow.pdf, page 1>
@@ -922,7 +943,7 @@ Package pdftex.def Info: ./images/elbow.pdf , page1 used on input line 52. on i
 nput line 52.
 Package pdftex.def Info: Requested size: 412.56497pt x 324.93652pt on input lin
 e 52.
-<./images/elbow.pdf, id=426, page=2, pagebox=cropbox, 355.18019pt x 279.72382pt
+<./images/elbow.pdf, id=430, page=2, pagebox=cropbox, 355.18019pt x 279.72382pt
 >
 File: ./images/elbow.pdf Graphic file (type pdf)
 <use ./images/elbow.pdf, page 2>
@@ -930,7 +951,7 @@ Package pdftex.def Info: ./images/elbow.pdf , page2 used on input line 54. on i
 nput line 54.
 Package pdftex.def Info: Requested size: 412.56497pt x 324.93652pt on input lin
 e 54.
-<./images/elbow.pdf, id=427, page=3, pagebox=cropbox, 355.18019pt x 279.72382pt
+<./images/elbow.pdf, id=431, page=3, pagebox=cropbox, 355.18019pt x 279.72382pt
 >
 File: ./images/elbow.pdf Graphic file (type pdf)
 <use ./images/elbow.pdf, page 3>
@@ -952,31 +973,31 @@ pdfTeX warning: pdflatex (file ./images/elbow.pdf): PDF inclusion: multiple pdf
 s with page group included in a single page
 >] [27] [28]
 Poglavlje 6.
-<./images/turing.png, id=448, 737.75626pt x 585.68813pt>
+<./images/turing.png, id=452, 737.75626pt x 585.68813pt>
 File: ./images/turing.png Graphic file (type png)
 <use ./images/turing.png>
-Package pdftex.def Info: ./images/turing.png  used on input line 423. on input 
-line 423.
+Package pdftex.def Info: ./images/turing.png  used on input line 436. on input 
+line 436.
 Package pdftex.def Info: Requested size: 350.68274pt x 278.39243pt on input lin
-e 423.
+e 436.
 [29
 
 ] [30 <./images/turing.png>]
-<./images/astronomy_query.png, id=456, 633.11531pt x 478.78876pt>
+<./images/astronomy_query.png, id=460, 633.11531pt x 478.78876pt>
 File: ./images/astronomy_query.png Graphic file (type png)
 <use ./images/astronomy_query.png>
-Package pdftex.def Info: ./images/astronomy_query.png  used on input line 439. 
-on input line 439.
+Package pdftex.def Info: ./images/astronomy_query.png  used on input line 452. 
+on input line 452.
 Package pdftex.def Info: Requested size: 350.68274pt x 265.2049pt on input line
- 439.
+ 452.
  [31]
-<./images/document_query.png, id=460, 608.2725pt x 466.74374pt>
+<./images/document_query.png, id=464, 608.2725pt x 466.74374pt>
 File: ./images/document_query.png Graphic file (type png)
 <use ./images/document_query.png>
-Package pdftex.def Info: ./images/document_query.png  used on input line 449. o
-n input line 449.
+Package pdftex.def Info: ./images/document_query.png  used on input line 462. o
+n input line 462.
 Package pdftex.def Info: Requested size: 350.68274pt x 269.09488pt on input lin
-e 449.
+e 462.
  [32 <./images/astronomy_query.png>]
 [33 <./images/document_query.png>]
 Poglavlje 7.
@@ -998,13 +1019,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 30--35
 
 ]) [36] [37] (./zavrsni.aux) ) 
 Here is how much of TeX's memory you used:
- 9058 strings out of 492990
- 128715 string characters out of 6135005
- 260171 words of memory out of 5000000
- 12386 multiletter control sequences out of 15000+600000
+ 9133 strings out of 492990
+ 130115 string characters out of 6135005
+ 261446 words of memory out of 5000000
+ 12454 multiletter control sequences out of 15000+600000
  82519 words of font info for 104 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 48i,11n,42p,2288b,1209s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 48i,10n,42p,2288b,1209s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texlive/texmf-dist/fonts/enc/dvips/ba
 se/8r.enc}</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.
 pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></
@@ -1022,10 +1043,10 @@ texmf-dist/fonts/type1/urw/times/utmb8a.pfb></usr/share/texlive/texmf-dist/font
 s/type1/urw/times/utmbi8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/ti
 mes/utmr8a.pfb></usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmr8a.pfb>
 </usr/share/texlive/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on zavrsni.pdf (42 pages, 1291482 bytes).
+Output written on zavrsni.pdf (42 pages, 1109150 bytes).
 PDF statistics:
- 543 PDF objects out of 1000 (max. 8388607)
- 355 compressed objects within 4 object streams
+ 547 PDF objects out of 1000 (max. 8388607)
+ 358 compressed objects within 4 object streams
  0 named destinations out of 1000 (max. 500000)
- 76 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 81 words of extra memory for PDF output out of 10000 (max. 10000000)
 

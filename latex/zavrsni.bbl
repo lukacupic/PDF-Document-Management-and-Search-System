@@ -5,10 +5,10 @@
   \providecommand{\doi}[1]{doi: #1}\else
   \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibitem[Adams(1978)]{adams1978hitchhikers}
+\bibitem[Adams(1979)]{hitchhiker}
 Douglas Adams.
-\newblock The hitchhiker's guide to the galaxy.
-\newblock 1978.
+\newblock The {Hitchhiker}'s {Guide} to the {Galaxy}.
+\newblock 1979.
 
 \bibitem[Allahyari et~al.(2017)Allahyari, Pouriyeh, Assefi, Safaei, Trippe,
   Gutierrez, i Kochut]{allahyari2017}
