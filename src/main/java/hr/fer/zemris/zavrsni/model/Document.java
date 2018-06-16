@@ -87,7 +87,7 @@ public class Document implements Serializable {
 	 * @return the path to the document
 	 */
 	public Path getPath() {
-		return Paths.get(path);
+		return path != null ? Paths.get(path) : null;
 	}
 
 	/**

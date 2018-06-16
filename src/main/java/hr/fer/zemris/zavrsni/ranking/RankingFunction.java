@@ -48,8 +48,10 @@ public abstract class RankingFunction {
 	 * The default constructor. Used when constructing the object
 	 * through deserialization.
 	 */
-	public RankingFunction() {
+	public RankingFunction() throws IOException {
 		function = this;
+		InputProcessor.setStopWords(Initializer.STOP_WORDS_PATH);
+		InputProcessor.setReader(reader);
 	}
 
 	/**
@@ -116,10 +118,6 @@ public abstract class RankingFunction {
 	 * @throws IOException if an error occurs while initialization
 	 */
 	private void init(Path path) throws IOException {
-		// Initialize document reading mechanism
-		InputProcessor.setStopWords(Initializer.STOP_WORDS_PATH);
-		InputProcessor.setReader(reader);
-
 		// Initialize the dataset
 		createVocabulary(path);
 		initDocuments(path);

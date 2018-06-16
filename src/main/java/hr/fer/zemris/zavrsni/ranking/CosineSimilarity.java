@@ -23,7 +23,7 @@ public class CosineSimilarity extends RankingFunction {
 	 * The default constructor. Used when constructing the object
 	 * through deserialization.
 	 */
-	public CosineSimilarity() {
+	public CosineSimilarity() throws IOException {
 		super();
 	}
 
@@ -53,7 +53,7 @@ public class CosineSimilarity extends RankingFunction {
 	}
 
 	@Override
-	public double sim(Document d1, Document d2)  {
+	public double sim(Document d1, Document d2) {
 		return d1.getVector().cos(d2.getVector());
 	}
 }

@@ -33,7 +33,7 @@ public class OkapiBM25 extends RankingFunction {
 	 * The default constructor. Used when constructing the object
 	 * through deserialization.
 	 */
-	public OkapiBM25() {
+	public OkapiBM25() throws IOException{
 		super();
 	}
 

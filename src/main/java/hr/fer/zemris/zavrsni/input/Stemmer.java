@@ -1,13 +1,5 @@
 package hr.fer.zemris.zavrsni.input;
 
-class NewString {
-	public String str;
-
-	NewString() {
-		str = "";
-	}
-}
-
 public class Stemmer {
 
 	String Clean(String str) {
@@ -387,6 +379,14 @@ public class Stemmer {
 	public static void main(String[] args) {
 		Stemmer s2 = new Stemmer();
 		System.out.println();
+	}
+
+	private class NewString {
+		public String str;
+
+		NewString() {
+			str = "";
+		}
 	}
 
 } //class

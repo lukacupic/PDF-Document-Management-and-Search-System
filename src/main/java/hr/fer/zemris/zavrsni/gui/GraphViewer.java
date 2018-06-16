@@ -19,8 +19,11 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Luka Cupic
@@ -60,6 +63,28 @@ public class GraphViewer {
 		DirectedSparseGraph<Document, String> g = new DirectedSparseGraph<>();
 		documents.forEach(g::addVertex);
 
+		initGraph(g, documents);
+
+		FRLayout<Document, String> layout = new FRLayout<>(g);
+		layout.setSize(new Dimension(width, height));
+		layout.initialize();
+
+		layout.setRepulsionMultiplier(1);
+
+		while (!layout.done()) {
+			layout.step();
+		}
+
+		List<DocumentLocation> clusterInput = new ArrayList<>();
+		documents.forEach(document -> clusterInput.add(new DocumentLocation(document, layout)));
+
+		int k = (int) Math.sqrt(documents.size() / (double) 2);
+		Map<Document, Integer> clusterMap = performClustering(documents, layout, k);
+
+		return createVV(layout, g, clusterMap);
+	}
+
+	private static void initGraph(DirectedSparseGraph<Document, String> g, List<Document> documents) {
 		RankingFunction.DatasetInfo.DocumentPair pair = new RankingFunction.DatasetInfo.DocumentPair();
 		for (int i = 0; i < documents.size(); i++) {
 			for (int j = 0; j < documents.size(); j++) {
@@ -76,25 +101,30 @@ public class GraphViewer {
 				}
 			}
 		}
+	}
 
-		FRLayout<Document, String> layout = new FRLayout<>(g);
-		layout.setSize(new Dimension(width, height));
-		layout.initialize();
-
-		layout.setRepulsionMultiplier(1);
-
-		while (!layout.done()) {
-			layout.step();
-		}
+	private static Map<Document, Integer> performClustering(List<Document> documents, AbstractLayout<Document, String> layout, int k) {
+		Map<Document, Integer> clusterMap = new HashMap<>();
 
 		List<DocumentLocation> clusterInput = new ArrayList<>();
 		documents.forEach(document -> clusterInput.add(new DocumentLocation(document, layout)));
 
-		int k = (int) Math.sqrt(documents.size() / (double) 2);
-		performClustering(documents, layout, k);
+		KMeansPlusPlusClusterer<DocumentLocation> clusterer = new KMeansPlusPlusClusterer<>(k, 10000);
+		List<CentroidCluster<DocumentLocation>> clusterResults = clusterer.cluster(clusterInput);
 
-		// -- visualize --
+		for (int i = 0; i < clusterResults.size(); i++) {
+			CentroidCluster<DocumentLocation> cluster = clusterResults.get(i);
+			for (DocumentLocation docLoc : cluster.getPoints()) {
+				docLoc.document.setCluster(i);
+				clusterMap.put(docLoc.document, i);
+			}
+		}
+		return clusterMap;
+	}
 
+	private static VisualizationViewer<Document, String> createVV(FRLayout<Document, String> layout,
+	                                                              DirectedSparseGraph<Document, String> g,
+	                                                              Map<Document, Integer> clusterMap) {
 		VisualizationViewer<Document, String> vv = new VisualizationViewer<>(layout);
 
 		vv.getRenderContext().setEdgeDrawPaintTransformer(input -> new Color(163, 163, 163));
@@ -104,8 +134,13 @@ public class GraphViewer {
 
 		vv.getRenderContext().setVertexStrokeTransformer(input -> new BasicStroke(0.1f));
 		vv.getRenderContext().setVertexShapeTransformer(input -> new Ellipse2D.Double(-10, -10, 10, 10));
-		vv.getRenderContext().setVertexFillPaintTransformer(d -> colors[d.getCluster()]);
-		vv.setVertexToolTipTransformer(input -> input.getPath().toFile().getName());
+		vv.getRenderContext().setVertexFillPaintTransformer(d -> colors[clusterMap.get(d)]);
+		vv.setVertexToolTipTransformer(input -> {
+			if (input == null) return "[Unknown]";
+
+			Path path = input.getPath();
+			return path != null ? path.toFile().getName() : "[Unknown]";
+		});
 
 		vv.addGraphMouseListener(new GraphMouseListener<Document>() {
 			@Override
@@ -133,21 +168,6 @@ public class GraphViewer {
 		vv.setGraphMouse(graphMouse);
 
 		return vv;
-	}
-
-	private static void performClustering(List<Document> documents, AbstractLayout<Document, String> layout, int k) {
-		List<DocumentLocation> clusterInput = new ArrayList<>();
-		documents.forEach(document -> clusterInput.add(new DocumentLocation(document, layout)));
-
-		KMeansPlusPlusClusterer<DocumentLocation> clusterer = new KMeansPlusPlusClusterer<>(k, 10000);
-		List<CentroidCluster<DocumentLocation>> clusterResults = clusterer.cluster(clusterInput);
-
-		for (int i = 0; i < clusterResults.size(); i++) {
-			CentroidCluster<DocumentLocation> cluster = clusterResults.get(i);
-			for (DocumentLocation docLoc : cluster.getPoints()) {
-				docLoc.document.setCluster(i);
-			}
-		}
 	}
 
 	// wrapper class
