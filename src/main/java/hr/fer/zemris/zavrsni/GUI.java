@@ -120,6 +120,20 @@ public class GUI extends JFrame {
 		return panel;
 	}
 
+	private JPanel createTab3() {
+		JPanel panel = new JPanel(new BorderLayout());
+
+		JTable table = createTable();
+		JPanel form = createPanel3Form(table);
+		JPanel visualize = createVisualizePanel();
+
+		panel.add(form, BorderLayout.NORTH);
+		panel.add(new JScrollPane(table), BorderLayout.CENTER);
+		panel.add(visualize, BorderLayout.SOUTH);
+
+		return panel;
+	}
+
 	private JPanel createVisualizePanel() {
 		JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
 		JButton button = new JButton("Visualize");
@@ -133,18 +147,6 @@ public class GUI extends JFrame {
 			}
 		});
 		panel.add(button);
-		return panel;
-	}
-
-	private JPanel createTab3() {
-		JPanel panel = new JPanel(new BorderLayout());
-
-		JTable table = createTable();
-		JPanel form = createPanel3Form(table);
-
-		panel.add(form, BorderLayout.NORTH);
-		panel.add(new JScrollPane(table), BorderLayout.CENTER);
-
 		return panel;
 	}
 
