@@ -41,14 +41,14 @@ public class Document implements Serializable {
 	 */
 	private long length;
 
-	private transient int cluster;
+	private boolean isCustom;
 
-	public int getCluster() {
-		return cluster;
+	public boolean isCustom() {
+		return isCustom;
 	}
 
-	public void setCluster(int cluster) {
-		this.cluster = cluster;
+	public void setCustom(boolean custom) {
+		isCustom = custom;
 	}
 
 	/**
@@ -130,17 +130,19 @@ public class Document implements Serializable {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		Document document = (Document) o;
-		return Objects.equals(path, document.path);
+		Document d = (Document) o;
+		if (isCustom && d.isCustom) return true;
+		return Objects.equals(path, d.path);
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(path);
+		return path == null ? "[Custom Document]".hashCode() : Objects.hash(path);
 	}
 
 	@Override
 	public String toString() {
+		if (path == null) return "[Custom Document]";
 		return Paths.get(path).getFileName().toString();
 	}
 }

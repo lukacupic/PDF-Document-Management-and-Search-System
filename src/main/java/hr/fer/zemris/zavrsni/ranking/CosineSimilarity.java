@@ -38,10 +38,14 @@ public class CosineSimilarity extends RankingFunction {
 	}
 
 	@Override
-	public List<Result> process(List<String> words) {
-		// create document from the query
+	public Document createDocument(List<String> words) {
 		Vector tf = createTFVector(words);
-		Document inputDoc = new Document(null, null, Vector.multiply(tf, datasetInfo.idf), 0);
+		return new Document(null, null, Vector.multiply(tf, datasetInfo.idf), words.size());
+	}
+
+	@Override
+	public List<Result> process(List<String> words) {
+		Document inputDoc = createDocument(words);
 
 		// get the results
 		List<Result> results = new ArrayList<>();

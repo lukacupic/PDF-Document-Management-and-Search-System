@@ -79,6 +79,8 @@ public abstract class RankingFunction {
 	 */
 	public abstract List<Result> process(List<String> words) throws IOException;
 
+	public abstract Document createDocument(List<String> words);
+
 	/**
 	 * Compares the given two documents and returns the result.
 	 *

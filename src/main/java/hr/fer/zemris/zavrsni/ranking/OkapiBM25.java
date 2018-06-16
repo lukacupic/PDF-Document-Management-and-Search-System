@@ -33,7 +33,7 @@ public class OkapiBM25 extends RankingFunction {
 	 * The default constructor. Used when constructing the object
 	 * through deserialization.
 	 */
-	public OkapiBM25() throws IOException{
+	public OkapiBM25() throws IOException {
 		super();
 	}
 
@@ -45,6 +45,11 @@ public class OkapiBM25 extends RankingFunction {
 	 */
 	public OkapiBM25(Path dataset) throws IOException {
 		super(dataset);
+	}
+
+	@Override
+	public Document createDocument(List<String> words) {
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

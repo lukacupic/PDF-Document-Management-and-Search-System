@@ -1,20 +1,22 @@
 package hr.fer.zemris.zavrsni.gui;
 
+import com.google.common.base.Function;
 import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
 import edu.uci.ics.jung.visualization.VisualizationViewer;
-import edu.uci.ics.jung.visualization.control.DefaultModalGraphMouse;
 import edu.uci.ics.jung.visualization.control.GraphMouseListener;
-import edu.uci.ics.jung.visualization.control.ModalGraphMouse;
 import edu.uci.ics.jung.visualization.decorators.EdgeShape;
 import hr.fer.zemris.zavrsni.model.Document;
 import hr.fer.zemris.zavrsni.ranking.RankingFunction;
+import hr.fer.zemris.zavrsni.ranking.RankingFunction.DatasetInfo.DocumentPair;
 import org.apache.commons.math3.ml.clustering.CentroidCluster;
 import org.apache.commons.math3.ml.clustering.Clusterable;
 import org.apache.commons.math3.ml.clustering.KMeansPlusPlusClusterer;
 
+import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import javax.swing.WindowConstants;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
@@ -57,7 +59,58 @@ public class GraphViewer {
 
 	private static double threshold = 0.07;
 
+	public static Map<DocumentPair, Double> similarities = new HashMap<>();
+
+	public static void createViewer(int width, int height, Document document) {
+		List<Document> documents = new ArrayList<>(RankingFunction.datasetInfo.documents.values());
+
+		similarities.clear();
+		similarities.putAll(RankingFunction.datasetInfo.similarities);
+		computeExtraSimilarities(documents, document);
+
+		DirectedSparseGraph<Document, String> g = new DirectedSparseGraph<>();
+		documents.add(document);
+		documents.forEach(g::addVertex);
+		initGraph(g, documents);
+
+		FRLayout<Document, String> layout = new FRLayout<>(g);
+		layout.setSize(new Dimension(width, height));
+		layout.initialize();
+
+		layout.setRepulsionMultiplier(1);
+
+		while (!layout.done()) {
+			layout.step();
+		}
+
+		List<DocumentLocation> clusterInput = new ArrayList<>();
+		documents.forEach(d -> clusterInput.add(new DocumentLocation(d, layout)));
+
+		int k = (int) Math.sqrt(documents.size() / (double) 2);
+		Map<Document, Integer> clusterMap = performClustering(documents, layout, k);
+
+		VisualizationViewer<Document, String> vv = createVV(layout, g);
+		vv.getRenderContext().setVertexFillPaintTransformer(new Function<Document, Paint>() {
+			@Override
+			public Paint apply(Document d) {
+				if (d.isCustom()) {
+					System.out.println("CUSTOM!");
+				}
+				return d.isCustom() ? Color.BLACK : colors[clusterMap.get(d)];
+			}
+		});
+
+		JFrame frame = new JFrame("");
+		frame.setSize(width, height);
+		frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		frame.setVisible(true);
+		frame.add(vv);
+	}
+
 	public static VisualizationViewer createViewer(int width, int height) {
+		similarities.clear();
+		similarities.putAll(RankingFunction.datasetInfo.similarities);
+
 		List<Document> documents = new ArrayList<>(RankingFunction.datasetInfo.documents.values());
 
 		DirectedSparseGraph<Document, String> g = new DirectedSparseGraph<>();
@@ -76,55 +129,46 @@ public class GraphViewer {
 		}
 
 		List<DocumentLocation> clusterInput = new ArrayList<>();
-		documents.forEach(document -> clusterInput.add(new DocumentLocation(document, layout)));
+		documents.forEach(d -> clusterInput.add(new DocumentLocation(d, layout)));
 
 		int k = (int) Math.sqrt(documents.size() / (double) 2);
 		Map<Document, Integer> clusterMap = performClustering(documents, layout, k);
 
-		return createVV(layout, g, clusterMap);
+		VisualizationViewer<Document, String> vv = createVV(layout, g);
+		vv.getRenderContext().setVertexFillPaintTransformer(d -> colors[clusterMap.get(d)]);
+		return vv;
 	}
 
 	private static void initGraph(DirectedSparseGraph<Document, String> g, List<Document> documents) {
-		RankingFunction.DatasetInfo.DocumentPair pair = new RankingFunction.DatasetInfo.DocumentPair();
 		for (int i = 0; i < documents.size(); i++) {
 			for (int j = 0; j < documents.size(); j++) {
 				if (i >= j) continue;
 
 				Document d1 = documents.get(i);
 				Document d2 = documents.get(j);
-				pair.setDocuments(d1, d2);
-
-				double sim = RankingFunction.datasetInfo.similarities.get(pair);
-
-				if (sim > threshold) {
-					g.addEdge(d1.hashCode() + " " + d2.hashCode(), d1, d2);
-				}
+				addSimilarity(d1, d2, g);
 			}
 		}
 	}
 
-	private static Map<Document, Integer> performClustering(List<Document> documents, AbstractLayout<Document, String> layout, int k) {
-		Map<Document, Integer> clusterMap = new HashMap<>();
-
-		List<DocumentLocation> clusterInput = new ArrayList<>();
-		documents.forEach(document -> clusterInput.add(new DocumentLocation(document, layout)));
-
-		KMeansPlusPlusClusterer<DocumentLocation> clusterer = new KMeansPlusPlusClusterer<>(k, 10000);
-		List<CentroidCluster<DocumentLocation>> clusterResults = clusterer.cluster(clusterInput);
-
-		for (int i = 0; i < clusterResults.size(); i++) {
-			CentroidCluster<DocumentLocation> cluster = clusterResults.get(i);
-			for (DocumentLocation docLoc : cluster.getPoints()) {
-				docLoc.document.setCluster(i);
-				clusterMap.put(docLoc.document, i);
-			}
+	private static void computeExtraSimilarities(List<Document> documents, Document document) {
+		for (Document d : documents) {
+			if (d.equals(document)) continue;
+			similarities.put(new DocumentPair(d, document), d.sim(document));
 		}
-		return clusterMap;
+	}
+
+	private static void addSimilarity(Document d1, Document d2, DirectedSparseGraph<Document, String> g) {
+		if (d1.equals(d2)) return;
+
+		double sim = similarities.get(new DocumentPair(d1, d2));
+		if (sim > threshold) {
+			g.addEdge(d1.hashCode() + " " + d2.hashCode(), d1, d2);
+		}
 	}
 
 	private static VisualizationViewer<Document, String> createVV(FRLayout<Document, String> layout,
-	                                                              DirectedSparseGraph<Document, String> g,
-	                                                              Map<Document, Integer> clusterMap) {
+	                                                              DirectedSparseGraph<Document, String> g) {
 		VisualizationViewer<Document, String> vv = new VisualizationViewer<>(layout);
 
 		vv.getRenderContext().setEdgeDrawPaintTransformer(input -> new Color(163, 163, 163));
@@ -134,7 +178,6 @@ public class GraphViewer {
 
 		vv.getRenderContext().setVertexStrokeTransformer(input -> new BasicStroke(0.1f));
 		vv.getRenderContext().setVertexShapeTransformer(input -> new Ellipse2D.Double(-10, -10, 10, 10));
-		vv.getRenderContext().setVertexFillPaintTransformer(d -> colors[clusterMap.get(d)]);
 		vv.setVertexToolTipTransformer(input -> {
 			if (input == null) return "[Unknown]";
 
@@ -162,12 +205,25 @@ public class GraphViewer {
 			public void graphReleased(Document document, MouseEvent me) {
 			}
 		});
-
-		DefaultModalGraphMouse graphMouse = new DefaultModalGraphMouse();
-		graphMouse.setMode(ModalGraphMouse.Mode.PICKING);
-		vv.setGraphMouse(graphMouse);
-
 		return vv;
+	}
+
+	private static Map<Document, Integer> performClustering(List<Document> documents, AbstractLayout<Document, String> layout, int k) {
+		Map<Document, Integer> clusterMap = new HashMap<>();
+
+		List<DocumentLocation> clusterInput = new ArrayList<>();
+		documents.forEach(document -> clusterInput.add(new DocumentLocation(document, layout)));
+
+		KMeansPlusPlusClusterer<DocumentLocation> clusterer = new KMeansPlusPlusClusterer<>(k, 10000);
+		List<CentroidCluster<DocumentLocation>> clusterResults = clusterer.cluster(clusterInput);
+
+		for (int i = 0; i < clusterResults.size(); i++) {
+			CentroidCluster<DocumentLocation> cluster = clusterResults.get(i);
+			for (DocumentLocation docLoc : cluster.getPoints()) {
+				clusterMap.put(docLoc.document, i);
+			}
+		}
+		return clusterMap;
 	}
 
 	// wrapper class

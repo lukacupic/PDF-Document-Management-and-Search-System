@@ -27,6 +27,7 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -69,6 +70,7 @@ public class GUI extends JFrame {
 	}
 
 	private static void chooseDataset() throws IOException {
+		/*
 		JFileChooser chooser = new JFileChooser();
 		chooser.setCurrentDirectory(new File("."));
 		chooser.setDialogTitle("Choose Dataset Directory");
@@ -79,6 +81,8 @@ public class GUI extends JFrame {
 			System.exit(1);
 		}
 		function = Initializer.init(chooser.getSelectedFile().toPath());
+		*/
+		function = Initializer.init(Paths.get("/media/chup0x/Data/FER/6. semestar/Završni rad/Corpus/dataset"));
 	}
 
 	private JTabbedPane createTabbedPane() {
@@ -107,10 +111,28 @@ public class GUI extends JFrame {
 
 		JTable table = createTable();
 		JPanel form = createPanel2Form(table);
+		JPanel visualize = createVisualizePanel();
 
 		panel.add(form, BorderLayout.NORTH);
 		panel.add(new JScrollPane(table), BorderLayout.CENTER);
+		panel.add(visualize, BorderLayout.SOUTH);
 
+		return panel;
+	}
+
+	private JPanel createVisualizePanel() {
+		JPanel panel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+		JButton button = new JButton("Visualize");
+		button.addActionListener(e -> {
+			try {
+				Document doc = function.createDocument(InputProcessor.process());
+				doc.setCustom(true);
+				GraphViewer.createViewer(WIDTH, HEIGHT, doc);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		});
+		panel.add(button);
 		return panel;
 	}
 
@@ -150,7 +172,8 @@ public class GUI extends JFrame {
 		return (l) -> {
 			List<Result> results = null;
 			try {
-				results = processQuery(textField.getText());
+				InputProcessor.setReader(new QueryReader(textField.getText()));
+				results = function.process(InputProcessor.process());
 			} catch (IOException ex) {
 				GUIUtils.showErrorMessage(null, "Could not process query!");
 				System.exit(1);
@@ -239,17 +262,6 @@ public class GUI extends JFrame {
 	}
 
 	// end of GUI initialization
-
-
-	/**
-	 * Processes the user Query input and returns the list of results.
-	 *
-	 * @return list of results
-	 */
-	private static List<Result> processQuery(String input) throws IOException {
-		InputProcessor.setReader(new QueryReader(input));
-		return function.process(InputProcessor.process());
-	}
 
 	/**
 	 * Processes the user Document input and returns the list of results.
