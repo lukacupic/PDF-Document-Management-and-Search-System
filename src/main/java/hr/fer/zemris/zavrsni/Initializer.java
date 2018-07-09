@@ -2,6 +2,7 @@ package hr.fer.zemris.zavrsni;
 
 import hr.fer.zemris.zavrsni.ranking.CosineSimilarity;
 import hr.fer.zemris.zavrsni.ranking.RankingFunction;
+import hr.fer.zemris.zavrsni.utils.GUIUtils;
 import hr.fer.zemris.zavrsni.utils.IOUtils;
 import hr.fer.zemris.zavrsni.utils.MD5Visitor;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -59,7 +60,8 @@ public class Initializer {
 			function = new CosineSimilarity();
 			RankingFunction.datasetInfo = IOUtils.deserialize(datasetInfoFilename);
 		} else {
-			System.out.println("You changed the dataset!");
+			GUIUtils.showPlainMessage(null, "Dataset changes detected. Reloading dataset\n" +
+					"Please wait");
 			function = new CosineSimilarity(dataset);
 		}
 		return function;

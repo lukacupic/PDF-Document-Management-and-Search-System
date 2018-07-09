@@ -48,7 +48,7 @@ public abstract class RankingFunction {
 	 * The default constructor. Used when constructing the object
 	 * through deserialization.
 	 */
-	public RankingFunction() throws IOException {
+	public RankingFunction() {
 		function = this;
 		InputProcessor.setStopWords(Initializer.STOP_WORDS_PATH);
 		InputProcessor.setReader(reader);

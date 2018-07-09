@@ -4,12 +4,14 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Scanner;
 
 /**
  * @author Luka Cupic
@@ -18,6 +20,7 @@ public class IOUtils {
 
 	/**
 	 * Gets the user home directory.
+	 *
 	 * @return the user home directory
 	 */
 	public static String getUserHomeDir() {
@@ -77,5 +80,15 @@ public class IOUtils {
 		pw.write(data);
 		pw.flush();
 		pw.close();
+	}
+
+	public static InputStream getResource(String name) {
+		return IOUtils.class.getClassLoader().getResourceAsStream(name);
+	}
+
+	public static String readFromInputStream(InputStream is) {
+		try (Scanner s = new Scanner(is)) {
+			return s.useDelimiter("\\A").hasNext() ? s.next() : "";
+		}
 	}
 }

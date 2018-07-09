@@ -1,8 +1,9 @@
 package hr.fer.zemris.zavrsni.input;
 
+import hr.fer.zemris.zavrsni.utils.IOUtils;
+import hr.fer.zemris.zavrsni.utils.TextUtils;
+
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -35,11 +36,10 @@ public class InputProcessor {
 	 * Creates a new InputProcessor.
 	 *
 	 * @param stopWordsPath path to the file containing stop words
-	 * @throws IOException if an I/O error occurs while reading the
-	 *                     stop words file
 	 */
-	public static void setStopWords(String stopWordsPath) throws IOException {
-		stopWords.addAll(Files.readAllLines(Paths.get(stopWordsPath)));
+	public static void setStopWords(String stopWordsPath) {
+		String text = IOUtils.readFromInputStream(IOUtils.getResource("stop_words.txt"));
+		stopWords.addAll(TextUtils.getWordsFromText(text));
 	}
 
 	/**

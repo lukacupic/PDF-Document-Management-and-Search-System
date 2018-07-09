@@ -93,9 +93,6 @@ public class GraphViewer {
 		vv.getRenderContext().setVertexFillPaintTransformer(new Function<Document, Paint>() {
 			@Override
 			public Paint apply(Document d) {
-				if (d.isCustom()) {
-					System.out.println("CUSTOM!");
-				}
 				return d.isCustom() ? Color.BLACK : colors[clusterMap.get(d)];
 			}
 		});

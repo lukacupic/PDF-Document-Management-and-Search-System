@@ -1,3 +1,0 @@
-Dataset Text Simple:
-	- za Q1 = "the meaning of life is defined by each individual" i Q2 = "stars in the galaxy are made from super hot plasma" Cosine i BM25 daju vrlo slicne rezultate (jedino su 5. i 6. zamijenjeni u obje ranking metode)
-	- za Q1 = pg4065, Cosine daje 1.00 podudaranje s tim istim dokumentom, dok BM25 daje 28,000 podudaranje (a sa drugim po redu daje 15,000)

@@ -27,7 +27,6 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.List;
 
 /**
@@ -52,8 +51,7 @@ public class GUI extends JFrame {
 		try {
 			initGUI();
 		} catch (IOException e) {
-			GUIUtils.showErrorMessage(this, "An error has occurred!");
-			System.exit(1);
+			throw new RuntimeException(e);
 		}
 	}
 
@@ -70,7 +68,6 @@ public class GUI extends JFrame {
 	}
 
 	private static void chooseDataset() throws IOException {
-		/*
 		JFileChooser chooser = new JFileChooser();
 		chooser.setCurrentDirectory(new File("."));
 		chooser.setDialogTitle("Choose Dataset Directory");
@@ -81,8 +78,6 @@ public class GUI extends JFrame {
 			System.exit(1);
 		}
 		function = Initializer.init(chooser.getSelectedFile().toPath());
-		*/
-		function = Initializer.init(Paths.get("/media/chup0x/Data/FER/6. semestar/Završni rad/Corpus/dataset"));
 	}
 
 	private JTabbedPane createTabbedPane() {
@@ -141,7 +136,7 @@ public class GUI extends JFrame {
 			try {
 				Document doc = function.createDocument(InputProcessor.process());
 				doc.setCustom(true);
-				GraphViewer.createViewer(WIDTH, HEIGHT, doc);
+				GraphViewer.createViewer(WIDTH - 100, HEIGHT - 100, doc);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
