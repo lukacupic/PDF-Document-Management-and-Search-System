@@ -1,7 +1,0 @@
-Manifest-Version: 1.0
-Main-Class: hr.fer.zemris.zavrsni.GUI
-Class-Path: fontbox-2.0.9.jar jung-algorithms-2.1.1.jar jung-graph-imp
- l-2.1.1.jar commons-codec-1.4.jar guava-19.0.jar pdfbox-2.0.9.jar jun
- g-api-2.1.1.jar commons-math3-3.2.jar commons-logging-1.2.jar jung-vi
- sualization-2.1.1.jar
-
