@@ -1,6 +1,5 @@
 package hr.fer.zemris.zavrsni.gui;
 
-import com.google.common.base.Function;
 import edu.uci.ics.jung.algorithms.layout.AbstractLayout;
 import edu.uci.ics.jung.algorithms.layout.FRLayout;
 import edu.uci.ics.jung.graph.DirectedSparseGraph;
@@ -14,12 +13,10 @@ import org.apache.commons.math3.ml.clustering.CentroidCluster;
 import org.apache.commons.math3.ml.clustering.Clusterable;
 import org.apache.commons.math3.ml.clustering.KMeansPlusPlusClusterer;
 
-import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.WindowConstants;
+import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
-import java.awt.geom.*;
+import java.awt.event.MouseEvent;
+import java.awt.geom.Ellipse2D;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -90,12 +87,7 @@ public class GraphViewer {
 		Map<Document, Integer> clusterMap = performClustering(documents, layout, k);
 
 		VisualizationViewer<Document, String> vv = createVV(layout, g);
-		vv.getRenderContext().setVertexFillPaintTransformer(new Function<Document, Paint>() {
-			@Override
-			public Paint apply(Document d) {
-				return d.isCustom() ? Color.BLACK : colors[clusterMap.get(d)];
-			}
-		});
+		vv.getRenderContext().setVertexFillPaintTransformer(d -> d.isCustom() ? Color.BLACK : colors[clusterMap.get(d)]);
 
 		JFrame frame = new JFrame("");
 		frame.setSize(width, height);
